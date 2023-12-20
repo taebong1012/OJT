@@ -1,4 +1,5 @@
 import jeilogo from "../../assets/svg/jeilogo.svg";
+import WrapperDiv from "../../components/WrapperDiv";
 
 const Home = ($app: HTMLElement) => {
   /** 홈 페이지 전체 레이아웃 */
@@ -8,24 +9,23 @@ const Home = ($app: HTMLElement) => {
   const container: HTMLElement = document.createElement("div");
   container.id = "container";
 
-  const wrapper: HTMLElement = document.createElement("div");
-  wrapper.id = "wrapper";
+  const wrapper: HTMLElement = WrapperDiv();
 
   const logo: HTMLImageElement = document.createElement("img");
   logo.src = jeilogo;
   logo.alt = "jei logo";
   logo.width = 100;
 
-  const hometitle = document.createElement("span");
+  const hometitle: HTMLElement = document.createElement("span");
   hometitle.id = "hometitle";
   hometitle.textContent = "덧셈";
 
-  const homelevel = document.createElement("span");
+  const homelevel: HTMLElement = document.createElement("span");
   homelevel.id = "homelevel";
   homelevel.textContent = "E 1b";
 
   /** 학습하기 버튼 */
-  const startbtn = document.createElement("button");
+  const startbtn: HTMLButtonElement = document.createElement("button");
   startbtn.id = "startbtn";
   startbtn.textContent = "학습하기";
 
