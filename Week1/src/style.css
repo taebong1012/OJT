@@ -63,6 +63,18 @@ div {
   align-items: center;
 }
 
+#hometitle {
+  font-family: NPSfontExtrabold;
+  color: #ffffff;
+  font-size: 5rem;
+}
+
+#homelevel {
+  font-family: NPSfontBold;
+  color: #ffffff;
+  font-size: 2.5rem;
+}
+
 #startbtn {
   border: none;
   border-radius: 100px;
