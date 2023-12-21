@@ -1,5 +1,6 @@
 import Home from "./pages/Home";
 import Solve from "./pages/Solve";
+import Result from "./pages/Result";
 
 const App = ($app: HTMLElement) => {
   /** 라우팅 처리 함수 */
@@ -11,6 +12,7 @@ const App = ($app: HTMLElement) => {
     } else if (pathname === "/solve") {
       Solve($app);
     } else if (pathname === "/result") {
+      Result($app);
     }
   };
 

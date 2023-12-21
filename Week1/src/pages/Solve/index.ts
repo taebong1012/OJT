@@ -15,6 +15,9 @@ const Solve = ($app: HTMLElement) => {
   /** 답변한 횟수 */
   let ansCnt: number = 0;
 
+  /** 맞춘 횟수 */
+  let correctCnt: number = 0;
+
   /** 1부터 8까지 랜덤하게 정렬되어 있는 숫자 배열 */
   const randomNums: number[] = Array.from(
     { length: 8 },
@@ -80,6 +83,7 @@ const Solve = ($app: HTMLElement) => {
     if (inputAns === ans) {
       /** 정답입니다! */
       renderAnswerComment(0, ans);
+      correctCnt++;
     } else {
       /** 조금 더 생각해보세요! */
       if (ansCnt < 3) {
@@ -98,6 +102,14 @@ const Solve = ($app: HTMLElement) => {
       if (inputAns === ans) {
         /** 문제를 모두 풀었다면 */
         if (index >= randomNums.length - 1) {
+          /** 학습완료 시간 저장 */
+          const currentDate = new Date();
+          const dateString = currentDate.toISOString();
+          localStorage.setItem("time", dateString);
+
+          /** 맞춘 개수 저장 */
+          localStorage.setItem("correctCnt", correctCnt.toString());
+
           window.location.href = "/result";
         } else {
           /** 문제가 남아있다면 */
