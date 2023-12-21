@@ -64,12 +64,6 @@ div {
   justify-content: space-between;
 }
 
-#wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 #hometitle {
   font-family: NPSfontExtrabold;
   color: #ffffff;
@@ -144,9 +138,7 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* test */
-  border: 1px solid red;
+  align-items: center;
 }
 
 #expression {

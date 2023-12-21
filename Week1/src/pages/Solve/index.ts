@@ -34,12 +34,29 @@ const Solve = ($app: HTMLElement) => {
     if (num === randomNums[index] + 1) {
       index++;
       renderQuestion();
+      renderStatement();
     }
+  };
+
+  /** 문제 번호를 재렌더링하는 함수 */
+  const renderStatement = () => {
+    const newStatement: HTMLElement | null =
+      document.getElementById("statement");
+    newStatement!.textContent = `두 개의 숫자를 더한 값을 골라주세요! (${
+      index + 1
+    } / 8)`;
   };
 
   const titlebar = Titlebar();
   const contentsdiv = ContentsDiv();
   const numbuttons = Numbuttons(handleNumButtonClick);
+
+  /** 설명 문장 */
+  const statement = document.createElement("div");
+  statement.id = "statement";
+  statement.textContent = `두 개의 숫자를 더한 값을 골라주세요! (${
+    index + 1
+  } / 8)`;
 
   /** 가운데 정렬을 위한 시각적 요소와 수식 그룹핑 */
   const wrapper = WrapperDiv();
@@ -96,6 +113,7 @@ const Solve = ($app: HTMLElement) => {
   wrapper.appendChild(svgDiv);
   wrapper.appendChild(expression);
 
+  contentsdiv.appendChild(statement);
   contentsdiv.appendChild(wrapper);
 
   $app.appendChild(titlebar);
