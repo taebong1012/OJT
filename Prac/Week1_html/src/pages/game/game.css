@@ -1,0 +1,62 @@
+#statement {
+  font-family: "NPSfontBold";
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+#wrapper {
+  height: calc(100% - 110px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#expression {
+  font-family: "NPSfontExtrabold";
+  font-size: 2.5rem;
+  letter-spacing: 0.5rem;
+}
+
+#numbuttons {
+  width: 690px;
+  height: 60px;
+  position: absolute;
+  bottom: 90px;
+  display: flex;
+  justify-content: space-between;
+}
+
+rect,
+path {
+  stroke: #a1bee2;
+  stroke-width: 12;
+  fill: transparent;
+}
+
+.frontcircle {
+  fill: #f27d6b;
+}
+
+.backcircle {
+  fill: #6e6bb3;
+}
+
+.numbutton {
+  background-color: #eaeaea;
+  height: 100%;
+  width: 60px;
+  border: none;
+  border-radius: 10px;
+  color: #000000;
+  font-family: "NPSfontExtrabold";
+  font-size: 2.5rem;
+}
+
+.numbutton:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
+}
+
+.numbutton:active {
+  background-color: #bcbcbc;
+}

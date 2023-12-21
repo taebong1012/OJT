@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./game.css" />
+    <link rel="stylesheet" href="../../style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="titlebar">
+      <div id="title">
+        <span>문제 해결</span>
+        <span>E 1b</span>
+      </div>
+    </div>
+    <div id="contents">
+      <div id="statement"></div>
+
+      <!-- 가운데 정렬을 위한 시각적 요소와 수식 그룹핑 -->
+      <div id="wrapper">
+        <!-- svg를 통해서 시각적 요소 화면 노출 -->
+        <div id="visual"></div>
+        <!-- 수식 화면 노출 -->
+        <div id="expression">
+          <span id="question"></span>
+          <span> + 1 = </span>
+          <span id="answer"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="numbuttons"></div>
+    <script src="./game.ts"></script>
+  </body>
+</html>
