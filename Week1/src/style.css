@@ -75,7 +75,7 @@ div {
   font-size: 2.5rem;
 }
 
-#big-btn {
+#page-move-btn {
   border: none;
   border-radius: 100px;
   height: 80px;
@@ -86,12 +86,12 @@ div {
   color: #000000;
 }
 
-#big-btn:hover {
+#page-move-btn:hover {
   background-color: #d1d1d1;
   cursor: pointer;
 }
 
-#big-btn:active {
+#page-move-btn:active {
   background-color: #bcbcbc;
 }
 

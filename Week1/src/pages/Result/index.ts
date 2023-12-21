@@ -1,4 +1,5 @@
 import ContentsDiv from "../../components/Common/ContentsDiv";
+import PathMoveBtn from "../../components/Common/PathMoveBtn";
 import Titlebar from "../../components/Common/Titlebar";
 import WrapperDiv from "../../components/Common/WrapperDiv";
 
@@ -52,10 +53,16 @@ const Result = ($app: HTMLElement) => {
     const timeSpan = document.createElement("span");
     timeSpan.textContent = `${formattedDate} 기준`;
     timeSpan.style.fontSize = "1.25rem";
+    resultSpan.style.marginBottom = "80px";
+
+    /** 학습하기 버튼 */
+    const goSolveBtn = PathMoveBtn("/solve", "학습하기");
+    goSolveBtn.style.marginTop = "80px";
 
     wrapper.appendChild(titleSpan);
     wrapper.appendChild(resultSpan);
     wrapper.appendChild(timeSpan);
+    wrapper.appendChild(goSolveBtn);
 
     contensDiv.appendChild(wrapper);
 

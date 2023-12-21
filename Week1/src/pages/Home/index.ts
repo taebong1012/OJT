@@ -1,5 +1,5 @@
 import jeilogo from "../../assets/svg/jeilogo.svg";
-import BigBtn from "../../components/Common/DoSolveBtn";
+import PathMoveBtn from "../../components/Common/PathMoveBtn";
 import WrapperDiv from "../../components/Common/WrapperDiv";
 
 const Home = ($app: HTMLElement) => {
@@ -26,12 +26,12 @@ const Home = ($app: HTMLElement) => {
   homelevel.textContent = "E 1b";
 
   /** 학습하기 버튼 */
-  const doSolveBtn = BigBtn("/solve", "학습하기");
-  doSolveBtn.style.marginBottom = "30px";
-  doSolveBtn.style.marginTop = "60px";
+  const goSolveBtn = PathMoveBtn("/solve", "학습하기");
+  goSolveBtn.style.marginBottom = "30px";
+  goSolveBtn.style.marginTop = "60px";
 
   /** 최근 학습 결과 버튼 */
-  const goResultBtn = BigBtn("/result", "최근 결과");
+  const goResultBtn = PathMoveBtn("/result", "최근 결과");
 
   /** wrapper에 자식 노드들 추가 */
   wrapper.appendChild(logo);
@@ -40,7 +40,7 @@ const Home = ($app: HTMLElement) => {
 
   /** container에 자식 노드들 추가 */
   container.appendChild(wrapper);
-  container.appendChild(doSolveBtn);
+  container.appendChild(goSolveBtn);
   container.appendChild(goResultBtn);
 
   /** home에 자식 노드 추가 */
