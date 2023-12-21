@@ -175,7 +175,7 @@ const Solve = ($app: HTMLElement) => {
 
   /** 가운데 정렬을 위한 시각적 요소와 수식 그룹핑 */
   const wrapper = WrapperDiv();
-  // wrapper.style.marginTop = "90px";
+  wrapper.style.paddingTop = "100px";
   wrapper.style.height = "100%";
 
   /** svg를 통해서 시각적 요소 화면 노출 */
