@@ -5,10 +5,9 @@ const Numbuttons = (handleNumButtonClick: Function): HTMLElement => {
 
   numbuttons.style.width = "690px";
   numbuttons.style.height = "60px";
-  numbuttons.style.position = "absolute";
-  numbuttons.style.bottom = "90px";
   numbuttons.style.display = "flex";
   numbuttons.style.justifyContent = "space-between";
+  numbuttons.style.marginTop = "20px";
 
   for (let num = 0; num < 10; num++) {
     const numbutton: HTMLButtonElement = document.createElement("button");
