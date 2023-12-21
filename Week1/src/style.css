@@ -144,6 +144,9 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  /* test */
+  border: 1px solid red;
 }
 
 #expression {
@@ -159,6 +162,11 @@ div {
   bottom: 90px;
   display: flex;
   justify-content: space-between;
+}
+
+/** test */
+svg {
+  border: 1px solid green;
 }
 
 rect,

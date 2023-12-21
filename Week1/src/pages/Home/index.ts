@@ -1,5 +1,5 @@
 import jeilogo from "../../assets/svg/jeilogo.svg";
-import WrapperDiv from "../../components/WrapperDiv";
+import WrapperDiv from "../../components/Common/WrapperDiv";
 
 const Home = ($app: HTMLElement) => {
   /** 홈 페이지 전체 레이아웃 */

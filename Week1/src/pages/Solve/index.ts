@@ -1,7 +1,8 @@
-import Titlebar from "../../components/Titlebar";
-import ContentsDiv from "../../components/ContentsDiv";
-import Numbuttons from "../../components/Numbuttons";
-import WrapperDiv from "../../components/WrapperDiv";
+import Titlebar from "../../components/Common/Titlebar";
+import ContentsDiv from "../../components/Common/ContentsDiv";
+import Numbuttons from "../../components/Common/Numbuttons";
+import WrapperDiv from "../../components/Common/WrapperDiv";
+import SvgArea from "../../components/Solve/SvgArea";
 
 /** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
 let index: number = 0;
@@ -33,6 +34,20 @@ const Solve = ($app: HTMLElement) => {
   const svgdiv = document.createElement("div");
   svgdiv.id = "svgdiv";
 
+  /** svg 태그 */
+  const svgArea = SvgArea();
+  svgdiv.appendChild(svgArea);
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   /** 수식 화면 노출 */
   const expression = document.createElement("div");
   expression.id = "expression";
@@ -49,6 +64,17 @@ const Solve = ($app: HTMLElement) => {
   /** 사용자의 답 */
   const answer = document.createElement("span");
   answer.textContent = inputNum.toString();
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
 
   expression.appendChild(question);
   expression.appendChild(plus);
