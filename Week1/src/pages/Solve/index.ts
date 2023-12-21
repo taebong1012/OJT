@@ -9,6 +9,12 @@ import RemainOpportunity from "../../components/Solve/RemainOpportunity";
 
 /** 문제 해결 페이지 */
 const Solve = ($app: HTMLElement) => {
+  /** 해당 페이지에서 벗어난다면 경고창 */
+  window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  });
+
   /** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
   let index: number = 0;
 
