@@ -2,7 +2,8 @@ import Titlebar from "../../components/Common/Titlebar";
 import ContentsDiv from "../../components/Common/ContentsDiv";
 import Numbuttons from "../../components/Common/Numbuttons";
 import WrapperDiv from "../../components/Common/WrapperDiv";
-import SvgArea from "../../components/Solve/SvgArea";
+import ShapeSvgArea from "../../components/Solve/ShapeSvgArea";
+import ExpressionSvgArea from "../../components/Solve/ExpressionSvgArea";
 
 /** 문제 해결 페이지 */
 const Solve = ($app: HTMLElement) => {
@@ -19,12 +20,16 @@ const Solve = ($app: HTMLElement) => {
   let inputNum: number = 0;
 
   /** SVG 및 수식을 렌더링 하는 함수 */
-  const renderQuestion = () => {
-    /** svg 태그 생성 */
-    const svgArea = SvgArea(randomNums[index]);
+  const renderQuestion = (num: number) => {
+    /** 도형 그리는 svg 영역 생성 */
+    const shapeSvgArea = ShapeSvgArea(randomNums[index]);
+
+    /** 수식 그리는 svg 영역 생성 */
+    const expressionSvgArea = ExpressionSvgArea(randomNums[index], -1);
+
     svgDiv.innerHTML = "";
-    svgDiv.appendChild(svgArea);
-    question.textContent = randomNums[index].toString();
+    svgDiv.appendChild(shapeSvgArea);
+    svgDiv.appendChild(expressionSvgArea);
   };
 
   /** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
@@ -33,7 +38,7 @@ const Solve = ($app: HTMLElement) => {
 
     if (num === randomNums[index] + 1) {
       index++;
-      renderQuestion();
+      renderQuestion(num);
       renderStatement();
     }
   };
@@ -65,53 +70,10 @@ const Solve = ($app: HTMLElement) => {
   const svgDiv = document.createElement("div");
   svgDiv.id = "svg-div";
 
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  /** 수식 화면 노출 */
-  const expression = document.createElement("div");
-  expression.id = "expression";
-
-  /** 1~8까지의 랜덤한 숫자 */
-  const question = document.createElement("span");
-  question.id = "question";
-
-  /** + 1 = 식 */
-  const plus = document.createElement("span");
-  plus.textContent = " + 1 = ";
-
-  /** 사용자의 답 */
-  const answer = document.createElement("span");
-  answer.textContent = inputNum.toString();
-
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-
   /** 페이지 로딩 시 svg 및 수식 렌더링 */
-  renderQuestion();
-
-  expression.appendChild(question);
-  expression.appendChild(plus);
-  expression.appendChild(answer);
+  renderQuestion(-1);
 
   wrapper.appendChild(svgDiv);
-  wrapper.appendChild(expression);
 
   contentsdiv.appendChild(statement);
   contentsdiv.appendChild(wrapper);

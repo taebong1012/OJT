@@ -1,9 +1,10 @@
-import Def from "../SVGs/Def";
+import Def from "../SVGs/ShapeDef";
 import FrontGroup from "../SVGs/FrontGroup";
-import Path from "../SVGs/path";
+import Path from "../SVGs/Path";
 import BackGroup from "../SVGs/BackGroup";
 
-const SvgArea = (num: number) => {
+/** 도형 SVG들 출력할 영역 */
+const ShapeSvgArea = (num: number) => {
   const xmlns = "http://www.w3.org/2000/svg";
   const svgArea = document.createElementNS(xmlns, "svg");
 
@@ -40,4 +41,4 @@ const SvgArea = (num: number) => {
   return svgArea;
 };
 
-export default SvgArea;
+export default ShapeSvgArea;
