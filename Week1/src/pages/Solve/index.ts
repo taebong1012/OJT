@@ -6,6 +6,7 @@ import ShapeSvgArea from "../../components/Solve/ShapeSvgArea";
 import ExpressionSvgArea from "../../components/Solve/ExpressionSvgArea";
 import AnswerComment from "../../components/Solve/AnswerComment";
 import RemainOpportunity from "../../components/Solve/RemainOpportunity";
+import ic_speaker from "../../assets/svg/ic_speaker.svg";
 
 /** 문제 해결 페이지 */
 const Solve = ($app: HTMLElement) => {
@@ -162,6 +163,10 @@ const Solve = ($app: HTMLElement) => {
   const contentsdiv = ContentsDiv();
   const numbuttons = Numbuttons(handleNumButtonClick);
 
+  const statementDiv = document.createElement("div");
+  statementDiv.style.width = "100%";
+  statementDiv.style.display = "flex";
+
   /** 설명 문장 */
   const statement = document.createElement("div");
   statement.id = "statement";
@@ -172,6 +177,25 @@ const Solve = ($app: HTMLElement) => {
   statement.textContent = `두 개의 숫자를 더한 값을 골라주세요! (${
     index + 1
   } / 8)`;
+
+  /** 문제를 소리로 읽어주는 함수 */
+  const handleSpeech = () => {
+    let utterance = new SpeechSynthesisUtterance(`
+    ${index + 1}번째 문제입니다. 두 개의 숫자를 더한 값을 골라주세요.
+    `);
+    speechSynthesis.speak(utterance);
+  };
+
+  /** 누르면 문제를 읽어주는 스피커 svg */
+  const speechIcon = document.createElement("img");
+  speechIcon.addEventListener("click", handleSpeech);
+  speechIcon.setAttribute("src", ic_speaker);
+  speechIcon.setAttribute("width", "40");
+  speechIcon.setAttribute("height", "40");
+  speechIcon.style.marginRight = "10px";
+
+  statementDiv.appendChild(speechIcon);
+  statementDiv.appendChild(statement);
 
   /** 가운데 정렬을 위한 시각적 요소와 수식 그룹핑 */
   const wrapper = WrapperDiv();
@@ -197,7 +221,8 @@ const Solve = ($app: HTMLElement) => {
   wrapper.appendChild(remainOpportunity);
   wrapper.appendChild(numbuttons);
 
-  contentsdiv.appendChild(statement);
+  // contentsdiv.appendChild(statement);
+  contentsdiv.appendChild(statementDiv);
   contentsdiv.appendChild(wrapper);
 
   $app.appendChild(titlebar);

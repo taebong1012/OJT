@@ -1,4 +1,4 @@
-import jeilogo from "../../assets/svg/jeilogo.svg";
+import ic_jeilogo from "../../assets/svg/ic_jeilogo.svg";
 import PathMoveBtn from "../../components/Common/PathMoveBtn";
 import WrapperDiv from "../../components/Common/WrapperDiv";
 
@@ -21,7 +21,7 @@ const Home = ($app: HTMLElement) => {
   const wrapper: HTMLElement = WrapperDiv();
 
   const logo: HTMLImageElement = document.createElement("img");
-  logo.src = jeilogo;
+  logo.src = ic_jeilogo;
   logo.alt = "jei logo";
   logo.width = 100;
 
