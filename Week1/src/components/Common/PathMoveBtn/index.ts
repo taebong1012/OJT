@@ -2,6 +2,7 @@ const PathMoveBtn = (path: string, btnText: string) => {
   /** 학습하기 버튼 */
   const pageMoveBtn: HTMLButtonElement = document.createElement("button");
   pageMoveBtn.textContent = btnText;
+  pageMoveBtn.classList.add("page-move-btn");
 
   pageMoveBtn.style.borderRadius = "100px";
   pageMoveBtn.style.height = "80px";

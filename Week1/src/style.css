@@ -40,18 +40,21 @@ div {
   box-sizing: border-box;
 }
 
-button {
+.page-move-btn,
+.numbutton {
   border: none;
   background-color: #eaeaea;
   color: #000000;
 }
 
-button:hover {
+.page-move-btn:hover,
+.numbutton:hover {
   background-color: #d1d1d1;
   cursor: pointer;
 }
 
-button:active {
+.page-move-btn:active,
+.numbutton:active {
   background-color: #bcbcbc;
 }
 
