@@ -17,14 +17,10 @@ const FrontGroup = (num: number) => {
   }
 
   /** 주황색 원들을 감싸는 rect 생성 */
-  const frontRect = document.createElementNS(xmlns, "rect");
+  const frontRect = document.createElementNS(xmlns, "use");
   frontRect.setAttribute("href", "#rect");
   frontRect.setAttribute("x", "-36");
   frontRect.setAttribute("y", "-36");
-  frontRect.setAttribute("rx", "80");
-  frontRect.setAttribute("ry", "80");
-  frontRect.setAttribute("height", "144");
-  frontRect.setAttribute("width", `${144 * num}`);
 
   frontGroup.appendChild(frontRect);
 

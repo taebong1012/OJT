@@ -1,9 +1,17 @@
 import Def from "../SVGs/Def";
 import FrontGroup from "../SVGs/FrontGroup";
+import Path from "../SVGs/path";
+import BackGroup from "../SVGs/BackGroup";
 
 const SvgArea = (num: number) => {
   const xmlns = "http://www.w3.org/2000/svg";
   const svgArea = document.createElementNS(xmlns, "svg");
+
+  /** path가 시작되는 x좌표 */
+  const pathStartX: number = 144 * num - 108;
+
+  /** path가 끝나는 x좌표 */
+  const pathEndX: number = pathStartX + 240;
 
   /** svg의 높이, 너비, 뷰박스 설정 */
   svgArea.setAttribute("width", "880");
@@ -11,12 +19,21 @@ const SvgArea = (num: number) => {
   svgArea.setAttribute("viewBox", "0 -200 800 500");
 
   /** def */
-  const def = Def();
+  const def = Def(num);
   svgArea.appendChild(def);
 
-  const frontGroup = FrontGroup(num);
+  /** SVG 이미지 그룹 */
+  const svgGroup = document.createElementNS(xmlns, "g");
 
-  svgArea.appendChild(frontGroup);
+  const frontGroup = FrontGroup(num);
+  const path = Path(pathStartX);
+  const backGroup = BackGroup(pathEndX);
+
+  svgGroup.appendChild(frontGroup);
+  svgGroup.appendChild(path);
+  svgGroup.appendChild(backGroup);
+
+  svgArea.appendChild(svgGroup);
 
   return svgArea;
 };
