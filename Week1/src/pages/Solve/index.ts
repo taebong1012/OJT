@@ -10,22 +10,22 @@ const Solve = ($app: HTMLElement) => {
   /** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
   let index: number = 0;
 
+  /** 한 문제당 틀린 횟수 */
+  let wrongCnt: number = 0;
+
   /** 1부터 8까지 랜덤하게 정렬되어 있는 숫자 배열 */
   const randomNums: number[] = Array.from(
     { length: 8 },
     (_, index) => index + 1
   ).sort(() => Math.random() - 0.5);
 
-  /** 사용자가 입력한 숫자 */
-  let inputNum: number = 0;
-
   /** SVG 및 수식을 렌더링 하는 함수 */
-  const renderQuestion = (num: number) => {
+  const renderQuestion = (inputAns: number) => {
     /** 도형 그리는 svg 영역 생성 */
     const shapeSvgArea = ShapeSvgArea(randomNums[index]);
 
     /** 수식 그리는 svg 영역 생성 */
-    const expressionSvgArea = ExpressionSvgArea(randomNums[index], -1);
+    const expressionSvgArea = ExpressionSvgArea(randomNums[index], inputAns);
 
     svgDiv.innerHTML = "";
     svgDiv.appendChild(shapeSvgArea);
@@ -33,14 +33,23 @@ const Solve = ($app: HTMLElement) => {
   };
 
   /** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
-  const handleNumButtonClick: Function = (num: number) => {
-    inputNum = num;
+  const handleNumButtonClick: Function = (inputAns: number) => {
+    /** 수식에 사용자가 입력한 숫자 표시 */
+    renderQuestion(inputAns);
 
-    if (num === randomNums[index] + 1) {
-      index++;
-      renderQuestion(num);
-      renderStatement();
-    }
+    setTimeout(() => {
+      /** 정답일 경우 */
+      if (inputAns === randomNums[index] + 1) {
+        index++;
+        renderStatement();
+        wrongCnt = 0;
+      } else {
+        /** 틀렸을 경우 */
+      }
+
+      /** -1 전달할 경우 물음표(?)로 표시 */
+      renderQuestion(-1);
+    }, 1500);
   };
 
   /** 문제 번호를 재렌더링하는 함수 */

@@ -7,7 +7,7 @@ const ExpressionGroup = (num: number, inputAns: number) => {
   /** 중앙정렬을 위해서 각 text들의 x 좌표 구하기 */
   const numTextSvgX = 410 - 70;
   const operatorTextSvgX = 410 - 32;
-  const inputAnsTextSvgX = 410 + 98;
+  const inputAnsTextSvgX = 410 + 97;
 
   /** 출제된 숫자 */
   const numTextSvg = document.createElementNS(xmlns, "text");
@@ -30,7 +30,9 @@ const ExpressionGroup = (num: number, inputAns: number) => {
 
   /** 사용자가 입력한 답 */
   const inputAnsTextSvg = document.createElementNS(xmlns, "text");
-  inputAnsTextSvg.textContent = `${inputAns === -1 ? "?" : num.toString()}`;
+  inputAnsTextSvg.textContent = `${
+    inputAns === -1 ? "?" : inputAns.toString()
+  }`;
   inputAnsTextSvg.setAttribute("font-family", "NPSfontBold");
   inputAnsTextSvg.setAttribute("font-size", "2.5rem");
   inputAnsTextSvg.setAttribute("color", "#000000");
