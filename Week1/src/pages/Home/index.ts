@@ -5,7 +5,12 @@ import WrapperDiv from "../../components/Common/WrapperDiv";
 const Home = ($app: HTMLElement) => {
   /** 홈 페이지 전체 레이아웃 */
   const home: HTMLElement = document.createElement("div");
-  home.id = "home";
+  home.style.backgroundColor = "#19aaaf";
+  home.style.width = "100vw";
+  home.style.height = "100vh";
+  home.style.display = "flex";
+  home.style.justifyContent = "center";
+  home.style.alignItems = "center";
 
   const container: HTMLElement = document.createElement("div");
   container.style.minHeight = "400px";
