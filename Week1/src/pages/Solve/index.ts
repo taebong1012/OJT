@@ -1,6 +1,6 @@
 import Titlebar from "../../components/Common/Titlebar";
 import ContentsDiv from "../../components/Common/ContentsDiv";
-import Numbuttons from "../../components/Common/Numbuttons";
+import Numbuttons from "../../components/Solve/Numbuttons";
 import WrapperDiv from "../../components/Common/WrapperDiv";
 import ShapeSvgArea from "../../components/Solve/ShapeSvgArea";
 import ExpressionSvgArea from "../../components/Solve/ExpressionSvgArea";
@@ -44,12 +44,8 @@ const Solve = ($app: HTMLElement) => {
   };
 
   /** 정답인지 아닌지 띄울 메세지, classify(param): 0-정답입니다! 1-다시 한번생각해보세요 2-정답은 ans였어요 3-삭제 */
-  const renderAnswerComment = (
-    classify: number,
-    ans: number,
-    wrongCnt: number
-  ) => {
-    const answerComment = AnswerComment(classify, ans, wrongCnt);
+  const renderAnswerComment = (classify: number, ans: number) => {
+    const answerComment = AnswerComment(classify, ans);
 
     wrapper.appendChild(answerComment);
   };
@@ -67,7 +63,7 @@ const Solve = ($app: HTMLElement) => {
     /** 정답인지 아닌지 메세지 띄우기 */
     if (inputAns === ans) {
       /** 정답입니다! */
-      renderAnswerComment(0, ans, wrongCnt);
+      renderAnswerComment(0, ans);
       /** 틀린 횟수 초기화 */
       wrongCnt = 0;
     } else {
@@ -75,30 +71,45 @@ const Solve = ($app: HTMLElement) => {
       wrongCnt++;
       /** 조금 더 생각해보세요! */
       if (wrongCnt < 3) {
-        renderAnswerComment(1, ans, wrongCnt);
+        renderAnswerComment(1, ans);
       } else {
         /** 정답은 ans였어요 */
-        renderAnswerComment(2, ans, wrongCnt);
+        renderAnswerComment(2, ans);
       }
     }
 
     /** 정답을 확인할 시간을 위해서 1.5초 후 동작 */
     setTimeout(() => {
-      /** 문제를 모두 풀었다면 */
-      if (index >= randomNums.length - 1) {
-        window.location.href = "/result";
+      /** 맞았을 경우 */
+      if (inputAns === ans) {
+        /** 문제를 모두 풀었다면 */
+        if (index >= randomNums.length - 1) {
+          window.location.href = "/result";
+        } else {
+          /** 문제가 남아있다면 */
+          index++;
+          renderStatement();
+          renderAnswerComment(3, ans);
+        }
       } else {
-        /** 문제가 남아있다면 */
-        index++;
-        renderStatement();
-        renderAnswerComment(3, ans, wrongCnt);
-
-        /** -1 전달할 경우 물음표(?)로 표시 */
-        renderQuestion(-1);
-
-        /** 버튼 활성화 시키기 */
-        makeButtonDisable(false);
+        /** 틀렸을 경우 */
+        /** 3번 이상 틀렸을 경우 */
+        if (wrongCnt >= 3) {
+          index++;
+          renderStatement();
+          renderAnswerComment(3, ans);
+          wrongCnt = 0;
+        } else {
+          /** 아직 기회가 있을 경우 */
+          renderAnswerComment(3, ans);
+        }
       }
+
+      /** -1 전달할 경우 물음표(?)로 표시 */
+      renderQuestion(-1);
+
+      /** 버튼 활성화 시키기 */
+      makeButtonDisable(false);
     }, 1500);
   };
 
@@ -134,7 +145,7 @@ const Solve = ($app: HTMLElement) => {
 
   wrapper.appendChild(svgDiv);
 
-  renderAnswerComment(3, -1, wrongCnt);
+  renderAnswerComment(3, -1);
 
   contentsdiv.appendChild(statement);
   contentsdiv.appendChild(wrapper);

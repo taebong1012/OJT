@@ -11,7 +11,6 @@ const Numbuttons = (handleNumButtonClick: Function): HTMLElement => {
 
     /** 클릭 이벤트 설정 */
     numbutton.addEventListener("click", () => {
-      console.log(num);
       handleNumButtonClick(parseInt(numbutton.value));
     });
 
