@@ -169,13 +169,6 @@ svg {
   border: 1px solid green;
 }
 
-rect,
-path {
-  stroke: #a1bee2;
-  stroke-width: 12;
-  fill: transparent;
-}
-
 .frontcircle {
   fill: #f27d6b;
 }

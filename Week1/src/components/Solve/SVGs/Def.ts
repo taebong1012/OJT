@@ -10,18 +10,31 @@ const Def = (num: number) => {
   circle.setAttribute("r", "36");
   circle.setAttribute("cy", "36");
 
-  const rect = document.createElementNS(xmlns, "rect");
-  rect.setAttribute("id", "rect");
-  rect.setAttribute("stroke", "#a1bee2");
-  rect.setAttribute("stroke-width", "12");
-  rect.setAttribute("fill", "transparent");
-  rect.setAttribute("height", "144");
-  rect.setAttribute("width", `${144 * num}`);
-  rect.setAttribute("rx", "80");
-  rect.setAttribute("ry", "80");
+  /** 앞의 주황색 원을 감싸는 사각형 SVG 정의(동적으로 너비 설정) */
+  const frontRect = document.createElementNS(xmlns, "rect");
+  frontRect.setAttribute("id", "front-rect");
+  frontRect.setAttribute("stroke", "#a1bee2");
+  frontRect.setAttribute("stroke-width", "12");
+  frontRect.setAttribute("fill", "transparent");
+  frontRect.setAttribute("height", "144");
+  frontRect.setAttribute("width", `${144 * num}`);
+  frontRect.setAttribute("rx", "80");
+  frontRect.setAttribute("ry", "80");
+
+  /** 뒤의 보라색 원을 감싸는 사각형 SVG 정의(너비 144로 고정) */
+  const backRect = document.createElementNS(xmlns, "rect");
+  backRect.setAttribute("id", "back-rect");
+  backRect.setAttribute("stroke", "#a1bee2");
+  backRect.setAttribute("stroke-width", "12");
+  backRect.setAttribute("fill", "transparent");
+  backRect.setAttribute("height", "144");
+  backRect.setAttribute("width", "144");
+  backRect.setAttribute("rx", "80");
+  backRect.setAttribute("ry", "80");
 
   def.appendChild(circle);
-  def.appendChild(rect);
+  def.appendChild(frontRect);
+  def.appendChild(backRect);
 
   return def;
 };
