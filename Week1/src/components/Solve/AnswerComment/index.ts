@@ -1,14 +1,5 @@
 /** 정답인지 아닌지 띄울 메세지, classify(param): 0-정답입니다! 1-다시 한번생각해보세요 2-정답은 ans였어요 3-삭제 */
 const AnswerComment = (classify: number, ans: number) => {
-  /** answerComment 삭제 */
-  const wrapper = document.getElementById("wrapper");
-  if (wrapper) {
-    const answerComment = wrapper.querySelector("#answer-comment");
-    if (answerComment) {
-      answerComment.remove();
-    }
-  }
-
   const newAnswerComment = document.createElement("div");
   newAnswerComment.id = "answer-comment";
 

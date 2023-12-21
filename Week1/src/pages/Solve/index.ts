@@ -5,14 +5,15 @@ import WrapperDiv from "../../components/Common/WrapperDiv";
 import ShapeSvgArea from "../../components/Solve/ShapeSvgArea";
 import ExpressionSvgArea from "../../components/Solve/ExpressionSvgArea";
 import AnswerComment from "../../components/Solve/AnswerComment";
+import RemainOpportunity from "../../components/Solve/RemainOpportunity";
 
 /** 문제 해결 페이지 */
 const Solve = ($app: HTMLElement) => {
   /** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
   let index: number = 0;
 
-  /** 한 문제당 틀린 횟수 */
-  let wrongCnt: number = 0;
+  /** 답변한 횟수 */
+  let ansCnt: number = 0;
 
   /** 1부터 8까지 랜덤하게 정렬되어 있는 숫자 배열 */
   const randomNums: number[] = Array.from(
@@ -45,9 +46,23 @@ const Solve = ($app: HTMLElement) => {
 
   /** 정답인지 아닌지 띄울 메세지, classify(param): 0-정답입니다! 1-다시 한번생각해보세요 2-정답은 ans였어요 3-삭제 */
   const renderAnswerComment = (classify: number, ans: number) => {
-    const answerComment = AnswerComment(classify, ans);
+    // const answerComment = AnswerComment(classify, ans);
 
-    wrapper.appendChild(answerComment);
+    // wrapper.appendChild(answerComment);
+
+    const answerComment = document.getElementById("answer-comment");
+    const newAnswerComment = AnswerComment(classify, ans);
+
+    if (answerComment) {
+      answerComment.replaceWith(newAnswerComment);
+    } else {
+      wrapper.appendChild(newAnswerComment);
+    }
+  };
+
+  /** 남은 기회 업데이트 */
+  const updateRemainOpportunity = () => {
+    remainOpportunity.textContent = `남은 횟수: ${3 - ansCnt}`;
   };
 
   /** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
@@ -56,6 +71,7 @@ const Solve = ($app: HTMLElement) => {
     makeButtonDisable(true);
 
     const ans = randomNums[index] + 1;
+    ansCnt++;
 
     /** 수식에 사용자가 입력한 숫자 표시 */
     renderQuestion(inputAns);
@@ -64,19 +80,17 @@ const Solve = ($app: HTMLElement) => {
     if (inputAns === ans) {
       /** 정답입니다! */
       renderAnswerComment(0, ans);
-      /** 틀린 횟수 초기화 */
-      wrongCnt = 0;
     } else {
-      /** 오답 횟수 증가 */
-      wrongCnt++;
       /** 조금 더 생각해보세요! */
-      if (wrongCnt < 3) {
+      if (ansCnt < 3) {
         renderAnswerComment(1, ans);
       } else {
         /** 정답은 ans였어요 */
         renderAnswerComment(2, ans);
       }
     }
+
+    updateRemainOpportunity();
 
     /** 정답을 확인할 시간을 위해서 1.5초 후 동작 */
     setTimeout(() => {
@@ -90,15 +104,18 @@ const Solve = ($app: HTMLElement) => {
           index++;
           renderStatement();
           renderAnswerComment(3, ans);
+          ansCnt = 0;
+          updateRemainOpportunity();
         }
       } else {
         /** 틀렸을 경우 */
         /** 3번 이상 틀렸을 경우 */
-        if (wrongCnt >= 3) {
+        if (ansCnt >= 3) {
           index++;
+          ansCnt = 0;
           renderStatement();
           renderAnswerComment(3, ans);
-          wrongCnt = 0;
+          updateRemainOpportunity();
         } else {
           /** 아직 기회가 있을 경우 */
           renderAnswerComment(3, ans);
@@ -145,7 +162,14 @@ const Solve = ($app: HTMLElement) => {
 
   wrapper.appendChild(svgDiv);
 
+  /** 정답 코멘트 안보이게 렌더 */
   renderAnswerComment(3, -1);
+
+  /** 정답 입력 가능 횟수 */
+  const remainOpportunity = RemainOpportunity();
+  remainOpportunity.textContent = `남은 횟수: ${3 - ansCnt}`;
+
+  wrapper.appendChild(remainOpportunity);
 
   contentsdiv.appendChild(statement);
   contentsdiv.appendChild(wrapper);
