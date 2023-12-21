@@ -1,7 +1,7 @@
 import Def from "../SVGs/Def";
 import FrontGroup from "../SVGs/FrontGroup";
 
-const SvgArea = () => {
+const SvgArea = (num: number) => {
   const xmlns = "http://www.w3.org/2000/svg";
   const svgArea = document.createElementNS(xmlns, "svg");
 
@@ -14,7 +14,7 @@ const SvgArea = () => {
   const def = Def();
   svgArea.appendChild(def);
 
-  const frontGroup = FrontGroup(4);
+  const frontGroup = FrontGroup(num);
 
   svgArea.appendChild(frontGroup);
 

@@ -4,25 +4,37 @@ import Numbuttons from "../../components/Common/Numbuttons";
 import WrapperDiv from "../../components/Common/WrapperDiv";
 import SvgArea from "../../components/Solve/SvgArea";
 
-/** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
-let index: number = 0;
-
-/** 1부터 8까지 랜덤하게 정렬되어 있는 숫자 배열 */
-const randomNums: number[] = Array.from(
-  { length: 8 },
-  (_, index) => index + 1
-).sort(() => Math.random() - 0.5);
-
-/** 사용자가 입력한 숫자 */
-let inputNum: number = 0;
-
-/** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
-const handleNumButtonClick: Function = (num: number) => {
-  inputNum = num;
-};
-
 /** 문제 해결 페이지 */
 const Solve = ($app: HTMLElement) => {
+  /** 참조하고 있는 랜덤 숫자 배열의 인덱스(= 문제 번호-1) */
+  let index: number = 0;
+
+  /** 1부터 8까지 랜덤하게 정렬되어 있는 숫자 배열 */
+  const randomNums: number[] = Array.from(
+    { length: 8 },
+    (_, index) => index + 1
+  ).sort(() => Math.random() - 0.5);
+
+  /** 사용자가 입력한 숫자 */
+  let inputNum: number = 0;
+
+  /** SVG 및 수식을 렌더링 하는 함수 */
+  const renderSVG = () => {
+    /** svg 태그 생성 */
+    const svgArea = SvgArea(randomNums[index]);
+    svgdiv.appendChild(svgArea);
+  };
+
+  /** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
+  const handleNumButtonClick: Function = (num: number) => {
+    inputNum = num;
+
+    if (num === randomNums[index] + 1) {
+      index++;
+      renderSVG();
+    }
+  };
+
   const titlebar = Titlebar();
   const contentsdiv = ContentsDiv();
   const numbuttons = Numbuttons(handleNumButtonClick);
@@ -34,9 +46,8 @@ const Solve = ($app: HTMLElement) => {
   const svgdiv = document.createElement("div");
   svgdiv.id = "svgdiv";
 
-  /** svg 태그 */
-  const svgArea = SvgArea();
-  svgdiv.appendChild(svgArea);
+  /** 페이지 로딩 시 svg 렌더링 */
+  renderSVG();
   //
   //
   //
