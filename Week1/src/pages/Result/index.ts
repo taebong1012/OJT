@@ -59,10 +59,15 @@ const Result = ($app: HTMLElement) => {
     const goSolveBtn = PathMoveBtn("/solve", "학습하기");
     goSolveBtn.style.marginTop = "80px";
 
+    /** 초기화면 버튼 */
+    const goMainBtn = PathMoveBtn("/", "처음으로");
+    goMainBtn.style.marginTop = "30px";
+
     wrapper.appendChild(titleSpan);
     wrapper.appendChild(resultSpan);
     wrapper.appendChild(timeSpan);
     wrapper.appendChild(goSolveBtn);
+    wrapper.appendChild(goMainBtn);
 
     contensDiv.appendChild(wrapper);
 
