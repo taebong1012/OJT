@@ -19,10 +19,12 @@ const Solve = ($app: HTMLElement) => {
   let inputNum: number = 0;
 
   /** SVG 및 수식을 렌더링 하는 함수 */
-  const renderSVG = () => {
+  const renderQuestion = () => {
     /** svg 태그 생성 */
     const svgArea = SvgArea(randomNums[index]);
-    svgdiv.appendChild(svgArea);
+    svgDiv.innerHTML = "";
+    svgDiv.appendChild(svgArea);
+    question.textContent = randomNums[index].toString();
   };
 
   /** 사용자가 버튼 눌렸을 때 작동할 콜백 함수 */
@@ -31,7 +33,7 @@ const Solve = ($app: HTMLElement) => {
 
     if (num === randomNums[index] + 1) {
       index++;
-      renderSVG();
+      renderQuestion();
     }
   };
 
@@ -43,11 +45,9 @@ const Solve = ($app: HTMLElement) => {
   const wrapper = WrapperDiv();
 
   /** svg를 통해서 시각적 요소 화면 노출 */
-  const svgdiv = document.createElement("div");
-  svgdiv.id = "svgdiv";
+  const svgDiv = document.createElement("div");
+  svgDiv.id = "svg-div";
 
-  /** 페이지 로딩 시 svg 렌더링 */
-  renderSVG();
   //
   //
   //
@@ -65,7 +65,6 @@ const Solve = ($app: HTMLElement) => {
 
   /** 1~8까지의 랜덤한 숫자 */
   const question = document.createElement("span");
-  question.textContent = randomNums[index].toString();
   question.id = "question";
 
   /** + 1 = 식 */
@@ -87,11 +86,14 @@ const Solve = ($app: HTMLElement) => {
   //
   //
 
+  /** 페이지 로딩 시 svg 및 수식 렌더링 */
+  renderQuestion();
+
   expression.appendChild(question);
   expression.appendChild(plus);
   expression.appendChild(answer);
 
-  wrapper.appendChild(svgdiv);
+  wrapper.appendChild(svgDiv);
   wrapper.appendChild(expression);
 
   contentsdiv.appendChild(wrapper);
