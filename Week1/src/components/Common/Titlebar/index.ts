@@ -1,10 +1,22 @@
 const Titlebar = (): HTMLElement => {
   /** 타이틀바 레이아웃 div */
   const titlebar: HTMLElement = document.createElement("div");
-  titlebar.id = "titlebar";
+  titlebar.style.width = "100vw";
+  titlebar.style.height = "80px";
+  titlebar.style.backgroundColor = "#19aaaf";
+  titlebar.style.display = "flex";
+  titlebar.style.alignItems = "center";
+  titlebar.style.justifyContent = "center";
 
   const title: HTMLElement = document.createElement("div");
-  title.id = "title";
+  title.style.fontFamily = "NPSfontBold";
+  title.style.fontSize = "1.5rem";
+  title.style.color = "#ffffff";
+  title.style.width = "100%";
+  title.style.minWidth = "880px";
+  title.style.maxWidth = "880px";
+  title.style.display = "flex";
+  title.style.justifyContent = "space-between";
 
   const maintitle: HTMLElement = document.createElement("span");
 

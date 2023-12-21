@@ -49,10 +49,6 @@ const Solve = ($app: HTMLElement) => {
 
   /** 정답인지 아닌지 띄울 메세지, classify(param): 0-정답입니다! 1-다시 한번생각해보세요 2-정답은 ans였어요 3-삭제 */
   const renderAnswerComment = (classify: number, ans: number) => {
-    // const answerComment = AnswerComment(classify, ans);
-
-    // wrapper.appendChild(answerComment);
-
     const answerComment = document.getElementById("answer-comment");
     const newAnswerComment = AnswerComment(classify, ans);
 
@@ -158,12 +154,17 @@ const Solve = ($app: HTMLElement) => {
   /** 설명 문장 */
   const statement = document.createElement("div");
   statement.id = "statement";
+  statement.style.fontFamily = "NPSfontBold";
+  statement.style.fontSize = "1.5rem";
+  statement.style.width = "100%";
+
   statement.textContent = `두 개의 숫자를 더한 값을 골라주세요! (${
     index + 1
   } / 8)`;
 
   /** 가운데 정렬을 위한 시각적 요소와 수식 그룹핑 */
   const wrapper = WrapperDiv();
+  wrapper.style.marginTop = "90px";
 
   /** svg를 통해서 시각적 요소 화면 노출 */
   const svgDiv = document.createElement("div");

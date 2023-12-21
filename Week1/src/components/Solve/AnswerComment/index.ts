@@ -2,6 +2,11 @@
 const AnswerComment = (classify: number, ans: number) => {
   const newAnswerComment = document.createElement("div");
   newAnswerComment.id = "answer-comment";
+  newAnswerComment.style.width = "100%";
+  newAnswerComment.style.height = "80px";
+  newAnswerComment.style.fontFamily = "NPSfontBold";
+  newAnswerComment.style.fontSize = "2rem";
+  newAnswerComment.style.textAlign = "center";
 
   if (classify === 0) {
     newAnswerComment.style.color = "#19AAAF";

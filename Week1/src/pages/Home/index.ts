@@ -8,7 +8,10 @@ const Home = ($app: HTMLElement) => {
   home.id = "home";
 
   const container: HTMLElement = document.createElement("div");
-  container.id = "container";
+  container.style.minHeight = "400px";
+  container.style.display = "flex";
+  container.style.flexDirection = "column";
+  container.style.justifyContent = "space-between";
 
   const wrapper: HTMLElement = WrapperDiv();
 
@@ -18,12 +21,16 @@ const Home = ($app: HTMLElement) => {
   logo.width = 100;
 
   const hometitle: HTMLElement = document.createElement("span");
-  hometitle.id = "hometitle";
   hometitle.textContent = "덧셈";
+  hometitle.style.fontFamily = "NPSfontExtrabold";
+  hometitle.style.color = "#ffffff";
+  hometitle.style.fontSize = "5rem";
 
   const homelevel: HTMLElement = document.createElement("span");
-  homelevel.id = "homelevel";
   homelevel.textContent = "E 1b";
+  homelevel.style.fontFamily = "NPSfontBold";
+  homelevel.style.color = "#ffffff";
+  homelevel.style.fontSize = " 2.5rem";
 
   /** 학습하기 버튼 */
   const goSolveBtn = PathMoveBtn("/solve", "학습하기");

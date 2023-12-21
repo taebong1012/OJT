@@ -40,11 +40,19 @@ div {
   box-sizing: border-box;
 }
 
-#app {
-  margin: 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button {
+  border: none;
+  background-color: #eaeaea;
+  color: #000000;
+}
+
+button:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #bcbcbc;
 }
 
 #home {
@@ -56,139 +64,9 @@ div {
   align-items: center;
 }
 
-#container {
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#hometitle {
-  font-family: NPSfontExtrabold;
-  color: #ffffff;
-  font-size: 5rem;
-}
-
-#homelevel {
-  font-family: NPSfontBold;
-  color: #ffffff;
-  font-size: 2.5rem;
-}
-
-#page-move-btn {
-  border: none;
-  border-radius: 100px;
-  height: 80px;
-  width: 220px;
-  font-size: 1.875rem;
-  font-family: "NPSfontBold";
-  background-color: #eaeaea;
-  color: #000000;
-}
-
-#page-move-btn:hover {
-  background-color: #d1d1d1;
-  cursor: pointer;
-}
-
-#page-move-btn:active {
-  background-color: #bcbcbc;
-}
-
-#titlebar {
-  width: 100vw;
-  height: 80px;
-  background-color: #19aaaf;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#title {
-  font-family: "NPSfontBold";
-  font-size: 1.5rem;
-  color: #ffffff;
-  width: 100%;
-  min-width: 880px;
-  max-width: 880px;
-  display: flex;
-  justify-content: space-between;
-}
-
-#contents {
-  width: 880px;
-  height: calc(100vh - 80px);
-  min-height: 600px;
-  padding: 40px 0 80px 0;
+#app {
+  margin: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-}
-
-#statement {
-  font-family: "NPSfontBold";
-  font-size: 1.5rem;
-  width: 100%;
-}
-
-#wrapper {
-  height: calc(100% - 110px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 20px;
-  border: 1px solid green;
-}
-
-#expression {
-  font-family: "NPSfontExtrabold";
-  font-size: 2.5rem;
-  letter-spacing: 0.5rem;
-}
-
-#numbuttons {
-  width: 690px;
-  height: 60px;
-  position: absolute;
-  bottom: 90px;
-  display: flex;
-  justify-content: space-between;
-}
-
-#answer-comment {
-  width: 100%;
-  height: 80px;
-  font-family: "NPSfontBold";
-  font-size: 2rem;
-  text-align: center;
-}
-
-.frontcircle {
-  fill: #f27d6b;
-}
-
-.backcircle {
-  fill: #6e6bb3;
-}
-
-.numbutton {
-  background-color: #eaeaea;
-  height: 100%;
-  width: 60px;
-  border: none;
-  border-radius: 10px;
-  color: #000000;
-  font-family: "NPSfontExtrabold";
-  font-size: 2.5rem;
-}
-
-.numbutton:hover {
-  background-color: #d1d1d1;
-  cursor: pointer;
-}
-
-.numbutton:active {
-  background-color: #bcbcbc;
 }
