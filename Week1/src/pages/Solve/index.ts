@@ -147,7 +147,7 @@ const Solve = ($app: HTMLElement) => {
 
       /** 버튼 활성화 시키기 */
       makeButtonDisable(false);
-    }, 1500);
+    }, 1000);
   };
 
   /** 문제 번호를 재렌더링하는 함수 */
@@ -186,7 +186,7 @@ const Solve = ($app: HTMLElement) => {
     speechSynthesis.speak(utterance);
   };
 
-  /** 누르면 문제를 읽어주는 스피커 svg */
+  /** 누르면 문제를 읽어주는 스피커 이미지 */
   const speechIcon = document.createElement("img");
   speechIcon.addEventListener("click", handleSpeech);
   speechIcon.setAttribute("src", ic_speaker);
