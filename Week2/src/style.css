@@ -1,0 +1,36 @@
+@font-face {
+  font-family: "NPSfontExtrabold";
+  src: url("./assets/font/NPSfont_extrabold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NPSfontBold";
+  src: url("./assets/font/NPSfont_bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NPSfontRegular";
+  src: url("./assets/font/NPSfont_regular.ttf") format("truetype");
+}
+
+:root {
+  font-family: "NPSfontBold", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+div {
+  box-sizing: border-box;
+}
