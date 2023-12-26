@@ -13,6 +13,7 @@ const Statement = (problemNum: number, point: string = "") => {
   statement.style.marginTop = "40px";
   statement.style.display = "flex";
   statement.style.alignItems = "center";
+  statement.style.fontSize = "1.5rem";
 
   /** 누르면 문제를 읽어주는 스피커 이미지 */
   const speechIcon = document.createElement("img");
@@ -26,7 +27,6 @@ const Statement = (problemNum: number, point: string = "") => {
 
   const statementWrapper = document.createElement("div");
   statementWrapper.style.display = "flex";
-  statementWrapper.style.fontSize = "1.5rem";
 
   if (pathname === "/pick") {
     const pointText = document.createElement("span");
@@ -41,16 +41,19 @@ const Statement = (problemNum: number, point: string = "") => {
   } else if (pathname === "/drag") {
     const text = document.createElement("span");
     text.textContent = "초코숲 친구들의 잃어버린 부분을 찾아주세요!";
+    statementWrapper.appendChild(text);
   } else {
     console.log("statement Err");
   }
 
   const problemNumText = document.createElement("span");
   problemNumText.setAttribute("id", "problem-num-text");
-  problemNumText.textContent = `${problemNum} / 4`;
+  problemNumText.textContent = `(${problemNum} / 4)`;
+  problemNumText.style.marginLeft = "10px";
 
   statement.appendChild(speechIcon);
   statement.appendChild(statementWrapper);
+  statement.appendChild(problemNumText);
 
   /** 임시 영역 테스트 */
   statement.style.border = "1px solid green";
