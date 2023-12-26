@@ -23,7 +23,10 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+
+    /** 이미지 경로 */
+    "typeRoots": ["./node_modules/@types", "src/assets/svg"]
   },
   "include": ["src"]
 }
