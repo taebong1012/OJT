@@ -13,7 +13,7 @@ const animalsObjArr: animal[] = [
     type: "animal",
   },
   {
-    svgPath: "/src/assets/svg/objects/animals/ic_cat_grey.svg",
+    svgPath: "/src/assets/svg/objects/animals/ic_dog_grey.svg",
     type: "animal",
   },
   { svgPath: "/src/assets/svg/objects/animals/ic_hippo.svg", type: "animal" },
