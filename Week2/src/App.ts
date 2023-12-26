@@ -1,3 +1,4 @@
+import Drag from "@/pages/Drag";
 import Home from "@/pages/Home";
 import Pick from "@/pages/Pick";
 
@@ -10,6 +11,9 @@ const App = ($app: HTMLElement) => {
       Home($app);
     } else if (pathname === "/pick") {
       Pick($app);
+    } else if (pathname === "/drag") {
+      Drag($app);
+    } else {
     }
   };
 
