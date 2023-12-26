@@ -2,6 +2,7 @@ type animal = {
   svgPath: string;
   type: string;
 };
+
 const animalsObjArr: animal[] = [
   {
     svgPath: "/src/assets/svg/objects/animals/ic_cat_brown.svg",
