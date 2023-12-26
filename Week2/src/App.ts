@@ -1,4 +1,5 @@
 import Home from "@/pages/Home";
+import Pick from "@/pages/Pick";
 
 const App = ($app: HTMLElement) => {
   /** 라우팅 처리 함수 */
@@ -7,6 +8,8 @@ const App = ($app: HTMLElement) => {
 
     if (pathname === "/") {
       Home($app);
+    } else if (pathname === "/pick") {
+      Pick($app);
     }
   };
 
