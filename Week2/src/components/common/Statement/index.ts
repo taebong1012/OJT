@@ -49,7 +49,7 @@ const Statement = (problemNum: number, point: string = "") => {
 
   const problemNumText = document.createElement("span");
   problemNumText.setAttribute("id", "problem-num-text");
-  problemNumText.textContent = `(${problemNum} / 4)`;
+  problemNumText.textContent = `( ${problemNum + 1} / 4 )`;
   problemNumText.style.marginLeft = "10px";
 
   statement.appendChild(speechIcon);
