@@ -29,10 +29,10 @@ const Home = ($app: HTMLElement) => {
   title.style.marginBottom = "140px";
   title.style.fontFamily = "NPSfontExtrabold";
 
-  const goToPickGameBtn = Button("pickgame", "도형 고르기");
+  const goToPickGameBtn = Button("pick", "도형 고르기");
   goToPickGameBtn.style.marginBottom = "30px";
 
-  const goToDragGameBtn = Button("draggame", "그림 완성하기");
+  const goToDragGameBtn = Button("drag", "그림 완성하기");
   goToDragGameBtn.style.marginBottom = "40px";
 
   const goToResultA = document.createElement("a");
