@@ -26,7 +26,7 @@
     },
 
     /** 이미지 경로 */
-    "typeRoots": ["./node_modules/@types", "src/assets/svg"]
+    "typeRoots": ["./node_modules/@types", "src/assets/declare"]
   },
   "include": ["src"]
 }
