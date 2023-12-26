@@ -15,7 +15,7 @@
 
 :root {
   font-family: "NPSfontBold", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  line-height: 1.2;
 
   color-scheme: light dark;
 
@@ -45,4 +45,12 @@ button:hover {
 
 button:active {
   background-color: #bcbcbc;
+}
+
+a {
+  text-decoration-line: none;
+}
+
+a:hover {
+  text-decoration-line: underline;
 }
