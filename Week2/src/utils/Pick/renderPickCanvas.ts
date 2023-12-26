@@ -31,7 +31,7 @@ const renderPickCanvas = (randomArr: obj[], handleOnClick: Function) => {
 
       /** 보기 그림 클릭했을 때 작동 */
       svg.on("mousedown", () => {
-        const isCorrect = handleOnClick(type);
+        const isCorrect = handleOnClick(type, i);
         console.log(isCorrect);
 
         /** 호버하면 기본 커서로 세팅 */
@@ -46,6 +46,29 @@ const renderPickCanvas = (randomArr: obj[], handleOnClick: Function) => {
         svg.filters!.push(new fabric.Image.filters.Grayscale());
         svg.applyFilters();
         canvas.renderAll();
+
+        /** 피드백 말풍선 띄우기 */
+        let feedbackURL = null;
+        /** 선택한 보기가 정답이라면 */
+        if (isCorrect) {
+          feedbackURL = "/src/assets/svg/ic_correct.svg";
+        } else {
+          /** 선택한 보기가 정답이 아니라면 */
+          feedbackURL = "/src/assets/svg/ic_wrong.svg";
+        }
+
+        /** 피드백 말풍선 그리기 */
+        fabric.Image.fromURL(feedbackURL, (feedbackSvg) => {
+          feedbackSvg.scaleToWidth(40);
+          feedbackSvg.scaleToHeight(40);
+
+          feedbackSvg.set({
+            left: svg.left! + 100,
+            top: svg.top,
+          });
+
+          canvas.add(feedbackSvg);
+        });
       });
 
       canvas.add(svg);
