@@ -11,6 +11,7 @@ const Statement = (problemNum: number, point: string = "") => {
   const statement = document.createElement("div");
   statement.style.width = "100%";
   statement.style.marginTop = "40px";
+  statement.style.marginBottom = "30px";
   statement.style.display = "flex";
   statement.style.alignItems = "center";
   statement.style.fontSize = "1.5rem";
