@@ -30,8 +30,6 @@
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
 }
 
 div {
@@ -53,4 +51,10 @@ a {
 
 a:hover {
   text-decoration-line: underline;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
