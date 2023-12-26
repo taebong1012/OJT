@@ -6,19 +6,75 @@ import renderPickCanvas from "@/utils/Pick/renderPickCanvas";
 
 const Pick = ($app: HTMLElement) => {
   /** 랜덤 문제 생성 */
-  const randomQuestion = ["animal", "food", "tool", "ride"].sort(
-    () => Math.random() - 0.5
-  );
+  const randomQuestion = [
+    { type: "animal", text: "동물" },
+    { type: "food", text: "음식" },
+    { type: "tool", text: "도구" },
+    { type: "ride", text: "탈 것" },
+  ].sort(() => Math.random() - 0.5);
 
   /** 문제 번호 */
   let problemNum = 0;
 
+  /** 틀린 횟수 */
+  let wrongCnt = 3;
+
+  /** 정답 맞춘 횟수 */
+  let correctCnt = 0;
+
   /** 보기 클릭했을 때 작동할 콜백 함수 */
-  const handleOnClick = (type: string) => {
-    console.log(type);
-    /** 정답일 경우 true 리턴 */
-    if (randomQuestion[problemNum] === type) return true;
-    /** 정답이 아닐 경우 false 리턴 */ else return false;
+  const getIsCorrect = (type: string) => {
+    if (randomQuestion[problemNum].type === type) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const handleOnClick = (isCorrect: boolean) => {
+    /** 답이 맞았다면 */
+    if (isCorrect) {
+      correctCnt++;
+
+      /** 정답 두개 다 맞췄다면 다음 문제로 */
+      if (correctCnt >= 2) {
+        nextQuestion();
+      }
+    } else {
+      /** 답이 틀렸다면 */
+      wrongCnt--;
+
+      /** 틀릴 기회 3번 모두 사용했다면 다음 문제로 */
+      if (wrongCnt <= 0) {
+        nextQuestion();
+      }
+    }
+  };
+
+  /** 다음 문제를 제출 */
+  const nextQuestion = () => {
+    correctCnt = 0;
+    wrongCnt = 3;
+    problemNum++;
+
+    /** 문제가 모두 끝났다면 결과 화면으로 */
+    if (problemNum >= 4) {
+      window.location.href = "/result";
+    } else {
+      /** 문제가 아직 남았다면 다음 문제로 갱신*/
+      randomArr = getRandomArr();
+      renderPickCanvas(randomArr, getIsCorrect, handleOnClick);
+      updateStatement();
+    }
+  };
+
+  /** 문제 지문 업데이트 하기 */
+  const updateStatement = () => {
+    const newPointText = document.getElementById("point-text");
+    newPointText!.textContent = `${randomQuestion[problemNum].text}`;
+
+    const newProblemNumText = document.getElementById("problem-num-text");
+    newProblemNumText!.textContent = `( ${problemNum + 1} / 4 )`;
   };
 
   const header = Header();
@@ -27,7 +83,7 @@ const Pick = ($app: HTMLElement) => {
   /** 임시 영역 테스트 */
   container.style.border = "1px solid red";
 
-  const statement = Statement(0, randomQuestion[problemNum]);
+  const statement = Statement(problemNum, randomQuestion[problemNum].text);
 
   const pickCanvas = document.createElement("canvas");
   pickCanvas.setAttribute("id", "pick-canvas");
@@ -42,7 +98,7 @@ const Pick = ($app: HTMLElement) => {
   $app.appendChild(container);
 
   let randomArr = getRandomArr();
-  renderPickCanvas(randomArr, handleOnClick);
+  renderPickCanvas(randomArr, getIsCorrect, handleOnClick);
 };
 
 export default Pick;

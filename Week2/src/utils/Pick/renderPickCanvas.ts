@@ -5,12 +5,19 @@ type obj = {
   type: string;
 };
 
-const renderPickCanvas = (randomArr: obj[], handleOnClick: Function) => {
+const renderPickCanvas = (
+  randomArr: obj[],
+  getIsCorrect: Function,
+  handleOnClick: Function
+) => {
   const canvas = new fabric.Canvas("pick-canvas");
   canvas.setWidth(780);
   canvas.setHeight(400);
   /** 그룹 선택 비활성화 */
   canvas.selection = false;
+
+  /** 캔버스 모든 요소 제거 */
+  canvas.clear();
 
   for (let i = 0; i < randomArr.length; i++) {
     const { svgPath, type } = randomArr[i];
@@ -31,7 +38,7 @@ const renderPickCanvas = (randomArr: obj[], handleOnClick: Function) => {
 
       /** 보기 그림 클릭했을 때 작동 */
       svg.on("mousedown", () => {
-        const isCorrect = handleOnClick(type, i);
+        const isCorrect = getIsCorrect(type);
         console.log(isCorrect);
 
         /** 호버하면 기본 커서로 세팅 */
@@ -69,6 +76,9 @@ const renderPickCanvas = (randomArr: obj[], handleOnClick: Function) => {
 
           canvas.add(feedbackSvg);
         });
+
+        /** 클릭 후 상태 업데이트 */
+        handleOnClick(isCorrect);
       });
 
       canvas.add(svg);
