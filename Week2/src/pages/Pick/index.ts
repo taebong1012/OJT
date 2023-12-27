@@ -1,3 +1,4 @@
+import PickAnswerText from "@/components/Pick/PickAnswerText";
 import Container from "@/components/common/Container";
 import Header from "@/components/common/Header";
 import RemainOpportunity from "@/components/common/RemainOpportunity";
@@ -40,18 +41,18 @@ const Pick = ($app: HTMLElement) => {
 
       /** 정답 두개 다 맞췄다면 다음 문제로 */
       if (correctCnt >= 2) {
+        updateAnswerSpan(true);
         nextQuestion();
       }
     } else {
       /** 답이 틀렸다면 */
       wrongCnt--;
+      updateRemain();
 
       /** 틀릴 기회 3번 모두 사용했다면 다음 문제로 */
       if (wrongCnt <= 0) {
+        updateAnswerSpan(false);
         nextQuestion();
-      } else {
-        /** 아직 기회가 있다면 */
-        updateRemain();
       }
     }
   };
@@ -61,7 +62,7 @@ const Pick = ($app: HTMLElement) => {
     /** 정답 화면을 보여줌 */
     renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick, true);
 
-    /** 1초 후에 다음 문제로 넘어감 */
+    /** 3초 후에 다음 문제로 넘어감 */
     setTimeout(() => {
       problemNum++;
       correctCnt = 0;
@@ -71,6 +72,11 @@ const Pick = ($app: HTMLElement) => {
       if (problemNum >= 4) {
         window.location.href = "/result";
       } else {
+        /** 기본으로 정답 멘트로 변경 */
+        const answerSpan = document.getElementById("answer-span");
+        answerSpan!.textContent = "정답은 2개에요!";
+        answerSpan!.style.color = "#6E6BB3";
+
         /** 문제가 아직 남았다면 다음 문제로 갱신*/
         randomArr = getRandomArr();
         renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
@@ -78,6 +84,21 @@ const Pick = ($app: HTMLElement) => {
         updateRemain();
       }
     }, 3000);
+  };
+
+  /** 정답 문구 업데이트 */
+  const updateAnswerSpan = (isAnswer: boolean) => {
+    const answerSpan = document.getElementById("answer-span");
+
+    /** 답이 맞았다면 */
+    if (isAnswer) {
+      answerSpan!.textContent = "정답입니다!";
+      answerSpan!.style.color = "#28B0F2";
+    } else {
+      /** 틀렸다면 */
+      answerSpan!.textContent = "아쉬워요. 정답을 확인해보세요!";
+      answerSpan!.style.color = "#F27D6B";
+    }
   };
 
   /** 문제 지문 업데이트 하기 */
@@ -105,9 +126,12 @@ const Pick = ($app: HTMLElement) => {
 
   const remainDiv = RemainOpportunity(wrongCnt);
 
+  const answerText = PickAnswerText();
+
   container.appendChild(statement);
   container.appendChild(pickCanvas);
   container.appendChild(remainDiv);
+  container.appendChild(answerText);
 
   $app.appendChild(header);
   $app.appendChild(container);
