@@ -33,9 +33,6 @@ const Drag = ($app: HTMLElement) => {
   const dragCanvas = document.createElement("canvas");
   dragCanvas.setAttribute("id", "drag-canvas");
 
-  /** test 임시 border 처리 */
-  dragCanvas.style.border = "1px solid blue";
-
   const remainDiv = RemainOpportunity(wrongCnt);
   const answerDiv = DragAnswerText();
 
