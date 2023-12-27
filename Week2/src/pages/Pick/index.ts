@@ -25,6 +25,13 @@ const Pick = ($app: HTMLElement) => {
   /** 정답 맞춘 횟수 */
   let correctCnt = 0;
 
+  /** 학습 시작 시간 */
+  const pickStartTime = new Date().toString();
+
+  /** 로컬 스토리지에 저장할 정답 여부 로그 */
+  type log = { isComplete: boolean; wrongCnt: number };
+  const pickLog: log[] = [];
+
   /** 보기 클릭했을 때 작동할 콜백 함수 */
   const getIsCorrect = (type: string) => {
     if (randomQuestion[problemNum].type === type) {
@@ -42,7 +49,7 @@ const Pick = ($app: HTMLElement) => {
       /** 정답 두개 다 맞췄다면 다음 문제로 */
       if (correctCnt >= 2) {
         updateAnswerSpan(true);
-        nextQuestion();
+        nextQuestion(true);
       }
     } else {
       /** 답이 틀렸다면 */
@@ -52,13 +59,15 @@ const Pick = ($app: HTMLElement) => {
       /** 틀릴 기회 3번 모두 사용했다면 다음 문제로 */
       if (wrongCnt <= 0) {
         updateAnswerSpan(false);
-        nextQuestion();
+        nextQuestion(false);
       }
     }
   };
 
   /** 다음 문제를 제출 */
-  const nextQuestion = () => {
+  const nextQuestion = (isComplete: boolean) => {
+    pickLog.push({ isComplete: isComplete, wrongCnt: wrongCnt });
+
     /** 정답 화면을 보여줌 */
     renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick, true);
 
@@ -70,6 +79,16 @@ const Pick = ($app: HTMLElement) => {
 
       /** 문제가 모두 끝났다면 결과 화면으로 */
       if (problemNum >= 4) {
+        /** 학습 끝나는 시간 */
+        const pickEndTime = new Date().toString();
+
+        /** 문제 풀이 정보들을 json화 */
+        const pickLogJson = JSON.stringify(pickLog);
+
+        localStorage.setItem("pickStartTime", pickStartTime);
+        localStorage.setItem("pickEndTime", pickEndTime);
+        localStorage.setItem("pickLogJson", pickLogJson);
+
         window.location.href = "/result";
       } else {
         /** 기본으로 정답 멘트로 변경 */
