@@ -1,6 +1,7 @@
 import Drag from "@/pages/Drag";
 import Home from "@/pages/Home";
 import Pick from "@/pages/Pick";
+import Result from "@/pages/Result";
 
 const App = ($app: HTMLElement) => {
   /** 라우팅 처리 함수 */
@@ -13,7 +14,8 @@ const App = ($app: HTMLElement) => {
       Pick($app);
     } else if (pathname === "/drag") {
       Drag($app);
-    } else {
+    } else if (pathname === "/result") {
+      Result($app);
     }
   };
 
