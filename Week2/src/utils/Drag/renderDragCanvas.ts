@@ -6,6 +6,7 @@ type Character = {
 };
 
 const renderDragCanvas = (
+  answer: string,
   canvas: any,
   blindIndex: number,
   characterArr: Character[]
@@ -41,21 +42,24 @@ const renderDragCanvas = (
   canvas.add(blindBox);
 
   /** 맞출 이미지 설정 */
-  fabric.Image.fromURL("/src/assets/svg/characters/ic_poi.svg", (svg) => {
-    /** 보기 svg 속성 설정 */
-    svg.scaleToWidth(300);
-    svg.scaleToHeight(300);
-    svg.set({
-      top: 50,
-      selectable: false,
-      hoverCursor: "default",
-    });
+  fabric.Image.fromURL(
+    `/src/assets/svg/characters/${answer}/ic_poi.svg`,
+    (svg) => {
+      /** 보기 svg 속성 설정 */
+      svg.scaleToWidth(300);
+      svg.scaleToHeight(300);
+      svg.set({
+        top: 50,
+        selectable: false,
+        hoverCursor: "default",
+      });
 
-    canvas.add(svg);
+      canvas.add(svg);
 
-    /** 가림막을 가장 앞으로 두기 */
-    blindBox.bringToFront();
-  });
+      /** 가림막을 가장 앞으로 두기 */
+      blindBox.bringToFront();
+    }
+  );
 
   canvas.add(borderBox);
   borderBox.sendToBack();
@@ -64,12 +68,13 @@ const renderDragCanvas = (
   for (let i = 0; i < characterArr.length; i++) {
     const { name, areaIndex } = characterArr[i];
 
-    fabric.Image.fromURL(getSvgPath(name), (svg) => {
+    fabric.Image.fromURL(getSvgPath(name, areaIndex), (svg) => {
       svg.scaleToWidth(150);
       svg.scaleToHeight(150);
       svg.set({
         left: (i % 2) * 170 + 420,
         top: Math.floor(i / 2) * 170 + 40,
+        hasControls: false,
       });
 
       canvas.add(svg);
@@ -81,6 +86,6 @@ const renderDragCanvas = (
 
 export default renderDragCanvas;
 
-const getSvgPath = (name: string) => {
-  return `/src/assets/svg/characters/ic_${name}.svg`;
+const getSvgPath = (name: string, areaIndex: number) => {
+  return `/src/assets/svg/characters/${name}/ic_${name}-${areaIndex}.svg`;
 };

@@ -63,7 +63,7 @@ const Drag = ($app: HTMLElement) => {
       areaIndex: 1,
     },
   ];
-  renderDragCanvas(newCanvas, 1, tmpArr);
+  renderDragCanvas("poi", newCanvas, 1, tmpArr);
 };
 
 export default Drag;
