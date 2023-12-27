@@ -1,4 +1,4 @@
-const RemainOpportunity = (wrongCnt: number) => {
+const PickRemainOpportunity = (wrongCnt: number) => {
   const remainDiv = document.createElement("div");
   remainDiv.style.fontSize = "1.25rem";
   remainDiv.style.marginTop = "40px";
@@ -14,4 +14,4 @@ const RemainOpportunity = (wrongCnt: number) => {
   return remainDiv;
 };
 
-export default RemainOpportunity;
+export default PickRemainOpportunity;

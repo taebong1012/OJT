@@ -9,7 +9,8 @@ const renderDragCanvas = (
   answerName: string,
   canvas: any,
   blindIndex: number,
-  puzzleArr: CharacterPuzzle[]
+  puzzleArr: CharacterPuzzle[],
+  handleOnDrag: Function
 ) => {
   /** 캔버스 객체 초기화 */
   canvas.clear();
@@ -128,6 +129,7 @@ const renderDragCanvas = (
         {
           duration: 500,
           onChange: canvas.renderAll.bind(canvas),
+          onComplete: handleOnDrag(true),
         }
       );
     } else {
@@ -141,6 +143,7 @@ const renderDragCanvas = (
           onComplete: () => {
             /** 퍼즐 조각들 이동 활성화 */
             makePuzzlesMove(true);
+            handleOnDrag(false);
           },
         }
       );
