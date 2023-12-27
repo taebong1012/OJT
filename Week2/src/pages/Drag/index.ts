@@ -3,8 +3,21 @@ import Container from "@/components/common/Container";
 import Header from "@/components/common/Header";
 import RemainOpportunity from "@/components/common/RemainOpportunity";
 import Statement from "@/components/common/Statement";
+import randomCharacterArr from "@/utils/Drag/getRamdomCharacterArr";
 import renderDragCanvas from "@/utils/Drag/renderDragCanvas";
 import { fabric } from "fabric";
+
+type CharacterInfo = {
+  engName: string;
+  korName: string;
+  comment: string;
+  uniqueColor: string;
+};
+
+type CharacterPuzzle = {
+  name: string;
+  areaIndex: number;
+};
 
 const Drag = ($app: HTMLElement) => {
   /** 문제 번호 */
@@ -41,29 +54,40 @@ const Drag = ($app: HTMLElement) => {
   /** 그룹 선택 비활성화 */
   newCanvas.selection = false;
 
-  type Character = {
-    name: string;
-    areaIndex: number;
-  };
-  const tmpArr: Character[] = [
-    {
-      name: "boo",
-      areaIndex: 2,
-    },
-    {
-      name: "poi",
-      areaIndex: 1,
-    },
-    {
-      name: "doctorCo",
-      areaIndex: 3,
-    },
-    {
-      name: "bearkong",
-      areaIndex: 1,
-    },
-  ];
-  renderDragCanvas("poi", newCanvas, 1, tmpArr);
+  /** 랜덤한 캐릭터 배열 가져오기 */
+  const newRandomCharacterArr: CharacterInfo[] = randomCharacterArr;
+
+  /** 정답으로 사용할 캐릭터와 퍼즐의 정답 인덱스 고르기 */
+  /** 정답으로 사용할 캐릭터(0번째 캐릭터) */
+  const answerCharacter: CharacterInfo = randomCharacterArr[0];
+
+  /** 퍼즐(빈 공간)로 출제할 인덱스 */
+  const blindIndex: number = Math.floor(Math.random() * 4);
+
+  /** 캔버스에 넘길 캐릭터 퍼즐 조각 배열 */
+  const characterPuzzleArr: CharacterPuzzle[] = [];
+
+  for (const character of newRandomCharacterArr) {
+    let name = character.engName;
+    let areaIndex = 0;
+
+    /** 정답 캐릭터라면 정해진 퍼즐 조각 인덱스 부여 */
+    if (character.engName === answerCharacter.engName) {
+      areaIndex = blindIndex;
+    } else {
+      /** 아니라면 퍼즐 조각 인덱스 랜덤 부여 */
+      areaIndex = Math.floor(Math.random() * 4);
+    }
+
+    characterPuzzleArr.push({ name: name, areaIndex: areaIndex });
+  }
+
+  renderDragCanvas(
+    answerCharacter.engName,
+    newCanvas,
+    blindIndex,
+    characterPuzzleArr
+  );
 };
 
 export default Drag;

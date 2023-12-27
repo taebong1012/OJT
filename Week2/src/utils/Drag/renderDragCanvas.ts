@@ -1,6 +1,6 @@
 import { fabric } from "fabric";
 
-type Character = {
+type CharacterPuzzle = {
   name: string;
   areaIndex: number;
 };
@@ -9,7 +9,7 @@ const renderDragCanvas = (
   answer: string,
   canvas: any,
   blindIndex: number,
-  characterArr: Character[]
+  characterArr: CharacterPuzzle[]
 ) => {
   /** 캔버스 객체 초기화 */
   canvas.clear();
@@ -43,7 +43,7 @@ const renderDragCanvas = (
 
   /** 맞출 이미지 설정 */
   fabric.Image.fromURL(
-    `/src/assets/svg/characters/${answer}/ic_poi.svg`,
+    `/src/assets/svg/characters/${answer}/ic_${answer}.svg`,
     (svg) => {
       /** 보기 svg 속성 설정 */
       svg.scaleToWidth(300);
@@ -74,7 +74,12 @@ const renderDragCanvas = (
       svg.set({
         left: (i % 2) * 170 + 420,
         top: Math.floor(i / 2) * 170 + 40,
+
+        /** 오브젝트 크기 변경, 회전 비활성화 */
         hasControls: false,
+
+        /** 선택했을 때 테두리 비활성화 */
+        hasBorders: false,
       });
 
       canvas.add(svg);
@@ -86,6 +91,7 @@ const renderDragCanvas = (
 
 export default renderDragCanvas;
 
+/** 보기 이미지들 경로 세팅 */
 const getSvgPath = (name: string, areaIndex: number) => {
   return `/src/assets/svg/characters/${name}/ic_${name}-${areaIndex}.svg`;
 };
