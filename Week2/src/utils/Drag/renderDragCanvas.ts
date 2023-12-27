@@ -101,26 +101,33 @@ const renderDragCanvas = (
     });
   }
 
+  /** 캔버스 내의 퍼즐 조각들을 움직이거나 움직일 수 없게 하는 함수 */
+  const makePuzzlesMove = (canMove: boolean) => {
+    canvas.forEachObject((obj: fabric.Object) => {
+      /** name 속성이 있을 경우(퍼즐 조각)에만 이동 활성화/비활성화 */
+      if (obj.name !== undefined) {
+        obj.selectable = canMove;
+      }
+    });
+  };
+
   /** 오브젝트 이동 감지 이벤트 설정 */
   canvas.on("object:modified", (e: fabric.IEvent) => {
     /** 움직여진 퍼즐 조각 */
     const movedPuzzle: fabric.Object = e.target as fabric.Object;
 
+    /** 퍼즐 조각들 이동 비활성화 */
+    makePuzzlesMove(false);
+
     /** 비어있는 퍼즐 위치로 갔는지 확인 */
     /** 움직인 퍼즐의 이름과 답의 이름이 같고, 비어있는 위치 근처로 갔다면 알맞게 재배치 */
     if (movedPuzzle.name === answerName && isNear(movedPuzzle, blindBox)) {
-      /** 캔버스 내 오브젝트 이동하지 못하게 처리 */
-      canvas.selection = false;
-
       /** 퍼즐 조각을 애니메이션으로 알맞게 이동시키기 */
       movedPuzzle.animate(
         { left: blindBox.left!, top: blindBox.top! },
         {
           duration: 500,
           onChange: canvas.renderAll.bind(canvas),
-          onComplete: () => {
-            console.log("이동 완료!");
-          },
         }
       );
     } else {
@@ -132,7 +139,8 @@ const renderDragCanvas = (
           duration: 500,
           onChange: canvas.renderAll.bind(canvas),
           onComplete: () => {
-            console.log("이동 완료!");
+            /** 퍼즐 조각들 이동 활성화 */
+            makePuzzlesMove(true);
           },
         }
       );
