@@ -26,6 +26,44 @@ const Drag = ($app: HTMLElement) => {
   /** 틀린 횟수 */
   let wrongCnt = 3;
 
+  /** 문제 생성 함수 */
+  const makeProblem = () => {
+    /** 랜덤한 캐릭터 배열 가져오기 */
+    const newRandomCharacterArr: CharacterInfo[] = randomCharacterArr;
+
+    /** 정답으로 사용할 캐릭터와 퍼즐의 정답 인덱스 고르기 */
+    /** 정답으로 사용할 캐릭터(0번째 캐릭터) */
+    const answerCharacter: CharacterInfo = randomCharacterArr[0];
+
+    /** 퍼즐(빈 공간)로 출제할 인덱스 */
+    const blindIndex: number = Math.floor(Math.random() * 4);
+
+    /** 캔버스에 넘길 캐릭터 퍼즐 조각 배열 */
+    const characterPuzzleArr: CharacterPuzzle[] = [];
+
+    for (const character of newRandomCharacterArr) {
+      let name = character.engName;
+      let areaIndex = 0;
+
+      /** 정답 캐릭터라면 정해진 퍼즐 조각 인덱스 부여 */
+      if (character.engName === answerCharacter.engName) {
+        areaIndex = blindIndex;
+      } else {
+        /** 아니라면 퍼즐 조각 인덱스 랜덤 부여 */
+        areaIndex = Math.floor(Math.random() * 4);
+      }
+
+      characterPuzzleArr.push({ name: name, areaIndex: areaIndex });
+    }
+
+    renderDragCanvas(
+      answerCharacter.engName,
+      newCanvas,
+      blindIndex,
+      characterPuzzleArr
+    );
+  };
+
   const header = Header();
   const container = Container();
   const statement = Statement(problemNum);
@@ -51,40 +89,8 @@ const Drag = ($app: HTMLElement) => {
   /** 그룹 선택 비활성화 */
   newCanvas.selection = false;
 
-  /** 랜덤한 캐릭터 배열 가져오기 */
-  const newRandomCharacterArr: CharacterInfo[] = randomCharacterArr;
-
-  /** 정답으로 사용할 캐릭터와 퍼즐의 정답 인덱스 고르기 */
-  /** 정답으로 사용할 캐릭터(0번째 캐릭터) */
-  const answerCharacter: CharacterInfo = randomCharacterArr[0];
-
-  /** 퍼즐(빈 공간)로 출제할 인덱스 */
-  const blindIndex: number = Math.floor(Math.random() * 4);
-
-  /** 캔버스에 넘길 캐릭터 퍼즐 조각 배열 */
-  const characterPuzzleArr: CharacterPuzzle[] = [];
-
-  for (const character of newRandomCharacterArr) {
-    let name = character.engName;
-    let areaIndex = 0;
-
-    /** 정답 캐릭터라면 정해진 퍼즐 조각 인덱스 부여 */
-    if (character.engName === answerCharacter.engName) {
-      areaIndex = blindIndex;
-    } else {
-      /** 아니라면 퍼즐 조각 인덱스 랜덤 부여 */
-      areaIndex = Math.floor(Math.random() * 4);
-    }
-
-    characterPuzzleArr.push({ name: name, areaIndex: areaIndex });
-  }
-
-  renderDragCanvas(
-    answerCharacter.engName,
-    newCanvas,
-    blindIndex,
-    characterPuzzleArr
-  );
+  /** 문제 만들기 */
+  makeProblem();
 };
 
 export default Drag;
