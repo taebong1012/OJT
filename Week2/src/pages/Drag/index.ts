@@ -41,7 +41,29 @@ const Drag = ($app: HTMLElement) => {
   /** 그룹 선택 비활성화 */
   newCanvas.selection = false;
 
-  renderDragCanvas(newCanvas, 1, []);
+  type Character = {
+    name: string;
+    areaIndex: number;
+  };
+  const tmpArr: Character[] = [
+    {
+      name: "boo",
+      areaIndex: 2,
+    },
+    {
+      name: "poi",
+      areaIndex: 1,
+    },
+    {
+      name: "doctorCo",
+      areaIndex: 3,
+    },
+    {
+      name: "bearkong",
+      areaIndex: 1,
+    },
+  ];
+  renderDragCanvas(newCanvas, 1, tmpArr);
 };
 
 export default Drag;

@@ -1,14 +1,14 @@
 import { fabric } from "fabric";
 
-type character = {
-  svgPath: string;
+type Character = {
   name: string;
+  areaIndex: number;
 };
 
 const renderDragCanvas = (
   canvas: any,
   blindIndex: number,
-  characterArr: character[]
+  characterArr: Character[]
 ) => {
   /** 캔버스 객체 초기화 */
   canvas.clear();
@@ -60,7 +60,27 @@ const renderDragCanvas = (
   canvas.add(borderBox);
   borderBox.sendToBack();
 
+  /** 퍼즐 보기들 객체 생성 */
+  for (let i = 0; i < characterArr.length; i++) {
+    const { name, areaIndex } = characterArr[i];
+
+    fabric.Image.fromURL(getSvgPath(name), (svg) => {
+      svg.scaleToWidth(150);
+      svg.scaleToHeight(150);
+      svg.set({
+        left: (i % 2) * 170 + 420,
+        top: Math.floor(i / 2) * 170 + 40,
+      });
+
+      canvas.add(svg);
+    });
+  }
+
   canvas.renderAll();
 };
 
 export default renderDragCanvas;
+
+const getSvgPath = (name: string) => {
+  return `/src/assets/svg/characters/ic_${name}.svg`;
+};
