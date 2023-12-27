@@ -1,5 +1,6 @@
 import Container from "@/components/common/Container";
 import Header from "@/components/common/Header";
+import RemainOpportunity from "@/components/common/RemainOpportunity";
 import Statement from "@/components/common/Statement";
 import getRandomArr from "@/utils/Pick/getRandomObjArr";
 import renderPickCanvas from "@/utils/Pick/renderPickCanvas";
@@ -48,25 +49,35 @@ const Pick = ($app: HTMLElement) => {
       /** 틀릴 기회 3번 모두 사용했다면 다음 문제로 */
       if (wrongCnt <= 0) {
         nextQuestion();
+      } else {
+        /** 아직 기회가 있다면 */
+        updateRemain();
       }
     }
   };
 
   /** 다음 문제를 제출 */
   const nextQuestion = () => {
-    correctCnt = 0;
-    wrongCnt = 3;
-    problemNum++;
+    /** 정답 화면을 보여줌 */
+    renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick, true);
 
-    /** 문제가 모두 끝났다면 결과 화면으로 */
-    if (problemNum >= 4) {
-      window.location.href = "/result";
-    } else {
-      /** 문제가 아직 남았다면 다음 문제로 갱신*/
-      randomArr = getRandomArr();
-      renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
-      updateStatement();
-    }
+    /** 1초 후에 다음 문제로 넘어감 */
+    setTimeout(() => {
+      problemNum++;
+      correctCnt = 0;
+      wrongCnt = 3;
+
+      /** 문제가 모두 끝났다면 결과 화면으로 */
+      if (problemNum >= 4) {
+        window.location.href = "/result";
+      } else {
+        /** 문제가 아직 남았다면 다음 문제로 갱신*/
+        randomArr = getRandomArr();
+        renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
+        updateStatement();
+        updateRemain();
+      }
+    }, 3000);
   };
 
   /** 문제 지문 업데이트 하기 */
@@ -78,6 +89,12 @@ const Pick = ($app: HTMLElement) => {
     newProblemNumText!.textContent = `( ${problemNum + 1} / 4 )`;
   };
 
+  /** 남은 횟수 업데이트 하기 */
+  const updateRemain = () => {
+    const remainCnt = document.getElementById("remain-cnt");
+    remainCnt!.textContent = `${wrongCnt}`;
+  };
+
   const header = Header();
   const container = Container();
 
@@ -86,8 +103,11 @@ const Pick = ($app: HTMLElement) => {
   const pickCanvas = document.createElement("canvas");
   pickCanvas.setAttribute("id", "pick-canvas");
 
+  const remainDiv = RemainOpportunity(wrongCnt);
+
   container.appendChild(statement);
   container.appendChild(pickCanvas);
+  container.appendChild(remainDiv);
 
   $app.appendChild(header);
   $app.appendChild(container);
@@ -101,6 +121,7 @@ const Pick = ($app: HTMLElement) => {
   /** 그룹 선택 비활성화 */
   newCanvas.selection = false;
 
+  /** fabric canvas 초기 렌더링 */
   renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
 };
 
