@@ -6,17 +6,12 @@ type obj = {
 };
 
 const renderPickCanvas = (
+  canvas: any,
   randomArr: obj[],
   getIsCorrect: Function,
   handleOnClick: Function
 ) => {
-  const canvas = new fabric.Canvas("pick-canvas");
-  canvas.setWidth(780);
-  canvas.setHeight(400);
-  /** 그룹 선택 비활성화 */
-  canvas.selection = false;
-
-  /** 캔버스 모든 요소 제거 */
+  /** 캔버스 객체 초기화 */
   canvas.clear();
 
   for (let i = 0; i < randomArr.length; i++) {
@@ -52,7 +47,6 @@ const renderPickCanvas = (
         /** 클릭되면 흑백처리 */
         svg.filters!.push(new fabric.Image.filters.Grayscale());
         svg.applyFilters();
-        canvas.renderAll();
 
         /** 피드백 말풍선 띄우기 */
         let feedbackURL = null;

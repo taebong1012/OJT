@@ -3,6 +3,7 @@ import Header from "@/components/common/Header";
 import Statement from "@/components/common/Statement";
 import getRandomArr from "@/utils/Pick/getRandomObjArr";
 import renderPickCanvas from "@/utils/Pick/renderPickCanvas";
+import { fabric } from "fabric";
 
 const Pick = ($app: HTMLElement) => {
   /** 랜덤 문제 생성 */
@@ -63,7 +64,7 @@ const Pick = ($app: HTMLElement) => {
     } else {
       /** 문제가 아직 남았다면 다음 문제로 갱신*/
       randomArr = getRandomArr();
-      renderPickCanvas(randomArr, getIsCorrect, handleOnClick);
+      renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
       updateStatement();
     }
   };
@@ -98,7 +99,15 @@ const Pick = ($app: HTMLElement) => {
   $app.appendChild(container);
 
   let randomArr = getRandomArr();
-  renderPickCanvas(randomArr, getIsCorrect, handleOnClick);
+
+  /** fabric canvas 생성 */
+  const newCanvas = new fabric.Canvas("pick-canvas");
+  newCanvas.setWidth(780);
+  newCanvas.setHeight(400);
+  /** 그룹 선택 비활성화 */
+  newCanvas.selection = false;
+
+  renderPickCanvas(newCanvas, randomArr, getIsCorrect, handleOnClick);
 };
 
 export default Pick;
