@@ -56,9 +56,6 @@ const Statement = (problemNum: number, point: string = "") => {
   statement.appendChild(statementWrapper);
   statement.appendChild(problemNumText);
 
-  /** 임시 영역 테스트 */
-  statement.style.border = "1px solid green";
-
   return statement;
 };
 

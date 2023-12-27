@@ -81,16 +81,10 @@ const Pick = ($app: HTMLElement) => {
   const header = Header();
   const container = Container();
 
-  /** 임시 영역 테스트 */
-  container.style.border = "1px solid red";
-
   const statement = Statement(problemNum, randomQuestion[problemNum].text);
 
   const pickCanvas = document.createElement("canvas");
   pickCanvas.setAttribute("id", "pick-canvas");
-
-  /** 테스트 영역 확인 */
-  pickCanvas.style.border = "1px solid blue";
 
   container.appendChild(statement);
   container.appendChild(pickCanvas);
