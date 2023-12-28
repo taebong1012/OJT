@@ -14,6 +14,7 @@ const renderDragCanvas = (
 ) => {
   /** 캔버스 객체 초기화 */
   canvas.clear();
+  canvas.off("object:modified");
 
   puzzleArr.sort(() => Math.random() - 0.5);
 
@@ -112,8 +113,8 @@ const renderDragCanvas = (
     });
   };
 
-  /** 오브젝트 이동 감지 이벤트 설정 */
-  canvas.on("object:modified", (e: fabric.IEvent) => {
+  /** 캔버스의 객체 이동이 완료됐을 때 실행될 함수 */
+  const handleObjectModified = (e: fabric.IEvent) => {
     /** 움직여진 퍼즐 조각 */
     const movedPuzzle: fabric.Object = e.target as fabric.Object;
 
@@ -129,7 +130,9 @@ const renderDragCanvas = (
         {
           duration: 500,
           onChange: canvas.renderAll.bind(canvas),
-          onComplete: handleOnDrag(true),
+          onComplete: () => {
+            handleOnDrag(true);
+          },
         }
       );
     } else {
@@ -142,13 +145,17 @@ const renderDragCanvas = (
           onChange: canvas.renderAll.bind(canvas),
           onComplete: () => {
             /** 퍼즐 조각들 이동 활성화 */
+            console.log("몇번 실행되는거지");
             makePuzzlesMove(true);
             handleOnDrag(false);
           },
         }
       );
     }
-  });
+  };
+
+  /** 오브젝트 이동 감지 이벤트 설정 */
+  canvas.on("object:modified", handleObjectModified);
 
   canvas.renderAll();
 };
