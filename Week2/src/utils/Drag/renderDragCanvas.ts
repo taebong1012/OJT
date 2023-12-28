@@ -73,6 +73,9 @@ const renderDragCanvas = (
   let prevLeft = 0;
   let prevTop = 0;
 
+  /** 캔버스가 자체적으로 갖고 있는 틀린 횟수 */
+  let wrongCnt = 3;
+
   /** 퍼즐 보기들 객체 생성 */
   for (let i = 0; i < puzzleArr.length; i++) {
     const { name, areaIndex } = puzzleArr[i];
@@ -105,10 +108,19 @@ const renderDragCanvas = (
 
   /** 캔버스 내의 퍼즐 조각들을 움직이거나 움직일 수 없게 하는 함수 */
   const makePuzzlesMove = (canMove: boolean) => {
-    canvas.forEachObject((obj: fabric.Object) => {
+    canvas.forEachObject((svg: fabric.Object) => {
       /** name 속성이 있을 경우(퍼즐 조각)에만 이동 활성화/비활성화 */
-      if (obj.name !== undefined) {
-        obj.selectable = canMove;
+      if (svg.name !== undefined) {
+        svg.selectable = canMove;
+
+        if (canMove) {
+          svg.on("mousedown", () => {
+            prevLeft = svg.left!;
+            prevTop = svg.top!;
+          });
+        } else {
+          svg.off("mousedown");
+        }
       }
     });
   };
@@ -118,7 +130,13 @@ const renderDragCanvas = (
     /** 움직여진 퍼즐 조각 */
     const movedPuzzle: fabric.Object = e.target as fabric.Object;
 
-    /** 퍼즐 조각들 이동 비활성화 */
+    /** 선택 된 요소 선택 해제 */
+    canvas.discardActiveObject();
+
+    /** 옮겨진 퍼즐을 가장 앞으로 데려오기 */
+    movedPuzzle.bringToFront();
+
+    /** 다른 요소들 컨트롤 비활성화 */
     makePuzzlesMove(false);
 
     /** 비어있는 퍼즐 위치로 갔는지 확인 */
@@ -136,20 +154,45 @@ const renderDragCanvas = (
         }
       );
     } else {
-      /** 퍼즐 조각을 원래 자리로 다시 이동시키기 */
-      /** 퍼즐 조각을 애니메이션으로 알맞게 이동시키기 */
-      movedPuzzle.animate(
-        { left: prevLeft, top: prevTop },
-        {
-          duration: 500,
-          onChange: canvas.renderAll.bind(canvas),
-          onComplete: () => {
-            /** 퍼즐 조각들 이동 활성화 */
-            makePuzzlesMove(true);
-            handleOnDrag(false);
-          },
-        }
-      );
+      /** 숏 피드백 띄우기 */
+      fabric.Image.fromURL("/src/assets/svg/ic_wrong.svg", (svg) => {
+        svg.scaleToWidth(40);
+        svg.scaleToHeight(40);
+        svg.set({
+          left: movedPuzzle.left! + 150,
+          top: movedPuzzle.top! - 40,
+
+          /** 오브젝트 선택 비활성화 */
+          selectable: false,
+
+          /** 선택했을 때 테두리 비활성화 */
+          hasBorders: false,
+        });
+
+        canvas.add(svg);
+
+        /** 0.5초 후에 숏피드백을 제거하고 퍼즐 조각을 애니메이션으로 원래 자리로 다시 이동 */
+        setTimeout(() => {
+          /** 피드백 말풍선 제거 */
+          canvas.remove(svg);
+
+          movedPuzzle.animate(
+            { left: prevLeft, top: prevTop },
+            {
+              duration: 500,
+              onChange: canvas.renderAll.bind(canvas),
+              onComplete: () => {
+                handleOnDrag(false);
+                wrongCnt--;
+                /** 기회가 아직 남아있다면 퍼즐 조각 이동 활성화 */
+                if (wrongCnt > 0) {
+                  makePuzzlesMove(true);
+                }
+              },
+            }
+          );
+        }, 500);
+      });
     }
   };
 
