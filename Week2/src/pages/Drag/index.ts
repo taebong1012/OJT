@@ -21,7 +21,7 @@ type CharacterPuzzle = {
 
 const Drag = ($app: HTMLElement) => {
   /** 문제 번호 */
-  let problemNum = 0;
+  let problemNum = -1;
 
   /** 틀린 횟수 */
   let wrongCnt = 3;
@@ -31,12 +31,27 @@ const Drag = ($app: HTMLElement) => {
 
   /** 문제 생성 함수 */
   const makeProblem = () => {
+    /** 틀린 횟수를 3으로 초기화 */
+    wrongCnt = 3;
+
+    /** 문제번호 증가 */
+    problemNum++;
+
+    /** 문제 번호 업데이트 */
+    updateStatement();
+
+    /** 남은 기회 업데이트 */
+    updateOpportunity(0);
+
+    /** 정답 부분 업데이트 */
+    updateAnswerText(false);
+
     /** 랜덤한 캐릭터 배열 가져오기 */
-    const newRandomCharacterArr: CharacterInfo[] = randomCharacterArr;
+    const newRandomCharacterArr: CharacterInfo[] = randomCharacterArr();
 
     /** 정답으로 사용할 캐릭터와 퍼즐의 정답 인덱스 고르기 */
     /** 정답으로 사용할 캐릭터(0번째 캐릭터) */
-    answerCharacter = randomCharacterArr[0];
+    answerCharacter = newRandomCharacterArr[0];
 
     /** 퍼즐(빈 공간)로 출제할 인덱스 */
     const blindIndex: number = Math.floor(Math.random() * 4);
@@ -70,8 +85,62 @@ const Drag = ($app: HTMLElement) => {
 
   /** 퍼즐 조각 드래그 완료했을 때 실행할 함수 */
   const handleOnDrag = (isCorrect: boolean) => {
+    /** 맞았다면 */
     if (isCorrect) {
+      /** 정답! 띄우기 */
+      updateOpportunity(1);
+
+      /** 정답 캐릭터 정보 띄우기 */
+      updateAnswerText(true);
+      /** TODO: 로그 배열에 저장 */
+
+      /** 지금이 마지막 문제였다면 */
+      if (problemNum >= 3) {
+        /** TODO: 로그 배열을 로컬 스토리지에 저장 */
+
+        setTimeout(() => {
+          window.location.href = "/result";
+        }, 2000);
+      } else {
+        /** 아직 문제가 남았다면 */
+        /** 2초 후에 문제 출제 */
+        setTimeout(() => {
+          makeProblem();
+        }, 2000);
+      }
     } else {
+      /** 틀렸다면 */
+      wrongCnt--;
+
+      /** 시도할 수 있는 기회를 모두 썼다면 */
+      if (wrongCnt <= 0) {
+        /** 정답 캐릭터 정보 띄우기 */
+        updateAnswerText(true);
+
+        /** TODO: 로그 배열에 저장 */
+
+        /** 지금이 마지막 문제였다면 */
+        if (problemNum >= 3) {
+          /** TODO: 로그 배열을 로컬 스토리지에 저장 */
+          /** 결과 페이지로 이동 */
+          setTimeout(() => {
+            window.location.href = "/result";
+          }, 2000);
+        } else {
+          /** 아쉬워요! 띄우기 */
+          updateOpportunity(-1);
+
+          /** 아직 문제가 남았다면 */
+          /** 1.5 초 후에 문제 출제 */
+          setTimeout(() => {
+            makeProblem();
+          }, 2000);
+        }
+      } else {
+        /** 아직 시도할 수 있는 기회가 남았다면 */
+        /** 남은 기회 업데이트 */
+        updateOpportunity(0);
+      }
     }
   };
 
@@ -95,10 +164,24 @@ const Drag = ($app: HTMLElement) => {
   };
 
   /** 정답 멘트 업데이트 */
-  const updateAnswerText = () => {};
+  const updateAnswerText = (isShowCharacterInfo: boolean) => {
+    const $comment = document.getElementById("comment-span");
+    const $characterName = document.getElementById("character-name-span");
+
+    if (isShowCharacterInfo) {
+      $comment!.textContent = answerCharacter.comment;
+      $comment!.style.color = answerCharacter.uniqueColor;
+
+      $characterName!.textContent = `${answerCharacter.korName}(${answerCharacter.engName})`;
+    } else {
+      $comment!.textContent = "오른쪽 퍼즐 조각을 알맞은 위치로 옮겨주세요!";
+      $comment!.style.color = "#6E6BB3";
+
+      $characterName!.textContent = "";
+    }
+  };
 
   /** 문제 번호 업데이트 */
-  /** 문제 지문 업데이트 하기 */
   const updateStatement = () => {
     const newProblemNumText = document.getElementById("problem-num-text");
     newProblemNumText!.textContent = `( ${problemNum + 1} / 4 )`;
