@@ -18,6 +18,7 @@ const Statement = (problemNum: number, point: string = "") => {
 
   /** 누르면 문제를 읽어주는 스피커 이미지 */
   const speechIcon = document.createElement("img");
+  speechIcon.setAttribute("id", "ic_speech");
   speechIcon.addEventListener("click", () => {
     handleSpeech(problemNum, point, pathname);
   });
