@@ -233,8 +233,9 @@ const Drag = ($app: HTMLElement) => {
 
   /** 문제 번호 업데이트 */
   const updateStatement = () => {
-    const newProblemNumText = document.getElementById("problem-num-text");
-    newProblemNumText!.textContent = `( ${problemNum + 1} / 4 )`;
+    const $originStatement = document.getElementById("statement-div");
+    const $newStatement = Statement(problemNum);
+    $originStatement?.replaceWith($newStatement);
   };
 
   const header = Header();

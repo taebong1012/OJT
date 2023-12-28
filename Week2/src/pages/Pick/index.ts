@@ -122,11 +122,12 @@ const Pick = ($app: HTMLElement) => {
 
   /** 문제 지문 업데이트 하기 */
   const updateStatement = () => {
-    const newPointText = document.getElementById("point-text");
-    newPointText!.textContent = `${randomQuestion[problemNum].text}`;
-
-    const newProblemNumText = document.getElementById("problem-num-text");
-    newProblemNumText!.textContent = `( ${problemNum + 1} / 4 )`;
+    const $originStatement = document.getElementById("statement-div");
+    const $newStatement = Statement(
+      problemNum,
+      randomQuestion[problemNum].text
+    );
+    $originStatement?.replaceWith($newStatement);
   };
 
   /** 남은 횟수 업데이트 하기 */

@@ -9,6 +9,8 @@ const Statement = (problemNum: number, point: string = "") => {
   const { pathname } = window.location;
 
   const statement = document.createElement("div");
+  statement.setAttribute("id", "statement-div");
+
   statement.style.width = "100%";
   statement.style.marginTop = "40px";
   statement.style.marginBottom = "30px";
