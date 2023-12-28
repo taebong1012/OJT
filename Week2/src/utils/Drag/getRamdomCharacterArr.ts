@@ -46,8 +46,11 @@ const characterArr: Character[] = [
 ];
 
 /** 무작위로 섞은 후에 앞에서부터 4개의 요소만 가져오기 */
-const randomCharacterArr = characterArr
-  .sort(() => Math.random() - 0.5)
-  .slice(0, 4);
+const getRandomCharacterArr = () => {
+  const randomCharacterArr = characterArr
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 4);
+  return randomCharacterArr;
+};
 
-export default randomCharacterArr;
+export default getRandomCharacterArr;
