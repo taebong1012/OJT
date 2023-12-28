@@ -101,7 +101,7 @@ const Drag = ($app: HTMLElement) => {
       updateAnswerText(true);
 
       /** 로그 배열에 저장 */
-      pushLog(false);
+      pushLog(true);
 
       /** 지금이 마지막 문제였다면 */
       if (problemNum >= 3) {
