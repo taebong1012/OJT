@@ -29,6 +29,13 @@ const Drag = ($app: HTMLElement) => {
   /** 정답 캐릭터 정보 */
   let answerCharacter: CharacterInfo;
 
+  /** 학습 시작 시간 */
+  const dragStartTime = new Date().toString();
+
+  /** 로컬 스토리지에 저장할 정답 여부 로그 */
+  type log = { isComplete: boolean; wrongCnt: number };
+  const dragLog: log[] = [];
+
   /** 문제 생성 함수 */
   const makeProblem = () => {
     /** 틀린 횟수를 3으로 초기화 */
@@ -93,11 +100,13 @@ const Drag = ($app: HTMLElement) => {
       /** 정답 캐릭터 정보 띄우기 */
       updateAnswerText(true);
 
-      /** TODO: 로그 배열에 저장 */
+      /** 로그 배열에 저장 */
+      pushLog(false);
 
       /** 지금이 마지막 문제였다면 */
       if (problemNum >= 3) {
-        /** TODO: 로그 배열을 로컬 스토리지에 저장 */
+        /** 로그 배열을 로컬 스토리지에 저장 */
+        saveResult();
 
         setTimeout(() => {
           window.location.href = "/result";
@@ -137,11 +146,14 @@ const Drag = ($app: HTMLElement) => {
           }
         }
 
-        /** TODO: 로그 배열에 저장 */
+        /** 로그 배열에 저장 */
+        pushLog(false);
 
         /** 지금이 마지막 문제였다면 */
         if (problemNum >= 3) {
-          /** TODO: 로그 배열을 로컬 스토리지에 저장 */
+          /** 로그 배열을 로컬 스토리지에 저장 */
+          saveResult();
+
           /** 결과 페이지로 이동 */
           setTimeout(() => {
             window.location.href = "/result";
@@ -162,6 +174,24 @@ const Drag = ($app: HTMLElement) => {
         updateOpportunity(0);
       }
     }
+  };
+
+  /** 로그 배열에 정보 저장 */
+  const pushLog = (isComplete: boolean) => {
+    dragLog.push({ isComplete: isComplete, wrongCnt: wrongCnt });
+  };
+
+  /** 로컬 스토리지에 로그 저장 */
+  const saveResult = () => {
+    /** 학습 끝나는 시간 */
+    const dragEndTime = new Date().toString();
+
+    /** 문제 풀이 정보들을 json화 */
+    const dragLogJson = JSON.stringify(dragLog);
+
+    localStorage.setItem("dragStartTime", dragStartTime);
+    localStorage.setItem("dragEndTime", dragEndTime);
+    localStorage.setItem("dragLogJson", dragLogJson);
   };
 
   /** 남은 기회 업데이트
