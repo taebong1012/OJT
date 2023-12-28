@@ -23,16 +23,16 @@ const Home = ($app: HTMLElement) => {
   logo.width = 100;
 
   const title: HTMLElement = document.createElement("span");
-  title.textContent = "인지";
+  title.textContent = "사물";
   title.style.color = "#FFFFFF";
   title.style.fontSize = "5rem";
   title.style.marginBottom = "140px";
   title.style.fontFamily = "NPSfontExtrabold";
 
-  const goToPickGameBtn = Button("pick", "도형 고르기");
+  const goToPickGameBtn = Button("pick", "사물 고르기");
   goToPickGameBtn.style.marginBottom = "30px";
 
-  const goToDragGameBtn = Button("drag", "그림 완성하기");
+  const goToDragGameBtn = Button("drag", "캐릭터 퍼즐");
   goToDragGameBtn.style.marginBottom = "40px";
 
   const goToResultA = document.createElement("a");
