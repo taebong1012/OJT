@@ -42,6 +42,7 @@ const renderDragCanvas = (
     selectable: false,
     hoverCursor: "default",
     hasBorders: false,
+    name: "blindbox",
   });
 
   canvas.add(blindBox);
@@ -57,6 +58,7 @@ const renderDragCanvas = (
         top: 50,
         selectable: false,
         hoverCursor: "default",
+        name: "characterAnswerImg",
       });
 
       canvas.add(svg);
@@ -110,7 +112,7 @@ const renderDragCanvas = (
   const makePuzzlesMove = (canMove: boolean) => {
     canvas.forEachObject((svg: fabric.Object) => {
       /** name 속성이 있을 경우(퍼즐 조각)에만 이동 활성화/비활성화 */
-      if (svg.name !== undefined) {
+      if (svg.name !== undefined && svg.name !== "blindBox") {
         svg.selectable = canMove;
 
         if (canMove) {

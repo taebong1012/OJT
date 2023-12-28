@@ -92,6 +92,7 @@ const Drag = ($app: HTMLElement) => {
 
       /** 정답 캐릭터 정보 띄우기 */
       updateAnswerText(true);
+
       /** TODO: 로그 배열에 저장 */
 
       /** 지금이 마지막 문제였다면 */
@@ -116,6 +117,25 @@ const Drag = ($app: HTMLElement) => {
       if (wrongCnt <= 0) {
         /** 정답 캐릭터 정보 띄우기 */
         updateAnswerText(true);
+
+        /** 캔버스 내의 blindBox 지우고 정답 보여주기 */
+        const canvasObjects = newCanvas.getObjects();
+        for (const obj of canvasObjects) {
+          if (obj.name === "blindbox") {
+            obj.set({
+              fill: "transparent",
+              stroke: "#F27D6B",
+              strokeWidth: 5,
+            });
+            newCanvas.renderAll();
+          } else if (obj.name === answerCharacter.engName) {
+            obj.set({
+              stroke: "#F27D6B",
+              strokeWidth: 5,
+            });
+            newCanvas.renderAll();
+          }
+        }
 
         /** TODO: 로그 배열에 저장 */
 
