@@ -36,12 +36,17 @@ div {
   box-sizing: border-box;
 }
 
-button:hover {
+.custom-button {
+  border: none;
+  background-color: #ededed;
+}
+
+.custom-button:hover {
   background-color: #d1d1d1;
   cursor: pointer;
 }
 
-button:active {
+.custom-button:active {
   background-color: #bcbcbc;
 }
 

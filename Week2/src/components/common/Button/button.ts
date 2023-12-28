@@ -10,13 +10,14 @@ const Button = (
   width: number = 240,
   height: number = 78
 ) => {
-  const button = document.createElement("button");
+  const button: HTMLButtonElement = document.createElement("button");
+
+  button.classList.add("custom-button");
 
   button.textContent = text;
 
   button.style.width = `${width}px`;
   button.style.height = `${height}px`;
-  button.style.backgroundColor = "#EDEDED";
   button.style.color = "#000000";
   button.style.border = "none";
   button.style.borderRadius = "100px";
