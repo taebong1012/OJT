@@ -145,7 +145,6 @@ const renderDragCanvas = (
           onChange: canvas.renderAll.bind(canvas),
           onComplete: () => {
             /** 퍼즐 조각들 이동 활성화 */
-            console.log("몇번 실행되는거지");
             makePuzzlesMove(true);
             handleOnDrag(false);
           },
@@ -180,10 +179,8 @@ const isNear = (movedPuzzle: fabric.Object, blindBox: fabric.Object) => {
 
     /** 가로세로가 40 이하로 차이날 경우에만 빈 공간 근처라고 판단 */
     if (diffX <= 40 && diffY <= 40) {
-      console.log("근처!");
       return true;
     } else {
-      console.log("근처 노노");
       return false;
     }
   } else {
