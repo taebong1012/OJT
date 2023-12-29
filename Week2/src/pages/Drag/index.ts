@@ -1,5 +1,5 @@
 import DragAnswerText from "@/components/Drag/DragAnswerText";
-import DragRemainOpportunity from "@/components/Drag/DragRemainOpportunity/DragRemainOpportunity";
+import DragRemainOpportunity from "@/components/Drag/DragRemainOpportunity";
 import Container from "@/components/common/Container";
 import Header from "@/components/common/Header";
 import Statement from "@/components/common/Statement";
