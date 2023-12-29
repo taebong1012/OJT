@@ -21,9 +21,9 @@ const Header = () => {
   title.style.fontSize = "1.5rem";
 
   if (pathname === "/pick") {
-    title.textContent = "그림 고르기";
+    title.textContent = "사물 고르기";
   } else if (pathname === "/drag") {
-    title.textContent = "그림 완성하기";
+    title.textContent = "캐릭터 퍼즐";
   } else if (pathname === "/result") {
     title.textContent = "학습 결과";
   } else {
