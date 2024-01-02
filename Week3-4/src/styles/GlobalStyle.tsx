@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: "Helvetica", "Arial", sans-serif;
     line-height: 1.5;
+    background-color: ${({ theme }) => theme.colors.background};
   }
 
 `;
