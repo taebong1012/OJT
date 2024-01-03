@@ -10,10 +10,10 @@ const Header = () => {
       </S.TitleWrapper>
       <S.ButtonWrapper>
         <S.Button>
-          <MdOutlinePreview size="40" />
+          <MdOutlinePreview style={{ width: "40px", height: "40px" }} />
         </S.Button>
         <S.Button>
-          <MdOutlineSave size="40" />
+          <MdOutlineSave style={{ width: "40px", height: "40px" }} />
         </S.Button>
       </S.ButtonWrapper>
     </S.Container>

@@ -36,4 +36,5 @@ export const Button = styled.button`
   justify-content: center;
   height: 60px;
   width: 60px;
+  margin: 0;
 `;
