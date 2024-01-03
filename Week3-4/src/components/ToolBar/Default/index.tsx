@@ -4,10 +4,12 @@ import {
   RxImage,
   RxSquare,
   RxBorderSolid,
+  RxCircle,
 } from "react-icons/rx";
-import polygonSVG from "assets/svg/ic_polygon.svg";
+// import polygonSVG from "assets/svg/ic_polygon.svg";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
+import { drawCircle, drawRect } from "components/DrawingCanvas";
 
 const Default = () => {
   const test = () => {
@@ -25,20 +27,25 @@ const Default = () => {
       <NamedButton handleOnClick={test} icon={<RxText />} text="텍스트 추가" />
       <NamedButton handleOnClick={test} icon={<RxImage />} text="이미지 추가" />
       <NamedButton
-        handleOnClick={test}
+        handleOnClick={drawRect}
         icon={<RxSquare />}
         text="사각형 추가"
+      />
+      <NamedButton
+        handleOnClick={drawCircle}
+        icon={<RxCircle />}
+        text="원 추가"
       />
       <NamedButton
         handleOnClick={test}
         icon={<RxBorderSolid />}
         text="직선 추가"
       />
-      <NamedButton
+      {/* <NamedButton
         handleOnClick={test}
         icon={<img src={polygonSVG} />}
         text="다각형 추가"
-      />
+      /> */}
       <Divider />
     </>
   );
