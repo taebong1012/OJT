@@ -57,11 +57,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button:hover {
-    background-color: #DADFE8;
+    background-color: ${({ theme }) => theme.colors.hover};
   }
 
   button:active {
-    background-color: #CCD0D9;
+    background-color: ${({ theme }) => theme.colors.clicked};
 
   }
 
