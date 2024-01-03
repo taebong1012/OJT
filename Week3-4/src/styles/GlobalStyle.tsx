@@ -42,10 +42,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.2;
     padding: 0 30px;
     background-color: ${({ theme }) => theme.colors.background};
+    min-width: 1220px;
   }
 
   svg {
-    size: 20;
+    width: 20px;
+    height: 20px;
     color: ${({ theme }) => theme.colors.icons}
   }
 
@@ -54,6 +56,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: transparent;
     cursor: pointer;
     border-radius: 100px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
   }
 
   button:hover {
