@@ -3,7 +3,7 @@ import GlobalStyle from "styles/GlobalStyle";
 import { lightTheme } from "styles/Themes";
 import Main from "pages/Main";
 import { Provider } from "jotai";
-import Header from "components/Header";
+import Header from "components/common/Header";
 
 function App() {
   return (

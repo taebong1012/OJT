@@ -1,14 +1,10 @@
-import Divider from "components/ToolBar/Divider";
+import Default from "components/ToolBar/Default";
 import * as S from "./style";
-import { RxPlusCircled } from "react-icons/rx";
 
 const ToolBar = () => {
   return (
     <S.Container>
-      <button>
-        <RxPlusCircled />
-      </button>
-      <Divider />
+      <Default />
     </S.Container>
   );
 };

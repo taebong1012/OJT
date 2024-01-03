@@ -1,4 +1,4 @@
-import * as S from "components/Header/style";
+import * as S from "components/common/Header/style";
 import { MdOutlinePreview, MdOutlineSave } from "react-icons/md";
 
 const Header = () => {
