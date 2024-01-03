@@ -40,9 +40,15 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'S-CoreDream-4Regular', "Helvetica", "Arial", sans-serif;
     line-height: 1.2;
-    padding: 0 30px;
     background-color: ${({ theme }) => theme.colors.background};
-    min-width: 1220px;
+    display: flex;
+    justify-content: center;
+  }
+
+  #root {
+    width: 1200px;
+    min-width: 1200px;
+    margin: 0 20px;
   }
 
   svg {
@@ -72,7 +78,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   canvas {
-    border: 1px solid #D9D9D9;
+    background-color: #FFFFFF;
+    filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.25));
   }
 
 `;
