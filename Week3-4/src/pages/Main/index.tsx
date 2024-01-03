@@ -1,6 +1,6 @@
 import ToolBar from "components/ToolBar";
 import * as S from "./style";
-import { fabric } from "fabric";
+import fabric from "controller/fabric";
 import { useEffect } from "react";
 
 const Main = () => {
