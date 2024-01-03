@@ -3,6 +3,7 @@ import GlobalStyle from "styles/GlobalStyle";
 import { lightTheme } from "styles/Themes";
 import Main from "pages/Main";
 import { Provider } from "jotai";
+import Header from "components/Header";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Provider>
         <ThemeProvider theme={lightTheme}>
           <GlobalStyle />
+          <Header />
           <Main />
         </ThemeProvider>
       </Provider>

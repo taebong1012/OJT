@@ -7,6 +7,7 @@ declare module "styled-components" {
       primary: string;
       secondary: string;
       text: string;
+      icons: string;
       hover: string;
       clicked: string;
     };

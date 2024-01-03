@@ -39,9 +39,25 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'S-CoreDream-4Regular', "Helvetica", "Arial", sans-serif;
-    line-height: 1.5;
+    line-height: 1.2;
     padding: 0 30px;
     background-color: ${({ theme }) => theme.colors.background};
+  }
+
+  svg {
+    size: 20;
+    color: ${({ theme }) => theme.colors.icons}
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 100px;
+  }
+
+  button:hover {
+    background-color: red;
   }
 
 `;
