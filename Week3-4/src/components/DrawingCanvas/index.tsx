@@ -70,3 +70,24 @@ export const drawCircle = () => {
     drawingCanvas.requestRenderAll();
   }
 };
+
+export const drawLine = () => {
+  if (!drawingCanvas) {
+    console.error("drawingCanvas does not exist");
+  } else {
+    console.log("직선 추가");
+
+    const newLine = new fabric.Line([50, 100, 200, 200], {
+      top: 200,
+      left: 350,
+      stroke: "black",
+      strokeWidth: 1,
+    });
+
+    drawingCanvas.add(newLine);
+
+    /** 활성화 시키기 */
+    drawingCanvas.setActiveObject(newLine);
+    drawingCanvas.requestRenderAll();
+  }
+};

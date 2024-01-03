@@ -9,7 +9,7 @@ import {
 // import polygonSVG from "assets/svg/ic_polygon.svg";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import { drawCircle, drawRect } from "components/DrawingCanvas";
+import { drawCircle, drawLine, drawRect } from "components/DrawingCanvas";
 
 const Default = () => {
   const test = () => {
@@ -37,7 +37,7 @@ const Default = () => {
         text="원 추가"
       />
       <NamedButton
-        handleOnClick={test}
+        handleOnClick={drawLine}
         icon={<RxBorderSolid />}
         text="직선 추가"
       />
