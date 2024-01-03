@@ -1,6 +1,4 @@
 import * as S from "components/common/Header/style";
-import { MdOutlinePreview, MdOutlineSave } from "react-icons/md";
-
 const Header = () => {
   return (
     <S.Container>
@@ -9,12 +7,8 @@ const Header = () => {
         <S.SubTitle>Learning Contents Management System</S.SubTitle>
       </S.TitleWrapper>
       <S.ButtonWrapper>
-        <S.Button>
-          <MdOutlinePreview style={{ width: "40px", height: "40px" }} />
-        </S.Button>
-        <S.Button>
-          <MdOutlineSave style={{ width: "40px", height: "40px" }} />
-        </S.Button>
+        <S.Button>Preview</S.Button>
+        <S.Button>Save</S.Button>
       </S.ButtonWrapper>
     </S.Container>
   );
