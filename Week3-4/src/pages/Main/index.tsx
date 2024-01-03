@@ -1,5 +1,11 @@
+import ToolBar from "components/ToolBar";
+
 const Main = () => {
-  return <div></div>;
+  return (
+    <div>
+      <ToolBar />
+    </div>
+  );
 };
 
 export default Main;

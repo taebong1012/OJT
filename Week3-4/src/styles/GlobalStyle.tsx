@@ -59,6 +59,9 @@ const GlobalStyle = createGlobalStyle`
     display:flex;
     justify-content: center;
     align-items: center;
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
   }
 
   button:hover {
