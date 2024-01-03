@@ -17,4 +17,5 @@ export const NameArea = styled.div`
   text-align: center;
   transform: translate(-30px, 0);
   color: #ffffff;
+  z-index: 10;
 `;
