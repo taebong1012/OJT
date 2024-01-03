@@ -57,7 +57,12 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button:hover {
-    background-color: red;
+    background-color: #DADFE8;
+  }
+
+  button:active {
+    background-color: #CCD0D9;
+
   }
 
 `;
