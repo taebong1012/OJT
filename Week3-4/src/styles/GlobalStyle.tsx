@@ -69,7 +69,10 @@ const GlobalStyle = createGlobalStyle`
 
   button:active {
     background-color: ${({ theme }) => theme.colors.clicked};
+  }
 
+  canvas {
+    border: 1px solid #D9D9D9;
   }
 
 `;

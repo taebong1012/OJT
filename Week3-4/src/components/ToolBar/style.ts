@@ -8,4 +8,5 @@ export const Container = styled.div`
   padding: 0 15px;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 `;
