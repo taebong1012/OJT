@@ -48,7 +48,12 @@ const GlobalStyle = createGlobalStyle`
   #root {
     width: 1200px;
     min-width: 1200px;
-    margin: 0 20px;
+    /* margin: 0 20px; */
+  }
+
+  #overlay {
+    position: fixed;
+    z-index: 20;
   }
 
   svg {

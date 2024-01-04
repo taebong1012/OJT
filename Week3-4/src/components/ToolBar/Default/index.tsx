@@ -10,10 +10,19 @@ import {
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import { drawCircle, drawLine, drawRect } from "components/DrawingCanvas";
+import { useSetAtom } from "jotai";
+import { isShowImageModalAtom } from "atoms";
 
 const Default = () => {
+  const setIsShowImageModal = useSetAtom(isShowImageModalAtom);
+
   const test = () => {
     console.log("테스트용 함수");
+  };
+
+  const handleOnClickAddImage = () => {
+    console.log("이미지 추가 버튼 클릭");
+    setIsShowImageModal(true);
   };
 
   return (
@@ -25,7 +34,11 @@ const Default = () => {
       />
       <Divider />
       <NamedButton handleOnClick={test} icon={<RxText />} text="텍스트 추가" />
-      <NamedButton handleOnClick={test} icon={<RxImage />} text="이미지 추가" />
+      <NamedButton
+        handleOnClick={handleOnClickAddImage}
+        icon={<RxImage />}
+        text="이미지 추가"
+      />
       <NamedButton
         handleOnClick={drawRect}
         icon={<RxSquare />}
