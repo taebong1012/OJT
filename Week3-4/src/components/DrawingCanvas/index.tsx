@@ -3,6 +3,7 @@ import fabric from "controller/fabric";
 
 let drawingCanvas: fabric.Canvas;
 
+/** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
   useEffect(() => {
     drawingCanvas = new fabric.Canvas("drawing-canvas", {
@@ -22,6 +23,24 @@ const DrawingCanvas = () => {
 };
 
 export default DrawingCanvas;
+
+/** 키보드 backspace 입력 시 활성화된 객체 삭제 */
+export const deleteObject = () => {
+  if (!drawingCanvas) {
+    console.error("drawingCanvas does not exist");
+  } else {
+    console.log("오브젝트 삭제");
+
+    const selectedObjects: fabric.Object[] = drawingCanvas.getActiveObjects();
+
+    selectedObjects.forEach((obj: fabric.Object) => {
+      drawingCanvas.remove(obj);
+    });
+
+    drawingCanvas.discardActiveObject();
+    drawingCanvas.requestRenderAll();
+  }
+};
 
 /** 캔버스에 사각형 추가 */
 export const drawRect = () => {
