@@ -74,8 +74,8 @@ export const drawCircle = () => {
     console.log("원 추가");
 
     const newCircle = new fabric.Circle({
-      top: 200,
-      left: 350,
+      top: 50,
+      left: 50,
       radius: 50,
       fill: "transparent",
       stroke: "black",
@@ -97,8 +97,8 @@ export const drawLine = () => {
     console.log("직선 추가");
 
     const newLine = new fabric.Line([50, 100, 200, 200], {
-      top: 200,
-      left: 350,
+      top: 50,
+      left: 50,
       stroke: "black",
       strokeWidth: 1,
     });
@@ -108,5 +108,26 @@ export const drawLine = () => {
     /** 활성화 시키기 */
     drawingCanvas.setActiveObject(newLine);
     drawingCanvas.requestRenderAll();
+  }
+};
+
+export const addImg = (path: string) => {
+  if (!drawingCanvas) {
+    console.error("drawingCanvas does not exist");
+  } else {
+    console.log("이미지 추가");
+
+    fabric.Image.fromURL(path, (img) => {
+      img.scaleToWidth(100);
+      img.scaleToHeight(100);
+      img.set({
+        left: 50,
+        top: 50,
+      });
+
+      drawingCanvas.add(img);
+      drawingCanvas.setActiveObject(img);
+      drawingCanvas.requestRenderAll();
+    });
   }
 };

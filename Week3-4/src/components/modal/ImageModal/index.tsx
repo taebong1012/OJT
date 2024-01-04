@@ -5,6 +5,7 @@ import { useSetAtom } from "jotai";
 import { isShowImageModalAtom } from "atoms";
 import { useEffect, useState } from "react";
 import { getImages } from "api/SolApis";
+import { addImg } from "components/DrawingCanvas";
 
 type solImageType = {
   extension: string;
@@ -37,6 +38,11 @@ const ImageModalContents = () => {
     setSolImages([...validSolImages]);
   };
 
+  const handleOnClickImage = (path: string) => {
+    setIsShowImageModal(false);
+    addImg(path);
+  };
+
   useEffect(() => {
     getSolImages();
   }, []);
@@ -55,6 +61,11 @@ const ImageModalContents = () => {
             <S.Image
               key={index}
               src={`${imageBaseUrl}/${img.imageId}.${img.extension}`}
+              onClick={() => {
+                handleOnClickImage(
+                  `${imageBaseUrl}/${img.imageId}.${img.extension}`
+                );
+              }}
             />
           ))}
         </S.ImageWrapper>
