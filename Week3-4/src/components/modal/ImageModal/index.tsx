@@ -19,7 +19,7 @@ type solImageType = {
 
 const ImageModalContents = () => {
   // https://sol-api.esls.io/images/A1/[imageId].[extension]
-  const imageBaseUrl = "https://sol-api.esls.io/images/A1/";
+  const imageBaseUrl = "https://sol-api.esls.io/images/A1";
 
   const setIsShowImageModal = useSetAtom(isShowImageModalAtom);
 
@@ -34,8 +34,6 @@ const ImageModalContents = () => {
   const getSolImages = async () => {
     const response: solImageType[] = await getImages();
     const validSolImages = response.filter((img) => img.extension !== "");
-    console.log(validSolImages);
-    console.log(typeof validSolImages[0]);
     setSolImages([...validSolImages]);
   };
 

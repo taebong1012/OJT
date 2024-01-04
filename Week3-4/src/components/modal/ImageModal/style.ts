@@ -46,5 +46,7 @@ export const ImageWrapper = styled.div`
 export const Image = styled.img`
   width: 240px;
   height: 160px;
+  cursor: pointer;
+  border: 1px solid #d4d4d4;
   /* background-color: #d4d4d4; */
 `;
