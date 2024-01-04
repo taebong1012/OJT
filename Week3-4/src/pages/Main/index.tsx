@@ -1,7 +1,7 @@
 import ToolBar from "components/ToolBar";
 import * as S from "./style";
 import DrawingCanvas, { deleteObject } from "components/DrawingCanvas";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
 import { useAtomValue } from "jotai";
 import { isShowImageModalAtom } from "atoms";

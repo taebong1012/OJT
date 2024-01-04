@@ -14,6 +14,7 @@ export const Backdrop = styled.div`
 
 export const Container = styled.div`
   width: 900px;
+  min-width: 900px;
   height: 600px;
   background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
@@ -35,5 +36,15 @@ export const Title = styled.span`
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  border: 1px solid red;
+  height: 420px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 42px;
+  overflow-y: auto;
+`;
+
+export const Image = styled.img`
+  width: 240px;
+  height: 160px;
+  /* background-color: #d4d4d4; */
 `;
