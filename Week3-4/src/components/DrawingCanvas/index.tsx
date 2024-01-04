@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
 
+type selectedImageType = {
+  path: string;
+  index: number;
+};
+
 let drawingCanvas: fabric.Canvas;
 
 /** fabric 캔버스 생성 */
@@ -111,23 +116,25 @@ export const drawLine = () => {
   }
 };
 
-export const addImg = (path: string) => {
+export const addImg = (selectedImages: selectedImageType[]) => {
   if (!drawingCanvas) {
     console.error("drawingCanvas does not exist");
   } else {
-    console.log("이미지 추가");
+    console.log("이미지들 추가");
 
-    fabric.Image.fromURL(path, (img) => {
-      img.scaleToWidth(100);
-      img.scaleToHeight(100);
-      img.set({
-        left: 50,
-        top: 50,
+    selectedImages.forEach((selectedImage, index) => {
+      fabric.Image.fromURL(selectedImage.path, (img) => {
+        img.scaleToWidth(100);
+        img.scaleToHeight(100);
+        img.set({
+          left: 50 + index * 30,
+          top: 50 + index * 30,
+        });
+
+        drawingCanvas.add(img);
+        drawingCanvas.setActiveObject(img);
+        drawingCanvas.requestRenderAll();
       });
-
-      drawingCanvas.add(img);
-      drawingCanvas.setActiveObject(img);
-      drawingCanvas.requestRenderAll();
     });
   }
 };
