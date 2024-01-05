@@ -43,18 +43,40 @@ export const ImageWrapper = styled.div`
   overflow-y: auto;
 `;
 
-export const Image = styled.img`
+interface ImageDivProps {
+  $isSelected: boolean;
+  $urlPath: string;
+}
+export const ImageDiv = styled.div<ImageDivProps>`
+  background-image: ${(props) => `url(${props.$urlPath})`};
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
   width: 240px;
   height: 160px;
   cursor: pointer;
-  border: 1px solid #d4d4d4;
+  border: ${(props) =>
+    props.$isSelected
+      ? `6px solid ${props.theme.colors.primary}`
+      : "1px solid #D4D4D4"};
+  box-shadow: ${(props) =>
+    props.$isSelected ? "none" : "0px 0px 10px 0px rgba(0, 0, 0, 0.15)"};
+  box-sizing: border-box;
 `;
 
-export const Wrapper = styled.div`
+export const PageIndexWrapper = styled.div`
   margin-top: 20px;
   height: 36px;
   display: flex;
   justify-content: center;
+  align-items: center;
+`;
+
+export const AddButtonWrapper = styled.div`
+  margin-top: 20px;
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -81,11 +103,12 @@ export const AddButton = styled.button`
 `;
 
 interface PageButtonProps {
-  isActive: boolean;
+  $isSelected: boolean;
 }
+
 export const PageButton = styled.button<PageButtonProps>`
   margin: 0 2px;
   font-size: 1rem;
   background-color: ${(props) =>
-    props.isActive ? `${props.theme.colors.primary}` : "none"};
+    props.$isSelected ? `${props.theme.colors.primary}` : "none"};
 `;

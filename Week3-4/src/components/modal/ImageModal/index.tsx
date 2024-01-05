@@ -16,6 +16,7 @@ type solImageType = {
   size: string;
   tags: string;
   width: string;
+  isSelected: boolean;
 };
 
 type selectedImageType = {
@@ -44,7 +45,6 @@ const ImageModalContents = () => {
     } else {
       setIsDisabled(false);
     }
-    console.log(selectedImages);
   }, [selectedImages]);
 
   /** 이미지 클릭했을 때 처리 */
@@ -54,9 +54,22 @@ const ImageModalContents = () => {
       imageId: imageId,
     };
 
+    /** 쏠이미지의 isSelected 배열을 업데이트 하는 함수 */
+    const updateIsSelected = (isSelected: boolean, imageId: string) => {
+      const updatedSolImages = solImages.map((solImage) =>
+        solImage.imageId === imageId
+          ? { ...solImage, isSelected: isSelected }
+          : solImage
+      );
+      setSolImages(updatedSolImages);
+    };
+
     /** 이미 선택된 이미지 배열에 포함되어 있지 않으면 배열에 추가 */
     if (!selectedImages.some((image) => image.imageId === imageId)) {
       setSelectedImages([...selectedImages, newSelectedImage]);
+
+      /** 그 이미지의 isSelected 속성을 true로 변경 */
+      updateIsSelected(true, imageId);
     } else {
       /** 이미 선택된 이미지 배열에 포함되어 있다면 배열에서 삭제 */
       setSelectedImages(
@@ -64,7 +77,9 @@ const ImageModalContents = () => {
           (selectedImage) => selectedImage.imageId !== imageId
         )
       );
-      /** 해당 이미지 border 없애기 */
+
+      /** 그 이미지의 isSelected 속성을 false로 변경 */
+      updateIsSelected(false, imageId);
     }
   };
 
@@ -91,9 +106,8 @@ const ImageModalContents = () => {
       paginationIndex * 51,
       (paginationIndex + 1) * 51
     );
-    console.log("보여줄 이미지들: ", newShowingImages);
     setShowingImages(newShowingImages);
-  }, [paginationLength, paginationIndex]);
+  }, [paginationLength, paginationIndex, solImages]);
 
   /** sol에서 저작도구 이미지들 가져오기 */
   const getSolImages = async () => {
@@ -123,9 +137,10 @@ const ImageModalContents = () => {
         </S.TitleWrapper>
         <S.ImageWrapper>
           {showingImages.map((img) => (
-            <S.Image
-              src={`${imageBaseUrl}/${img.imageId}.${img.extension}`}
+            <S.ImageDiv
               key={img.imageId}
+              $isSelected={img.isSelected}
+              $urlPath={`${imageBaseUrl}/${img.imageId}.${img.extension}`}
               onClick={() => {
                 handleOnClickImage(
                   `${imageBaseUrl}/${img.imageId}.${img.extension}`,
@@ -135,11 +150,11 @@ const ImageModalContents = () => {
             />
           ))}
         </S.ImageWrapper>
-        <S.Wrapper>
-          {paginationArr.map((isActive, index) => (
+        <S.PageIndexWrapper>
+          {paginationArr.map((isSelected, index) => (
             <S.PageButton
               key={index}
-              isActive={isActive}
+              $isSelected={isSelected}
               onClick={() => {
                 setPaginationIndex(index);
               }}
@@ -147,12 +162,13 @@ const ImageModalContents = () => {
               {index + 1}
             </S.PageButton>
           ))}
-        </S.Wrapper>
-        <S.Wrapper>
+        </S.PageIndexWrapper>
+        <S.AddButtonWrapper>
+          <span>선택 이미지: {selectedImages.length}개</span>
           <S.AddButton disabled={isDisabled} onClick={handleOnClickAddButton}>
             추가
           </S.AddButton>
-        </S.Wrapper>
+        </S.AddButtonWrapper>
       </S.Container>
     </S.Backdrop>
   );
