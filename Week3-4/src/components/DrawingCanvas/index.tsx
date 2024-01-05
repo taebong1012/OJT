@@ -3,7 +3,7 @@ import fabric from "controller/fabric";
 
 type selectedImageType = {
   path: string;
-  index: number;
+  imageId: string;
 };
 
 let drawingCanvas: fabric.Canvas;

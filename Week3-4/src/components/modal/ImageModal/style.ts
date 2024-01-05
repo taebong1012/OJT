@@ -52,7 +52,6 @@ export const Image = styled.img`
 
 export const Wrapper = styled.div`
   margin-top: 20px;
-  border: 1px solid red;
   height: 36px;
   display: flex;
   justify-content: center;
@@ -79,4 +78,14 @@ export const AddButton = styled.button`
     color: #b5b5b5;
     cursor: default;
   }
+`;
+
+interface PageButtonProps {
+  isActive: boolean;
+}
+export const PageButton = styled.button<PageButtonProps>`
+  margin: 0 2px;
+  font-size: 1rem;
+  background-color: ${(props) =>
+    props.isActive ? `${props.theme.colors.primary}` : "none"};
 `;

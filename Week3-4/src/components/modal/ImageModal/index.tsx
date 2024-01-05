@@ -20,7 +20,7 @@ type solImageType = {
 
 type selectedImageType = {
   path: string;
-  index: number;
+  imageId: string;
 };
 
 const ImageModalContents = () => {
@@ -31,7 +31,8 @@ const ImageModalContents = () => {
 
   /** sol api로 받아온 이미지들 */
   const [solImages, setSolImages] = useState<solImageType[]>([]);
-
+  /** 한 페이지에 보여줄 이미지들 */
+  const [showingImages, setShowingImages] = useState<solImageType[]>([]);
   /** 사용자가 선택한 이미지들 */
   const [selectedImages, setSelectedImages] = useState<selectedImageType[]>([]);
 
@@ -47,19 +48,21 @@ const ImageModalContents = () => {
   }, [selectedImages]);
 
   /** 이미지 클릭했을 때 처리 */
-  const handleOnClickImage = (path: string, index: number) => {
+  const handleOnClickImage = (path: string, imageId: string) => {
     const newSelectedImage: selectedImageType = {
       path: path,
-      index: index,
+      imageId: imageId,
     };
 
     /** 이미 선택된 이미지 배열에 포함되어 있지 않으면 배열에 추가 */
-    if (!selectedImages.some((image) => image.index === index)) {
+    if (!selectedImages.some((image) => image.imageId === imageId)) {
       setSelectedImages([...selectedImages, newSelectedImage]);
     } else {
       /** 이미 선택된 이미지 배열에 포함되어 있다면 배열에서 삭제 */
       setSelectedImages(
-        selectedImages.filter((selectedImage) => selectedImage.index !== index)
+        selectedImages.filter(
+          (selectedImage) => selectedImage.imageId !== imageId
+        )
       );
       /** 해당 이미지 border 없애기 */
     }
@@ -71,11 +74,33 @@ const ImageModalContents = () => {
     addImg(selectedImages);
   };
 
+  /** 페이지네이션 총 길이 */
+  const [paginationLength, setPaginationLength] = useState(0);
+  /** 현재 페이지네이션 인덱스 번호 */
+  const [paginationIndex, setPaginationIndex] = useState(0);
+  /** 페이지네이션 선택되어있는지 배열 */
+  const [paginationArr, setPaginationArr] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const newPaginationArr: boolean[] = new Array(paginationLength).fill(false);
+    newPaginationArr[paginationIndex] = true;
+    setPaginationArr(newPaginationArr);
+
+    /** 보여줄 이미지들 설정 */
+    const newShowingImages: solImageType[] = solImages.slice(
+      paginationIndex * 51,
+      (paginationIndex + 1) * 51
+    );
+    console.log("보여줄 이미지들: ", newShowingImages);
+    setShowingImages(newShowingImages);
+  }, [paginationLength, paginationIndex]);
+
   /** sol에서 저작도구 이미지들 가져오기 */
   const getSolImages = async () => {
     const response: solImageType[] = await getImages();
     const validSolImages = response.filter((img) => img.extension !== "");
     setSolImages([...validSolImages]);
+    setPaginationLength(Math.ceil(validSolImages.length / 51));
   };
 
   /** 모달 렌더링 시 Sol에서 이미지 가져오기 */
@@ -97,20 +122,32 @@ const ImageModalContents = () => {
           </button>
         </S.TitleWrapper>
         <S.ImageWrapper>
-          {solImages.map((img, index) => (
+          {showingImages.map((img) => (
             <S.Image
               src={`${imageBaseUrl}/${img.imageId}.${img.extension}`}
-              key={index}
+              key={img.imageId}
               onClick={() => {
                 handleOnClickImage(
                   `${imageBaseUrl}/${img.imageId}.${img.extension}`,
-                  index
+                  img.imageId
                 );
               }}
             />
           ))}
         </S.ImageWrapper>
-        <S.Wrapper></S.Wrapper>
+        <S.Wrapper>
+          {paginationArr.map((isActive, index) => (
+            <S.PageButton
+              key={index}
+              isActive={isActive}
+              onClick={() => {
+                setPaginationIndex(index);
+              }}
+            >
+              {index + 1}
+            </S.PageButton>
+          ))}
+        </S.Wrapper>
         <S.Wrapper>
           <S.AddButton disabled={isDisabled} onClick={handleOnClickAddButton}>
             추가
