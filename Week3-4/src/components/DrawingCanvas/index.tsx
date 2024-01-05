@@ -57,7 +57,9 @@ const DrawingCanvas = () => {
     drawingCanvas.on("selection:updated", handleOnClickCanvasObject);
 
     /** 캔버스 선택 객체 해제 이벤트 */
-    drawingCanvas.on("selection:cleared", () => {});
+    drawingCanvas.on("selection:cleared", () => {
+      setActivatedObjectType("none");
+    });
 
     return () => {
       if (drawingCanvas) {
