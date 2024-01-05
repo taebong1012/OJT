@@ -79,6 +79,7 @@ export const drawRect = () => {
       height: 100,
       fill: "transparent",
       stroke: "black",
+      strokeUniform: true,
       strokeWidth: 1,
     });
 
@@ -102,6 +103,7 @@ export const drawCircle = () => {
       radius: 50,
       fill: "transparent",
       stroke: "black",
+      strokeUniform: true,
       strokeWidth: 1,
     });
 
@@ -119,12 +121,17 @@ export const drawLine = () => {
   } else {
     console.log("직선 추가");
 
-    const newLine = new fabric.Line([50, 100, 200, 200], {
-      top: 50,
-      left: 50,
-      stroke: "black",
-      strokeWidth: 1,
-    });
+    const newLine = new fabric.Polyline(
+      [
+        { x: 50, y: 50 },
+        { x: 250, y: 250 },
+      ],
+      {
+        stroke: "black",
+        strokeWidth: 1,
+        strokeUniform: true,
+      }
+    );
 
     drawingCanvas.add(newLine);
 
