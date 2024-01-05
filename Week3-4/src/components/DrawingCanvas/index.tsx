@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
+import { activatedObjectTypeAtom } from "atoms";
+import { useAtomValue, useSetAtom } from "jotai";
 
 type selectedImageType = {
   path: string;
@@ -10,12 +12,52 @@ let drawingCanvas: fabric.Canvas;
 
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
+  const setActivatedObjectType = useSetAtom(activatedObjectTypeAtom);
+
+  /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
+  const handleOnClickCanvasObject = () => {
+    const activatedObjects = drawingCanvas.getActiveObjects();
+    /** 여러 개 선택되어 있다면 */
+    if (activatedObjects.length > 1) {
+      setActivatedObjectType("group");
+    } else {
+      const activatedObject: fabric.Object = activatedObjects[0];
+      /** 하나만 선택했다면 */
+      /** 직선인지 */
+      if (activatedObject instanceof fabric.Polyline) {
+        setActivatedObjectType("line");
+      } else if (activatedObject instanceof fabric.Image) {
+        /** 이미지인지 */
+        setActivatedObjectType("image");
+      } else if (activatedObject instanceof fabric.Text) {
+        setActivatedObjectType("text");
+      } else {
+        /** 삼각형 혹은 원형인지 */
+        /** choice라는 name을 가지고 있다면 보기 상자 */
+        if (activatedObject.name === "choice") {
+          setActivatedObjectType("choice");
+        } else {
+          setActivatedObjectType("shape");
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     drawingCanvas = new fabric.Canvas("drawing-canvas", {
       width: 800,
       height: 500,
       backgroundColor: "white",
     });
+
+    /** 캔버스 객체 선택 발생 이벤트 */
+    drawingCanvas.on("selection:created", handleOnClickCanvasObject);
+
+    /** 캔버스 선택 객체 변경 이벤트 */
+    drawingCanvas.on("selection:updated", handleOnClickCanvasObject);
+
+    /** 캔버스 선택 객체 해제 이벤트 */
+    drawingCanvas.on("selection:cleared", () => {});
 
     return () => {
       if (drawingCanvas) {
@@ -43,6 +85,43 @@ export const deleteObject = () => {
     });
 
     drawingCanvas.discardActiveObject();
+    drawingCanvas.requestRenderAll();
+  }
+};
+
+/** 보기 상자 추가 */
+export const addChoice = () => {
+  if (!drawingCanvas) {
+    console.error("drawingCanvas does not exist");
+  } else {
+    console.log("보기 상자 추가");
+
+    const newRect = new fabric.Rect({
+      top: 200,
+      left: 350,
+      width: 100,
+      height: 100,
+      fill: "white",
+      stroke: "#D0D0D0",
+      strokeUniform: true,
+      strokeWidth: 2,
+      rx: 10,
+      ry: 10,
+      name: "choice",
+    });
+
+    const shadow = new fabric.Shadow({
+      color: "rgba(0,0,0,0.15)",
+      offsetX: 0,
+      offsetY: 0,
+      blur: 10,
+    });
+
+    newRect.set("shadow", shadow);
+
+    drawingCanvas.add(newRect);
+
+    drawingCanvas.setActiveObject(newRect);
     drawingCanvas.requestRenderAll();
   }
 };
@@ -77,7 +156,7 @@ export const drawRect = () => {
       left: 350,
       width: 100,
       height: 100,
-      fill: "transparent",
+      fill: "white",
       stroke: "black",
       strokeUniform: true,
       strokeWidth: 1,
@@ -101,7 +180,7 @@ export const drawCircle = () => {
       top: 50,
       left: 50,
       radius: 50,
-      fill: "transparent",
+      fill: "white",
       stroke: "black",
       strokeUniform: true,
       strokeWidth: 1,

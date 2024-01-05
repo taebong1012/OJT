@@ -10,6 +10,7 @@ import {
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import {
+  addChoice,
   addText,
   drawCircle,
   drawLine,
@@ -21,10 +22,6 @@ import { isShowImageModalAtom } from "atoms";
 const Default = () => {
   const setIsShowImageModal = useSetAtom(isShowImageModalAtom);
 
-  const test = () => {
-    console.log("테스트용 함수");
-  };
-
   const handleOnClickAddImage = () => {
     setIsShowImageModal(true);
   };
@@ -32,7 +29,7 @@ const Default = () => {
   return (
     <>
       <NamedButton
-        handleOnClick={test}
+        handleOnClick={addChoice}
         icon={<RxPlusCircled />}
         text="답안 보기 추가"
       />
