@@ -9,7 +9,12 @@ import {
 // import polygonSVG from "assets/svg/ic_polygon.svg";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import { drawCircle, drawLine, drawRect } from "components/DrawingCanvas";
+import {
+  addText,
+  drawCircle,
+  drawLine,
+  drawRect,
+} from "components/DrawingCanvas";
 import { useSetAtom } from "jotai";
 import { isShowImageModalAtom } from "atoms";
 
@@ -21,7 +26,6 @@ const Default = () => {
   };
 
   const handleOnClickAddImage = () => {
-    console.log("이미지 추가 버튼 클릭");
     setIsShowImageModal(true);
   };
 
@@ -33,7 +37,11 @@ const Default = () => {
         text="답안 보기 추가"
       />
       <Divider />
-      <NamedButton handleOnClick={test} icon={<RxText />} text="텍스트 추가" />
+      <NamedButton
+        handleOnClick={addText}
+        icon={<RxText />}
+        text="텍스트 추가"
+      />
       <NamedButton
         handleOnClick={handleOnClickAddImage}
         icon={<RxImage />}

@@ -47,6 +47,24 @@ export const deleteObject = () => {
   }
 };
 
+/** 텍스트 추가 */
+export const addText = () => {
+  if (!drawingCanvas) {
+    console.error("drawingCanvas does not exist");
+  } else {
+    const newText = new fabric.IText("Text", {
+      top: 200,
+      left: 350,
+      fill: "black",
+    });
+
+    drawingCanvas.add(newText);
+
+    drawingCanvas.setActiveObject(newText);
+    drawingCanvas.requestRenderAll();
+  }
+};
+
 /** 캔버스에 사각형 추가 */
 export const drawRect = () => {
   if (!drawingCanvas) {
