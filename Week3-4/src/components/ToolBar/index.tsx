@@ -1,10 +1,11 @@
-import Default from "components/ToolBar/Default";
+import Default from "components/ToolBar/DefaultTools";
 import * as S from "./style";
 import fabric from "controller/fabric";
 import { useAtomValue } from "jotai";
 import { activatedObjectsAtom } from "atoms";
 import { useEffect, useState } from "react";
-import UpDown from "components/ToolBar/UpDown";
+import UpDown from "components/ToolBar/UpDownTools";
+import ShapeTools from "components/ToolBar/ShapeTools";
 
 const ToolBar = () => {
   const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
@@ -44,6 +45,7 @@ const ToolBar = () => {
     <S.Container>
       <Default />
       {curObjectType === "diselected" ? null : <UpDown />}
+      <ShapeTools />
     </S.Container>
   );
 };
