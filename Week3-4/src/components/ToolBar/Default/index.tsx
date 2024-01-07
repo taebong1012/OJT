@@ -64,7 +64,6 @@ const Default = () => {
         icon={<img src={polygonSVG} />}
         text="다각형 추가"
       /> */}
-      <Divider />
     </>
   );
 };

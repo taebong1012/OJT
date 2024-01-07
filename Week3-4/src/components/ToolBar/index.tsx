@@ -4,6 +4,7 @@ import fabric from "controller/fabric";
 import { useAtomValue } from "jotai";
 import { activatedObjectsAtom } from "atoms";
 import { useEffect, useState } from "react";
+import UpDown from "components/ToolBar/UpDown";
 
 const ToolBar = () => {
   const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
@@ -13,7 +14,7 @@ const ToolBar = () => {
   useEffect(() => {
     /** 선택이 되어있지 않다면 선택되어 있다면 */
     if (activatedObjects.length <= 0) {
-      setCurObjectType("");
+      setCurObjectType("diselected");
     } else if (activatedObjects.length > 1) {
       /** 여러 개 선택되어 있다면 */
       setCurObjectType("group");
@@ -42,6 +43,7 @@ const ToolBar = () => {
   return (
     <S.Container>
       <Default />
+      {curObjectType === "diselected" ? null : <UpDown />}
     </S.Container>
   );
 };
