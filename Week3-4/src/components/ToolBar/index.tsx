@@ -10,7 +10,7 @@ import ShapeTools from "components/ToolBar/ShapeTools";
 const ToolBar = () => {
   const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
 
-  const [curObjectType, setCurObjectType] = useState("");
+  const [curObjectType, setCurObjectType] = useState("diselected");
 
   useEffect(() => {
     /** 선택이 되어있지 않다면 선택되어 있다면 */
@@ -44,8 +44,8 @@ const ToolBar = () => {
   return (
     <S.Container>
       <Default />
+      {curObjectType === "shape" ? <ShapeTools /> : null}
       {curObjectType === "diselected" ? null : <UpDown />}
-      <ShapeTools />
     </S.Container>
   );
 };
