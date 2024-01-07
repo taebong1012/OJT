@@ -6,6 +6,3 @@ export const isShowImageModalAtom = atom(false);
 
 /** 현재 선택되어있는 객체들 배열 */
 export const activatedObjectsAtom = atom<fabric.Object[]>([]);
-
-/** Toolbar 속성 픽커 노출 여부 */
-export const isShowPickerAtom = atom(false);

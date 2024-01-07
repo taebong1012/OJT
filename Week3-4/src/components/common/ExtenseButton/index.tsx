@@ -1,7 +1,6 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
 import * as S from "./style";
 import { useAtom } from "jotai";
-import { isShowPickerAtom } from "atoms";
 
 type NamedButtonProps = {
   icon: ReactElement;
@@ -15,7 +14,7 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   /** 버튼을 클릭할 경우 확장 */
-  const [isShowPicker, setIsShowPicker] = useAtom(isShowPickerAtom);
+  const [isShowPicker, setIsShowPicker] = useState(false);
 
   const buttonRef = useRef<HTMLDivElement>(null);
 
