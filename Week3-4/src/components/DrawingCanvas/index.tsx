@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
-import { activatedObjectTypeAtom } from "atoms";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom } from "jotai";
+import { activatedObjectsAtom } from "atoms";
 
 type selectedImageType = {
   path: string;
@@ -12,35 +12,13 @@ let drawingCanvas: fabric.Canvas;
 
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
-  const setActivatedObjectType = useSetAtom(activatedObjectTypeAtom);
+  const [activatedObjects, setActivatedObjects] = useAtom(activatedObjectsAtom);
 
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
-    const activatedObjects = drawingCanvas.getActiveObjects();
-    /** 여러 개 선택되어 있다면 */
-    if (activatedObjects.length > 1) {
-      setActivatedObjectType("group");
-    } else {
-      const activatedObject: fabric.Object = activatedObjects[0];
-      /** 하나만 선택했다면 */
-      /** 직선인지 */
-      if (activatedObject instanceof fabric.Polyline) {
-        setActivatedObjectType("line");
-      } else if (activatedObject instanceof fabric.Image) {
-        /** 이미지인지 */
-        setActivatedObjectType("image");
-      } else if (activatedObject instanceof fabric.Text) {
-        setActivatedObjectType("text");
-      } else {
-        /** 삼각형 혹은 원형인지 */
-        /** choice라는 name을 가지고 있다면 보기 상자 */
-        if (activatedObject.name === "choice") {
-          setActivatedObjectType("choice");
-        } else {
-          setActivatedObjectType("shape");
-        }
-      }
-    }
+    const newActivatedObjects: fabric.Object[] =
+      drawingCanvas.getActiveObjects();
+    setActivatedObjects(newActivatedObjects);
   };
 
   useEffect(() => {
@@ -58,7 +36,7 @@ const DrawingCanvas = () => {
 
     /** 캔버스 선택 객체 해제 이벤트 */
     drawingCanvas.on("selection:cleared", () => {
-      setActivatedObjectType("none");
+      setActivatedObjects([]);
     });
 
     return () => {

@@ -9,13 +9,14 @@ import { isShowImageModalAtom } from "atoms";
 const Main = () => {
   const isShowImageModal: boolean = useAtomValue(isShowImageModalAtom);
 
+  /** main페이지에서 backspace 감지 시 객체 삭제 */
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Backspace") {
+      deleteObject();
+    }
+  };
+
   useEffect(() => {
-    /** main페이지에서 backspace 감지 시 객체 삭제 */
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Backspace") {
-        deleteObject();
-      }
-    };
     document.addEventListener("keydown", handleKeyDown);
 
     /** TODO: 페이지에서 ctrl+G 눌렸을 시 객체들 그룹화 */
