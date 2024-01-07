@@ -3,8 +3,8 @@ import * as S from "./style";
 import DrawingCanvas, { deleteObject } from "components/DrawingCanvas";
 import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
-import { useAtom, useAtomValue } from "jotai";
-import { isShowImageModalAtom, isShowPickerAtom } from "atoms";
+import { useAtomValue } from "jotai";
+import { isShowImageModalAtom } from "atoms";
 
 const Main = () => {
   const isShowImageModal: boolean = useAtomValue(isShowImageModalAtom);

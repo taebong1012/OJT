@@ -1,6 +1,5 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
 import * as S from "./style";
-import { useAtom } from "jotai";
 
 type NamedButtonProps = {
   icon: ReactElement;
@@ -28,9 +27,7 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
         setIsShowPicker(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
