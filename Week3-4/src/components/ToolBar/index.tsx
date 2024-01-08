@@ -46,8 +46,7 @@ const ToolBar = () => {
     <S.Container>
       <Default />
       {curObjectType === "shape" ? <ShapeTools /> : null}
-      {/* {curObjectType === "text" ? <TextTools /> : null} */}
-      <TextTools />
+      {curObjectType === "text" ? <TextTools /> : null}
       {curObjectType === "diselected" ? null : <UpDown />}
     </S.Container>
   );

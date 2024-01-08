@@ -3,6 +3,7 @@ import TransparentSvg from "assets/svg/ic_transparent.svg";
 import * as S from "./style";
 import {
   changeFill,
+  changeFontBackground,
   changeStokeStyle,
   changeStrokeColor,
   changeStrokeWidth,
@@ -44,21 +45,6 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
     [20, 10],
   ];
 
-  type TransparentProps = {
-    handleOnClick: (color: string) => void;
-  };
-  const Transparent = ({ handleOnClick }: TransparentProps) => {
-    return (
-      <S.Color
-        onClick={() => {
-          handleOnClick;
-        }}
-      >
-        <img src={TransparentSvg} />
-      </S.Color>
-    );
-  };
-
   /** 속성 타입에 따라 노출 컨텐츠 변경: 배경색, 테두리 색, 테두리 굵기, 테두리 종류, 폰트 색상 */
   const Contents = () => {
     switch (type) {
@@ -68,10 +54,9 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
             {colors.map((color, index) => {
               if (color === "transparent") {
                 return (
-                  <Transparent
-                    handleOnClick={() => changeFill(color)}
-                    key={index}
-                  />
+                  <S.Color onClick={() => changeFill(color)} key={index}>
+                    <img src={TransparentSvg} />
+                  </S.Color>
                 );
               } else {
                 return (
@@ -93,10 +78,9 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
             {colors.map((color, index) => {
               if (color === "transparent") {
                 return (
-                  <Transparent
-                    handleOnClick={() => changeStrokeColor(color)}
-                    key={index}
-                  />
+                  <S.Color onClick={() => changeStrokeColor(color)} key={index}>
+                    <img src={TransparentSvg} />
+                  </S.Color>
                 );
               } else {
                 return (
@@ -154,11 +138,49 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
               if (color === "transparent") {
                 return null;
               } else {
-                return <S.Color color={color} key={index} />;
+                return (
+                  <S.Color
+                    color={color}
+                    key={index}
+                    onClick={() => {
+                      changeFill(color);
+                    }}
+                  />
+                );
               }
             })}
           </S.ColorsWrapper>
         );
+      case "fontBackground":
+        return (
+          <S.ColorsWrapper>
+            {colors.map((color, index) => {
+              if (color === "transparent") {
+                return (
+                  <S.Color
+                    onClick={() => changeFontBackground(color)}
+                    key={index}
+                  >
+                    <img src={TransparentSvg} />
+                  </S.Color>
+                );
+              } else {
+                return (
+                  <S.Color
+                    color={color}
+                    key={index}
+                    onClick={() => {
+                      changeFontBackground(color);
+                    }}
+                  />
+                );
+              }
+            })}
+          </S.ColorsWrapper>
+        );
+      default:
+        console.error("No ExtenseButton type");
+        return <></>;
     }
   };
 

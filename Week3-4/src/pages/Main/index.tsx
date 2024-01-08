@@ -16,6 +16,11 @@ const Main = () => {
     }
   };
 
+  const activatedObjects = useAtomValue(activatedObjectsAtom);
+  useEffect(() => {
+    console.log("activatedObjects", activatedObjects);
+  }, [activatedObjects]);
+
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
 

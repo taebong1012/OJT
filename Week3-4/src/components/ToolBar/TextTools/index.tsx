@@ -3,6 +3,7 @@ import {
   RxMinus,
   RxPlus,
   RxBlendingMode,
+  RxLetterCaseCapitalize,
 } from "react-icons/rx";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
@@ -130,13 +131,26 @@ const TextTools = () => {
         icon={
           <ToolBarIconWithColor
             icon={<RxBlendingMode />}
+            color={
+              textObject
+                ? (textObject.backgroundColor as string)
+                : "transparent"
+            }
+          />
+        }
+        text="글자 배경 변경"
+        type="fontBackground"
+      />
+      <ExtenseButton
+        icon={
+          <ToolBarIconWithColor
+            icon={<RxLetterCaseCapitalize />}
             color={textObject ? (textObject.fill as string) : "transparent"}
           />
         }
         text="글자 색 변경"
-        type="backroundColor"
+        type="fontColor"
       />
-      {/* <NamedButton handleOnClick={test} icon={<RxChevronUp />} text="맨 뒤로" /> */}
     </>
   );
 };

@@ -116,6 +116,7 @@ export const addText = () => {
       left: 350,
       fill: "black",
       fontFamily: "Helvetica",
+      backgroundColor: "transparent",
     });
 
     drawingCanvas.add(newText);
@@ -303,5 +304,16 @@ export const changeFontSize = (fontSize: number) => {
 
       drawingCanvas.requestRenderAll();
     }
+  }
+};
+
+/** 현재 선택된 텍스트의 배경 색 변경 */
+export const changeFontBackground = (color: string) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (selectedObject && selectedObject instanceof fabric.IText) {
+    const textObject = selectedObject as fabric.IText;
+    textObject.set("backgroundColor", color);
+
+    drawingCanvas.requestRenderAll();
   }
 };
