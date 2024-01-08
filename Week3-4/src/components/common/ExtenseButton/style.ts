@@ -32,3 +32,22 @@ export const Picker = styled.div`
   transform: translate(calc(-50% + 15px), 0);
   z-index: 10;
 `;
+
+export const ColorsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 135px;
+`;
+
+export const Color = styled.div`
+  height: 20px;
+  width: 30px;
+  background-color: ${(props) => props.color};
+  border: 0.5px solid #d4d4d4;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid black;
+  }
+`;

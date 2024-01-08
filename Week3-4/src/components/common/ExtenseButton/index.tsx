@@ -1,5 +1,7 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
+import TransparentSvg from "assets/svg/ic_transparent.svg";
 import * as S from "./style";
+import { changeFill, changeStrokeColor } from "components/DrawingCanvas";
 
 type NamedButtonProps = {
   icon: ReactElement;
@@ -15,8 +17,106 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
   /** 버튼을 클릭할 경우 확장 */
   const [isShowPicker, setIsShowPicker] = useState(false);
 
-  const buttonRef = useRef<HTMLDivElement>(null);
+  /** 색상 저장 배열 */
+  const colors = [
+    "transparent",
+    "black",
+    "white",
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "pink",
+  ];
 
+  type TransparentProps = {
+    handleOnClick: (color: string) => void;
+  };
+  const Transparent = ({ handleOnClick }: TransparentProps) => {
+    return (
+      <S.Color
+        onClick={() => {
+          handleOnClick;
+        }}
+      >
+        <img src={TransparentSvg} />
+      </S.Color>
+    );
+  };
+
+  /** 속성 타입에 따라 노출 컨텐츠 변경: 배경색, 테두리 색, 테두리 굵기, 테두리 종류, 폰트 색상 */
+  const Contents = () => {
+    switch (type) {
+      case "backroundColor":
+        return (
+          <S.ColorsWrapper>
+            {colors.map((color, index) => {
+              if (color === "transparent") {
+                return (
+                  <Transparent
+                    handleOnClick={() => changeFill(color)}
+                    key={index}
+                  />
+                );
+              } else {
+                return (
+                  <S.Color
+                    color={color}
+                    key={index}
+                    onClick={() => {
+                      changeFill(color);
+                    }}
+                  />
+                );
+              }
+            })}
+          </S.ColorsWrapper>
+        );
+      case "strokeColor":
+        return (
+          <S.ColorsWrapper>
+            {colors.map((color, index) => {
+              if (color === "transparent") {
+                return (
+                  <Transparent
+                    handleOnClick={() => changeStrokeColor(color)}
+                    key={index}
+                  />
+                );
+              } else {
+                return (
+                  <S.Color
+                    color={color}
+                    key={index}
+                    onClick={() => {
+                      changeStrokeColor(color);
+                    }}
+                  />
+                );
+              }
+            })}
+          </S.ColorsWrapper>
+        );
+      case "strokeWidth":
+        return <></>;
+      case "strokeStyle":
+        return <></>;
+      case "fontColor":
+        return (
+          <S.ColorsWrapper>
+            {colors.map((color, index) => {
+              if (color === "transparent") {
+                return null;
+              } else {
+                return <S.Color color={color} key={index} />;
+              }
+            })}
+          </S.ColorsWrapper>
+        );
+    }
+  };
+
+  const buttonRef = useRef<HTMLDivElement>(null);
   /** 속성 선택 외부 영역 선택 시 닫기 */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,22 +132,6 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setIsShowPicker]);
-
-  /** 속성 타입에 따라 노출 컨텐츠 변경: 배경색, 테두리 색, 테두리 굵기, 테두리 종류, 폰트 색상 */
-  const Contents = () => {
-    switch (type) {
-      case "backroundColor":
-        return <></>;
-      case "strokeColor":
-        return <></>;
-      case "strokeWidth":
-        return <></>;
-      case "strokeStyle":
-        return <></>;
-      case "fontColor":
-        return <></>;
-    }
-  };
 
   return (
     <S.Container ref={buttonRef}>

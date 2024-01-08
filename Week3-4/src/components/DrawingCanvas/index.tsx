@@ -174,6 +174,7 @@ export const drawCircle = () => {
   }
 };
 
+/** 캔버스에 선 추가 */
 export const drawLine = () => {
   if (!drawingCanvas) {
     console.error("drawingCanvas does not exist");
@@ -200,6 +201,7 @@ export const drawLine = () => {
   }
 };
 
+/** 캔버스에 이미지 추가 */
 export const addImg = (selectedImages: selectedImageType[]) => {
   if (!drawingCanvas) {
     console.error("drawingCanvas does not exist");
@@ -222,3 +224,30 @@ export const addImg = (selectedImages: selectedImageType[]) => {
     });
   }
 };
+
+/** 현재 선택된 도형의 배경 색 변경 */
+export const changeFill = (color: string) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (
+    selectedObject &&
+    (selectedObject instanceof fabric.Rect ||
+      selectedObject instanceof fabric.Circle)
+  ) {
+    drawingCanvas.getActiveObject()!.set("fill", color);
+    drawingCanvas.requestRenderAll();
+  }
+};
+
+/** 현재 선택된 도형의 테두리 색 변경 */
+export const changeStrokeColor = (color: string) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (
+    selectedObject &&
+    (selectedObject instanceof fabric.Rect ||
+      selectedObject instanceof fabric.Circle)
+  ) {
+    drawingCanvas.getActiveObject()!.set("stroke", color);
+    drawingCanvas.requestRenderAll();
+  }
+};
+
