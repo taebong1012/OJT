@@ -234,7 +234,8 @@ export const changeFill = (color: string) => {
   if (
     selectedObject &&
     (selectedObject instanceof fabric.Rect ||
-      selectedObject instanceof fabric.Circle)
+      selectedObject instanceof fabric.Circle ||
+      selectedObject instanceof fabric.IText)
   ) {
     drawingCanvas.getActiveObject()!.set("fill", color);
     drawingCanvas.requestRenderAll();
@@ -294,11 +295,13 @@ export const changeFontFamily = (fontFamily: string) => {
 
 /** 현재 선택된 텍스트의 폰트 크기 변경 */
 export const changeFontSize = (fontSize: number) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
-  if (selectedObject && selectedObject instanceof fabric.IText) {
-    const textObject = selectedObject as fabric.IText;
-    textObject.set("fontSize", fontSize);
+  if (drawingCanvas) {
+    const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+    if (selectedObject && selectedObject instanceof fabric.IText) {
+      const textObject = selectedObject as fabric.IText;
+      textObject.set("fontSize", fontSize);
 
-    drawingCanvas.requestRenderAll();
+      drawingCanvas.requestRenderAll();
+    }
   }
 };

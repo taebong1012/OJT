@@ -1,4 +1,9 @@
-import { RxTriangleDown, RxMinus, RxPlus } from "react-icons/rx";
+import {
+  RxTriangleDown,
+  RxMinus,
+  RxPlus,
+  RxBlendingMode,
+} from "react-icons/rx";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import { changeFontFamily, changeFontSize } from "components/DrawingCanvas";
@@ -7,6 +12,7 @@ import ExtenseButton from "components/common/ExtenseButton";
 import { useAtomValue } from "jotai";
 import { activatedObjectsAtom } from "atoms";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import ToolBarIconWithColor from "components/common/ToolBarIconWithColor";
 
 const TextTools = () => {
   /** 폰트가 저장된 배열 */
@@ -120,8 +126,17 @@ const TextTools = () => {
         icon={<RxPlus />}
         text="폰트 크기 증가"
       />
-      {/* <ExtenseButton handleOnClick={test} icon={<RxChevronUp />} text="뒤로" />
-      <NamedButton handleOnClick={test} icon={<RxChevronUp />} text="맨 뒤로" /> */}
+      <ExtenseButton
+        icon={
+          <ToolBarIconWithColor
+            icon={<RxBlendingMode />}
+            color={textObject ? (textObject.fill as string) : "transparent"}
+          />
+        }
+        text="글자 색 변경"
+        type="backroundColor"
+      />
+      {/* <NamedButton handleOnClick={test} icon={<RxChevronUp />} text="맨 뒤로" /> */}
     </>
   );
 };
