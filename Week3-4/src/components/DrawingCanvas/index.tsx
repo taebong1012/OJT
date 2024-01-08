@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import fabric from "controller/fabric";
 import { useAtom } from "jotai";
 import { activatedObjectsAtom } from "atoms";
+import Controller from "controller/core";
 
 type selectedImageType = {
   path: string;
@@ -10,6 +11,9 @@ type selectedImageType = {
 
 let drawingCanvas: fabric.Canvas;
 
+/** 커스텀 fabric 인스턴스 */
+const controller = new Controller();
+
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
   const [activatedObjects, setActivatedObjects] = useAtom(activatedObjectsAtom);
@@ -17,31 +21,37 @@ const DrawingCanvas = () => {
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
     const newActivatedObjects: fabric.Object[] =
-      drawingCanvas.getActiveObjects();
+      controller.canvas!.getActiveObjects();
     setActivatedObjects(newActivatedObjects);
   };
 
   useEffect(() => {
-    drawingCanvas = new fabric.Canvas("drawing-canvas", {
-      width: 800,
-      height: 500,
-      backgroundColor: "white",
-    });
+    const canvasElement = document.getElementById(
+      "drawing-canvas"
+    ) as HTMLCanvasElement;
 
-    /** 캔버스 객체 선택 발생 이벤트 */
-    drawingCanvas.on("selection:created", handleOnClickCanvasObject);
+    /** 캔버스 생성 */
+    controller.injectCanvas(canvasElement);
 
-    /** 캔버스 선택 객체 변경 이벤트 */
-    drawingCanvas.on("selection:updated", handleOnClickCanvasObject);
+    if (controller.canvas) {
+      controller.canvas.backgroundColor = "white";
+      controller.canvas.setDimensions({ width: 800, height: 600 });
 
-    /** 캔버스 선택 객체 해제 이벤트 */
-    drawingCanvas.on("selection:cleared", () => {
-      setActivatedObjects([]);
-    });
+      /** 캔버스 객체 선택 발생 이벤트 */
+      controller.canvas.on("selection:created", handleOnClickCanvasObject);
+
+      /** 캔버스 선택 객체 변경 이벤트 */
+      controller.canvas.on("selection:updated", handleOnClickCanvasObject);
+
+      /** 캔버스 선택 객체 해제 이벤트 */
+      controller.canvas.on("selection:cleared", () => {
+        setActivatedObjects([]);
+      });
+    }
 
     return () => {
-      if (drawingCanvas) {
-        drawingCanvas.dispose();
+      if (controller.canvas) {
+        controller.canvas.dispose();
       }
     };
   }, []);
@@ -53,26 +63,27 @@ export default DrawingCanvas;
 
 /** 키보드 backspace 입력 시 활성화된 객체 삭제 */
 export const deleteObject = () => {
-  if (!drawingCanvas) {
+  if (!controller.canvas) {
     console.error("drawingCanvas does not exist");
   } else {
     console.log("오브젝트 삭제");
 
-    const selectedObjects: fabric.Object[] = drawingCanvas.getActiveObjects();
+    const selectedObjects: fabric.Object[] =
+      controller.canvas.getActiveObjects();
 
     selectedObjects.forEach((obj: fabric.Object) => {
-      drawingCanvas.remove(obj);
+      controller.canvas!.remove(obj);
     });
 
-    drawingCanvas.discardActiveObject();
-    drawingCanvas.requestRenderAll();
+    controller.canvas.discardActiveObject();
+    controller.canvas.requestRenderAll();
   }
 };
 
 /** 보기 상자 추가 */
 export const addChoice = () => {
-  if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+  if (!controller.canvas) {
+    console.error("controller.canvas does not exist");
   } else {
     console.log("보기 상자 추가");
 
@@ -99,17 +110,17 @@ export const addChoice = () => {
 
     newRect.set("shadow", shadow);
 
-    drawingCanvas.add(newRect);
+    controller.add(newRect);
 
-    drawingCanvas.setActiveObject(newRect);
-    drawingCanvas.requestRenderAll();
+    controller.canvas.setActiveObject(newRect);
+    controller.canvas.requestRenderAll();
   }
 };
 
 /** 텍스트 추가 */
 export const addText = () => {
-  if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+  if (!controller.canvas) {
+    console.error("controller.canvas does not exist");
   } else {
     const newText = new fabric.IText("Text", {
       top: 200,
@@ -119,10 +130,10 @@ export const addText = () => {
       backgroundColor: "transparent",
     });
 
-    drawingCanvas.add(newText);
+    controller.add(newText);
 
-    drawingCanvas.setActiveObject(newText);
-    drawingCanvas.requestRenderAll();
+    controller.canvas.setActiveObject(newText);
+    controller.canvas.requestRenderAll();
 
     console.log(newText);
   }
@@ -130,11 +141,9 @@ export const addText = () => {
 
 /** 캔버스에 사각형 추가 */
 export const drawRect = () => {
-  if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+  if (!controller.canvas) {
+    console.error("controller.canvas does not exist");
   } else {
-    console.log("사각형 추가");
-
     const newRect = new fabric.Rect({
       top: 50,
       left: 50,
@@ -146,17 +155,17 @@ export const drawRect = () => {
       strokeWidth: 1,
     });
 
-    drawingCanvas.add(newRect);
+    controller.add(newRect);
 
-    drawingCanvas.setActiveObject(newRect);
-    drawingCanvas.requestRenderAll();
+    controller.canvas.setActiveObject(newRect);
+    controller.canvas.requestRenderAll();
   }
 };
 
 /** 캔버스에 원 추가 */
 export const drawCircle = () => {
-  if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+  if (!controller.canvas) {
+    console.error("controller.canvas does not exist");
   } else {
     console.log("원 추가");
 
@@ -170,18 +179,18 @@ export const drawCircle = () => {
       strokeWidth: 1,
     });
 
-    drawingCanvas.add(newCircle);
+    controller.add(newCircle);
 
     /** 활성화 시키기 */
-    drawingCanvas.setActiveObject(newCircle);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.setActiveObject(newCircle);
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 캔버스에 선 추가 */
 export const drawLine = () => {
   if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+    console.error("controller.canvas! does not exist");
   } else {
     console.log("직선 추가");
 
@@ -197,18 +206,18 @@ export const drawLine = () => {
       }
     );
 
-    drawingCanvas.add(newLine);
+    controller.add(newLine);
 
     /** 활성화 시키기 */
-    drawingCanvas.setActiveObject(newLine);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.setActiveObject(newLine);
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 캔버스에 이미지 추가 */
 export const addImg = (selectedImages: selectedImageType[]) => {
-  if (!drawingCanvas) {
-    console.error("drawingCanvas does not exist");
+  if (!controller.canvas) {
+    console.error("controller.canvas does not exist");
   } else {
     console.log("이미지들 추가");
 
@@ -221,9 +230,9 @@ export const addImg = (selectedImages: selectedImageType[]) => {
           top: 50 + index * 30,
         });
 
-        drawingCanvas.add(img);
-        drawingCanvas.setActiveObject(img);
-        drawingCanvas.requestRenderAll();
+        controller.add(img);
+        controller.canvas!.setActiveObject(img);
+        controller.canvas!.requestRenderAll();
       });
     });
   }
@@ -231,41 +240,41 @@ export const addImg = (selectedImages: selectedImageType[]) => {
 
 /** 현재 선택된 도형의 배경 색 변경 */
 export const changeFill = (color: string) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (
     selectedObject &&
     (selectedObject instanceof fabric.Rect ||
       selectedObject instanceof fabric.Circle ||
       selectedObject instanceof fabric.IText)
   ) {
-    drawingCanvas.getActiveObject()!.set("fill", color);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.getActiveObject()!.set("fill", color);
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 현재 선택된 도형의 테두리 색 변경 */
 export const changeStrokeColor = (color: string) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (
     selectedObject &&
     (selectedObject instanceof fabric.Rect ||
       selectedObject instanceof fabric.Circle)
   ) {
-    drawingCanvas.getActiveObject()!.set("stroke", color);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.getActiveObject()!.set("stroke", color);
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 현재 선택된 도형의 테두리 굵기 변경 */
 export const changeStrokeWidth = (width: number) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (
     selectedObject &&
     (selectedObject instanceof fabric.Rect ||
       selectedObject instanceof fabric.Circle)
   ) {
-    drawingCanvas.getActiveObject()!.set("strokeWidth", width);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.getActiveObject()!.set("strokeWidth", width);
+    controller.canvas!.requestRenderAll();
   }
 };
 
@@ -278,42 +287,42 @@ export const changeStokeStyle = (dashArray: Array<number>) => {
     (selectedObject instanceof fabric.Rect ||
       selectedObject instanceof fabric.Circle)
   ) {
-    drawingCanvas.getActiveObject()!.set("strokeDashArray", dashArray);
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.getActiveObject()!.set("strokeDashArray", dashArray);
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 현재 선택된 텍스트의 폰트 스타일 변경 */
 export const changeFontFamily = (fontFamily: string) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (selectedObject && selectedObject instanceof fabric.IText) {
     const textObject = selectedObject as fabric.IText;
     textObject.set("fontFamily", fontFamily);
 
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.requestRenderAll();
   }
 };
 
 /** 현재 선택된 텍스트의 폰트 크기 변경 */
 export const changeFontSize = (fontSize: number) => {
-  if (drawingCanvas) {
-    const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (controller.canvas) {
+    const selectedObject = controller.canvas.getActiveObject() as fabric.Object;
     if (selectedObject && selectedObject instanceof fabric.IText) {
       const textObject = selectedObject as fabric.IText;
       textObject.set("fontSize", fontSize);
 
-      drawingCanvas.requestRenderAll();
+      controller.canvas.requestRenderAll();
     }
   }
 };
 
 /** 현재 선택된 텍스트의 배경 색 변경 */
 export const changeFontBackground = (color: string) => {
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (selectedObject && selectedObject instanceof fabric.IText) {
     const textObject = selectedObject as fabric.IText;
     textObject.set("backgroundColor", color);
 
-    drawingCanvas.requestRenderAll();
+    controller.canvas!.requestRenderAll();
   }
 };
