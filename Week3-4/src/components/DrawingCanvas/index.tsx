@@ -188,7 +188,7 @@ export const drawLine = () => {
     const newLine = new fabric.Polyline(
       [
         { x: 50, y: 50 },
-        { x: 250, y: 250 },
+        { x: 150, y: 150 },
       ],
       {
         stroke: "black",
