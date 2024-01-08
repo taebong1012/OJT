@@ -26,7 +26,7 @@ const TextTools = () => {
   const [isPickerOpened, setIsPickerOpened] = useState(false);
 
   /** 폰트 사이즈 */
-  const [fontSize, setFontSize] = useState<number>(16);
+  const [fontSize, setFontSize] = useState<number>();
 
   useEffect(() => {
     if (activatedObjects) {
