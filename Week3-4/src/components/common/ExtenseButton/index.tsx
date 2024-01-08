@@ -1,7 +1,11 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
 import TransparentSvg from "assets/svg/ic_transparent.svg";
 import * as S from "./style";
-import { changeFill, changeStrokeColor } from "components/DrawingCanvas";
+import {
+  changeFill,
+  changeStrokeColor,
+  changeStrokeWidth,
+} from "components/DrawingCanvas";
 
 type NamedButtonProps = {
   icon: ReactElement;
@@ -28,6 +32,9 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
     "yellow",
     "pink",
   ];
+
+  /** 테두리 굵기 저장 배열 */
+  const widths = [1, 2, 4, 8, 12, 16];
 
   type TransparentProps = {
     handleOnClick: (color: string) => void;
@@ -98,7 +105,23 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
           </S.ColorsWrapper>
         );
       case "strokeWidth":
-        return <></>;
+        return (
+          <S.StrokeContainer>
+            {widths.map((width, index) => {
+              return (
+                <S.StrokeWrapper
+                  key={index}
+                  onClick={() => {
+                    changeStrokeWidth(width);
+                  }}
+                >
+                  <S.StrokeWidth $width={width} />
+                  <S.StrokeWidthText>{width}px</S.StrokeWidthText>
+                </S.StrokeWrapper>
+              );
+            })}
+          </S.StrokeContainer>
+        );
       case "strokeStyle":
         return <></>;
       case "fontColor":

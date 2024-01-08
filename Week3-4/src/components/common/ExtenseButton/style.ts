@@ -51,3 +51,35 @@ export const Color = styled.div`
     border: 1px solid black;
   }
 `;
+
+export const StrokeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+export const StrokeWrapper = styled.div`
+  display: flex;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.hover};
+  }
+`;
+
+interface StrokeWidthProps {
+  $width: number;
+}
+export const StrokeWidth = styled.hr<StrokeWidthProps>`
+  width: 100px;
+  height: 0px;
+  border-bottom: ${(props) => props.$width}px solid black;
+`;
+
+export const StrokeWidthText = styled.span`
+  width: 30px;
+  display: flex;
+  justify-content: end;
+`;

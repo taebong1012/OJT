@@ -251,3 +251,15 @@ export const changeStrokeColor = (color: string) => {
   }
 };
 
+/** 현재 선택된 도형의 테두리 굵기 변경 */
+export const changeStrokeWidth = (width: number) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (
+    selectedObject &&
+    (selectedObject instanceof fabric.Rect ||
+      selectedObject instanceof fabric.Circle)
+  ) {
+    drawingCanvas.getActiveObject()!.set("strokeWidth", width);
+    drawingCanvas.requestRenderAll();
+  }
+};
