@@ -6,6 +6,7 @@ import { activatedObjectsAtom } from "atoms";
 import { useEffect, useState } from "react";
 import UpDown from "components/ToolBar/UpDownTools";
 import ShapeTools from "components/ToolBar/ShapeTools";
+import TextTools from "components/ToolBar/TextTools";
 
 const ToolBar = () => {
   const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
@@ -45,6 +46,8 @@ const ToolBar = () => {
     <S.Container>
       <Default />
       {curObjectType === "shape" ? <ShapeTools /> : null}
+      {/* {curObjectType === "text" ? <TextTools /> : null} */}
+      <TextTools />
       {curObjectType === "diselected" ? null : <UpDown />}
     </S.Container>
   );

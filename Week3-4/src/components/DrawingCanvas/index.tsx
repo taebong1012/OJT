@@ -115,12 +115,15 @@ export const addText = () => {
       top: 200,
       left: 350,
       fill: "black",
+      fontFamily: "Helvetica",
     });
 
     drawingCanvas.add(newText);
 
     drawingCanvas.setActiveObject(newText);
     drawingCanvas.requestRenderAll();
+
+    console.log(newText);
   }
 };
 
@@ -274,6 +277,17 @@ export const changeStokeStyle = (dashArray: Array<number>) => {
       selectedObject instanceof fabric.Circle)
   ) {
     drawingCanvas.getActiveObject()!.set("strokeDashArray", dashArray);
+    drawingCanvas.requestRenderAll();
+  }
+};
+
+/** 현재 선택된 텍스트의 폰트 변경 */
+export const changeFontFamily = (fontFamily: string) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (selectedObject && selectedObject instanceof fabric.IText) {
+    const textObject = selectedObject as fabric.IText;
+    textObject.set("fontFamily", fontFamily);
+
     drawingCanvas.requestRenderAll();
   }
 };
