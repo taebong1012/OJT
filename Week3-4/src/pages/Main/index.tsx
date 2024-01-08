@@ -4,10 +4,15 @@ import DrawingCanvas, { deleteObject } from "components/DrawingCanvas";
 import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
 import { useAtomValue } from "jotai";
-import { isShowImageModalAtom } from "atoms";
+import { activatedObjectsAtom, isShowImageModalAtom } from "atoms";
 
 const Main = () => {
   const isShowImageModal: boolean = useAtomValue(isShowImageModalAtom);
+
+  const activatedObjects = useAtomValue(activatedObjectsAtom);
+  useEffect(() => {
+    console.log(activatedObjects);
+  }, [activatedObjects]);
 
   /** main페이지에서 backspace 감지 시 객체 삭제 */
   const handleKeyDown = (event: KeyboardEvent) => {

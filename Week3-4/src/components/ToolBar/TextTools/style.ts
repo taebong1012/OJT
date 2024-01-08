@@ -15,6 +15,8 @@ export const FontFamilyWrapper = styled.div`
   border: 1px solid #dadfe8;
   border-radius: 5px;
   align-items: center;
+  cursor: pointer;
+  font-size: 0.75rem;
 `;
 
 export const PickerContainer = styled.div`
@@ -48,4 +50,12 @@ export const Font = styled.div<FontProps>`
   &:hover {
     background-color: ${({ theme }) => theme.colors.hover};
   }
+`;
+
+export const FontSizeInput = styled.input`
+  width: 40px;
+  height: 30px;
+  margin-right: 4px;
+  border: 1px solid #dadfe8;
+  text-align: center;
 `;

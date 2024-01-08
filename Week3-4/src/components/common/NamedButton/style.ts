@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  margin-right: 15px;
+type ContainerProps = {
+  $marginRight: number;
+};
+export const Container = styled.div<ContainerProps>`
+  margin-right: ${(props) => props.$marginRight}px;
   position: relative;
 `;
 

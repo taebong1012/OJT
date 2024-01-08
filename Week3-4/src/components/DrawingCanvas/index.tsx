@@ -281,12 +281,23 @@ export const changeStokeStyle = (dashArray: Array<number>) => {
   }
 };
 
-/** 현재 선택된 텍스트의 폰트 변경 */
+/** 현재 선택된 텍스트의 폰트 스타일 변경 */
 export const changeFontFamily = (fontFamily: string) => {
   const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
   if (selectedObject && selectedObject instanceof fabric.IText) {
     const textObject = selectedObject as fabric.IText;
     textObject.set("fontFamily", fontFamily);
+
+    drawingCanvas.requestRenderAll();
+  }
+};
+
+/** 현재 선택된 텍스트의 폰트 크기 변경 */
+export const changeFontSize = (fontSize: number) => {
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (selectedObject && selectedObject instanceof fabric.IText) {
+    const textObject = selectedObject as fabric.IText;
+    textObject.set("fontSize", fontSize);
 
     drawingCanvas.requestRenderAll();
   }

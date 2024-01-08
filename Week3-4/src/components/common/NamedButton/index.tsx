@@ -5,14 +5,20 @@ type NamedButtonProps = {
   handleOnClick: MouseEventHandler;
   icon: ReactElement;
   text: string;
+  marginRight?: number;
 };
 
-const NamedButton = ({ handleOnClick, icon, text }: NamedButtonProps) => {
+const NamedButton = ({
+  handleOnClick,
+  icon,
+  text,
+  marginRight = 15,
+}: NamedButtonProps) => {
   /** 버튼 위에 마우스가 hover 되어있는지 여부 판단 */
   const [isMouseOver, setIsMouseOver] = useState(false);
 
   return (
-    <S.Container>
+    <S.Container $marginRight={marginRight}>
       <button
         onClick={handleOnClick}
         onMouseOver={() => setIsMouseOver(true)}

@@ -103,6 +103,15 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.clicked};
   }
 
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    appearance: textfield;
+  }
+
   canvas {
     filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.25));
   }
