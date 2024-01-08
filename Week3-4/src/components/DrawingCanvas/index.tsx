@@ -136,8 +136,8 @@ export const drawRect = () => {
     console.log("사각형 추가");
 
     const newRect = new fabric.Rect({
-      top: 200,
-      left: 350,
+      top: 50,
+      left: 50,
       width: 100,
       height: 100,
       fill: "white",
