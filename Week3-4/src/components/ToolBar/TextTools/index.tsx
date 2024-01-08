@@ -60,11 +60,11 @@ const TextTools = () => {
   };
 
   const fontSizeDecrease = () => {
-    setFontSize(fontSize - 1);
+    setFontSize(fontSize! - 1);
   };
 
   const fontSizeIncrease = () => {
-    setFontSize(fontSize + 1);
+    setFontSize(fontSize! + 1);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -75,7 +75,7 @@ const TextTools = () => {
   };
 
   useEffect(() => {
-    changeFontSize(fontSize);
+    changeFontSize(fontSize!);
   }, [fontSize]);
 
   const buttonRef = useRef<HTMLDivElement>(null);
