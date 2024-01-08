@@ -3,6 +3,7 @@ import TransparentSvg from "assets/svg/ic_transparent.svg";
 import * as S from "./style";
 import {
   changeFill,
+  changeStokeStyle,
   changeStrokeColor,
   changeStrokeWidth,
 } from "components/DrawingCanvas";
@@ -35,6 +36,13 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
 
   /** 테두리 굵기 저장 배열 */
   const widths = [1, 2, 4, 8, 12, 16];
+
+  /** 테두리 스타일 저장 배열 */
+  const strokeStyles = [
+    [1, 0],
+    [2, 2],
+    [20, 10],
+  ];
 
   type TransparentProps = {
     handleOnClick: (color: string) => void;
@@ -115,7 +123,7 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
                     changeStrokeWidth(width);
                   }}
                 >
-                  <S.StrokeWidth $width={width} />
+                  <S.Stroke $width={width} />
                   <S.StrokeWidthText>{width}px</S.StrokeWidthText>
                 </S.StrokeWrapper>
               );
@@ -123,7 +131,22 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
           </S.StrokeContainer>
         );
       case "strokeStyle":
-        return <></>;
+        return (
+          <S.StrokeStyleContainer>
+            {strokeStyles.map((strokeStyle, index) => {
+              return (
+                <S.StrokeWrapper
+                  key={index}
+                  onClick={() => {
+                    changeStokeStyle(strokeStyle);
+                  }}
+                >
+                  <S.Stroke $dashArray={strokeStyle}></S.Stroke>
+                </S.StrokeWrapper>
+              );
+            })}
+          </S.StrokeStyleContainer>
+        );
       case "fontColor":
         return (
           <S.ColorsWrapper>

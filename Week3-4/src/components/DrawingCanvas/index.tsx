@@ -263,3 +263,17 @@ export const changeStrokeWidth = (width: number) => {
     drawingCanvas.requestRenderAll();
   }
 };
+
+/** 현재 선택된 도형의 테두리 스타일 변경 */
+export const changeStokeStyle = (dashArray: Array<number>) => {
+  console.log(dashArray);
+  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  if (
+    selectedObject &&
+    (selectedObject instanceof fabric.Rect ||
+      selectedObject instanceof fabric.Circle)
+  ) {
+    drawingCanvas.getActiveObject()!.set("strokeDashArray", dashArray);
+    drawingCanvas.requestRenderAll();
+  }
+};

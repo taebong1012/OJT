@@ -70,12 +70,24 @@ export const StrokeWrapper = styled.div`
 `;
 
 interface StrokeWidthProps {
-  $width: number;
+  $width?: number;
+  $dashArray?: Array<number>;
 }
-export const StrokeWidth = styled.hr<StrokeWidthProps>`
+export const Stroke = styled.hr<StrokeWidthProps>`
   width: 100px;
   height: 0px;
-  border-bottom: ${(props) => props.$width}px solid black;
+  border-bottom: ${(props) => (props.$width ? `${props.$width}px` : "2px")}
+    ${(props) =>
+      props.$dashArray
+        ? props.$dashArray[0] === 1
+          ? "solid"
+          : props.$dashArray[0] === 2
+          ? "dotted"
+          : props.$dashArray[0] === 20
+          ? "dashed"
+          : "double"
+        : "solid"}
+    black;
 `;
 
 export const StrokeWidthText = styled.span`
@@ -83,3 +95,5 @@ export const StrokeWidthText = styled.span`
   display: flex;
   justify-content: end;
 `;
+
+export const StrokeStyleContainer = styled.div``;
