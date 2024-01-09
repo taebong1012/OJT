@@ -5,7 +5,6 @@ import { useSetAtom } from "jotai";
 import { isShowImageModalAtom } from "atoms";
 import { useEffect, useState } from "react";
 import { getImages } from "api/SolApis";
-import { addImg } from "components/DrawingCanvas";
 
 type solImageType = {
   extension: string;
@@ -86,7 +85,7 @@ const ImageModalContents = () => {
   /** 추가 버튼 클릭했을 때 처리 */
   const handleOnClickAddButton = () => {
     setIsShowImageModal(false);
-    addImg(selectedImages);
+    // addImg(selectedImages);
   };
 
   /** 페이지네이션 총 길이 */

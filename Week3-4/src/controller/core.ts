@@ -3,16 +3,25 @@ import fabric from "./fabric";
 import { generateId } from "./utils/helper";
 
 export default class Controller {
-  id;
+  static instance: Controller | null = null;
+  id: string;
   canvas?: fabric.Canvas;
 
-  constructor() {
+  private constructor() {
     this.id = generateId();
+  }
+
+  static getInstance(): Controller {
+    if (!Controller.instance) {
+      Controller.instance = new Controller();
+    }
+    return Controller.instance;
   }
 
   injectCanvas(element: HTMLCanvasElement) {
     this.canvas = new fabric.Canvas(element);
   }
+
   add(object: fabric.Object) {
     if (!this.canvas) return;
     const data = object.get("data");
