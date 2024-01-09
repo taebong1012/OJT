@@ -175,16 +175,7 @@ export const makeGroup = () => {
   }
 };
 
-/** 선택된 객체들 그룹해제 */
-export const makeUnGroup = () => {
-  const activatedObject = controller.canvas!.getActiveObject();
 
-  if (activatedObject instanceof fabric.Group) {
-    activatedObject.toActiveSelection();
-  } else {
-    console.error("makeUnGroup: no Group");
-  }
-};
 
 /** 수평적으로 가운데 정렬 */
 export const makeCenterHorizontally = () => {
