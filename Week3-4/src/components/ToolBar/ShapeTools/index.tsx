@@ -17,7 +17,6 @@ const ShapeTools = () => {
   const [curObjectStrokeColor, setCurObjectStrokeColor] = useState("");
 
   useEffect(() => {
-    console.log(activatedObject);
     if (
       activatedObject &&
       activatedObject.fill !== undefined &&

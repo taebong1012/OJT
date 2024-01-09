@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
-import { useAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { activatedObjectAtom } from "atoms";
 import Controller from "controller/core";
 
@@ -14,7 +14,7 @@ const controller = new Controller();
 
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
-  const [activatedObject, setActivatedObject] = useAtom(activatedObjectAtom);
+  const setActivatedObject = useSetAtom(activatedObjectAtom);
 
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
@@ -40,7 +40,7 @@ const DrawingCanvas = () => {
       /** 캔버스 객체 선택 발생 이벤트 */
       controller.canvas.on("selection:created", handleOnClickCanvasObject);
 
-      /** 캔버스 선택 객체 변경 이벤트 */
+      /** 캔버스 객체 선택 변경 이벤트 */
       controller.canvas.on("selection:updated", handleOnClickCanvasObject);
 
       /** 캔버스 선택 객체 해제 이벤트 */

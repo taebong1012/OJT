@@ -19,7 +19,7 @@ const Main = () => {
 
   const activatedObject = useAtomValue(activatedObjectAtom);
   useEffect(() => {
-    console.log("activatedObjects", activatedObject);
+    console.log("activatedObjectsAtom 변경됨", activatedObject);
   }, [activatedObject]);
 
   useEffect(() => {
