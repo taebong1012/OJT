@@ -2,56 +2,66 @@ import Default from "components/ToolBar/DefaultTools";
 import * as S from "./style";
 import fabric from "controller/fabric";
 import { useAtomValue } from "jotai";
-import { activatedObjectsAtom } from "atoms";
+import { activatedObjectAtom } from "atoms";
 import { useEffect, useState } from "react";
 import UpDown from "components/ToolBar/UpDownTools";
 import ShapeTools from "components/ToolBar/ShapeTools";
 import TextTools from "components/ToolBar/TextTools";
 import MultipleTools from "components/ToolBar/MultipleTools";
+import Divider from "components/ToolBar/Divider";
+import NamedButton from "components/common/NamedButton";
+import GroupTools from "components/ToolBar/GroupTools";
+// import { ActiveSelection, Group } from "fabric/fabric-impl";
 
 const ToolBar = () => {
-  const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
+  const activatedObject: fabric.Object | null =
+    useAtomValue(activatedObjectAtom);
 
   const [curObjectType, setCurObjectType] = useState("diselected");
 
   useEffect(() => {
-    /** 선택이 되어있지 않다면 선택되어 있다면 */
-    if (activatedObjects.length <= 0) {
-      setCurObjectType("diselected");
-    } else if (activatedObjects.length > 1) {
-      /** 여러 개 선택되어 있다면 */
-      setCurObjectType("group");
-    } else {
-      /** 하나만 선택했다면 */
-      /** 직선인지 */
-      if (activatedObjects[0] instanceof fabric.Polyline) {
+    if (activatedObject) {
+      if (activatedObject instanceof fabric.ActiveSelection) {
+        /** 여러개 선택되어있는지 */
+        setCurObjectType("multiselected");
+      } else if (activatedObject instanceof fabric.Group) {
+        /** 그룹이라면 */
+        setCurObjectType("group");
+      } else if (activatedObject instanceof fabric.Polyline) {
+        /** 직선인지 */
         setCurObjectType("line");
-      } else if (activatedObjects[0] instanceof fabric.Image) {
+      } else if (activatedObject instanceof fabric.Image) {
         /** 이미지인지 */
         setCurObjectType("image");
-      } else if (activatedObjects[0] instanceof fabric.Text) {
+      } else if (activatedObject instanceof fabric.Text) {
         setCurObjectType("text");
-      } else {
-        /** 삼각형 혹은 원형인지 */
+      } else if (activatedObject.name === "choice") {
         /** choice라는 name을 가지고 있다면 보기 상자 */
-        if (activatedObjects[0].name === "choice") {
-          setCurObjectType("choice");
-        } else {
-          setCurObjectType("shape");
-        }
+        setCurObjectType("choice");
+      } else if (
+        /** 사각형 혹은 원형이라면 */
+        activatedObject instanceof fabric.Rect ||
+        activatedObject instanceof fabric.Circle
+      ) {
+        setCurObjectType("shape");
+      } else {
+        console.log("curObjectType Err");
       }
+    } else {
+      setCurObjectType("diselected");
     }
-  }, [activatedObjects]);
+  }, [activatedObject]);
 
   return (
     <S.Container>
       <Default />
       {curObjectType === "shape" ? <ShapeTools /> : null}
       {curObjectType === "text" ? <TextTools /> : null}
-      {curObjectType === "group" ? <MultipleTools /> : null}
-      {curObjectType !== "diselected" && curObjectType !== "group" ? (
+      {curObjectType === "multiselected" ? <MultipleTools /> : null}
+      {curObjectType !== "diselected" && curObjectType !== "multiselected" ? (
         <UpDown />
       ) : null}
+      {curObjectType === "group" ? <GroupTools /> : null}
     </S.Container>
   );
 };

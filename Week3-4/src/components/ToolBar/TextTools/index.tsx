@@ -11,7 +11,7 @@ import { changeFontFamily, changeFontSize } from "components/DrawingCanvas";
 import * as S from "./style";
 import ExtenseButton from "components/common/ExtenseButton";
 import { useAtomValue } from "jotai";
-import { activatedObjectsAtom } from "atoms";
+import { activatedObjectAtom } from "atoms";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ToolBarIconWithColor from "components/common/ToolBarIconWithColor";
 
@@ -19,7 +19,7 @@ const TextTools = () => {
   /** 폰트가 저장된 배열 */
   const fonts = ["Pretendard", "국민연금체", "MICE명조체", "Helvetica"];
 
-  const activatedObjects = useAtomValue(activatedObjectsAtom);
+  const activatedObject = useAtomValue(activatedObjectAtom);
   const [textObject, setTextObject] = useState<fabric.IText>();
 
   /** 폰트 선택란 노출 여부 */
@@ -29,15 +29,15 @@ const TextTools = () => {
   const [fontSize, setFontSize] = useState<number>();
 
   useEffect(() => {
-    if (activatedObjects) {
-      const obj = activatedObjects[0] as fabric.IText;
+    if (activatedObject) {
+      const obj = activatedObject as fabric.IText;
       setTextObject(obj);
 
       if (obj && obj.fontSize) {
         setFontSize(obj.fontSize);
       }
     }
-  }, [activatedObjects]);
+  }, [activatedObject]);
 
   const FontFamilyPicker = () => {
     return (

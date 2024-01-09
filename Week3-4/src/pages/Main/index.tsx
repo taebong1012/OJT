@@ -4,7 +4,7 @@ import DrawingCanvas, { deleteObject } from "components/DrawingCanvas";
 import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
 import { useAtomValue } from "jotai";
-import { activatedObjectsAtom, isShowImageModalAtom } from "atoms";
+import { activatedObjectAtom, isShowImageModalAtom } from "atoms";
 import Feature from "components/Feature";
 
 const Main = () => {
@@ -17,10 +17,10 @@ const Main = () => {
     }
   };
 
-  const activatedObjects = useAtomValue(activatedObjectsAtom);
+  const activatedObject = useAtomValue(activatedObjectAtom);
   useEffect(() => {
-    console.log("activatedObjects", activatedObjects);
-  }, [activatedObjects]);
+    console.log("activatedObjects", activatedObject);
+  }, [activatedObject]);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);

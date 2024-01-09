@@ -5,4 +5,4 @@ import fabric from "controller/fabric";
 export const isShowImageModalAtom = atom(false);
 
 /** 현재 선택되어있는 객체들 배열 */
-export const activatedObjectsAtom = atom<fabric.Object[]>([]);
+export const activatedObjectAtom = atom<fabric.Object | null>(null);

@@ -8,11 +8,11 @@ import Divider from "components/ToolBar/Divider";
 import ExtenseButton from "components/common/ExtenseButton";
 import ToolBarIconWithColor from "components/common/ToolBarIconWithColor";
 import { useAtomValue } from "jotai";
-import { activatedObjectsAtom } from "atoms";
+import { activatedObjectAtom } from "atoms";
 import { useEffect, useState } from "react";
 
 const ShapeTools = () => {
-  const activatedObject = useAtomValue(activatedObjectsAtom)[0];
+  const activatedObject = useAtomValue(activatedObjectAtom);
   const [curObjectBgColor, setCurObjectBgColor] = useState<string>("");
   const [curObjectStrokeColor, setCurObjectStrokeColor] = useState("");
 

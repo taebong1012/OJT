@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
 import { useAtom } from "jotai";
-import { activatedObjectsAtom } from "atoms";
+import { activatedObjectAtom } from "atoms";
 import Controller from "controller/core";
 
 type selectedImageType = {
@@ -9,20 +9,20 @@ type selectedImageType = {
   imageId: string;
 };
 
-let drawingCanvas: fabric.Canvas;
-
 /** 커스텀 fabric 인스턴스 */
 const controller = new Controller();
 
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
-  const [activatedObjects, setActivatedObjects] = useAtom(activatedObjectsAtom);
+  const [activatedObject, setActivatedObject] = useAtom(activatedObjectAtom);
 
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
-    const newActivatedObjects: fabric.Object[] =
-      controller.canvas!.getActiveObjects();
-    setActivatedObjects(newActivatedObjects);
+    const newActivatedObject: fabric.Object | null =
+      controller.canvas!.getActiveObject();
+    if (newActivatedObject !== null) {
+      setActivatedObject(newActivatedObject as fabric.Object);
+    }
   };
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const DrawingCanvas = () => {
 
       /** 캔버스 선택 객체 해제 이벤트 */
       controller.canvas.on("selection:cleared", () => {
-        setActivatedObjects([]);
+        setActivatedObject(null);
       });
     }
 
@@ -145,14 +145,16 @@ export const drawRect = () => {
     console.error("controller.canvas does not exist");
   } else {
     const newRect = new fabric.Rect({
-      top: 50,
-      left: 50,
+      top: 100,
+      left: 100,
       width: 100,
       height: 100,
       fill: "white",
       stroke: "black",
       strokeUniform: true,
       strokeWidth: 1,
+      originX: "center",
+      originY: "center",
     });
 
     controller.add(newRect);
@@ -170,13 +172,15 @@ export const drawCircle = () => {
     console.log("원 추가");
 
     const newCircle = new fabric.Circle({
-      top: 50,
-      left: 50,
+      top: 100,
+      left: 100,
       radius: 50,
       fill: "white",
       stroke: "black",
       strokeUniform: true,
       strokeWidth: 1,
+      originX: "center",
+      originY: "center",
     });
 
     controller.add(newCircle);
@@ -189,7 +193,7 @@ export const drawCircle = () => {
 
 /** 캔버스에 선 추가 */
 export const drawLine = () => {
-  if (!drawingCanvas) {
+  if (!controller.canvas) {
     console.error("controller.canvas! does not exist");
   } else {
     console.log("직선 추가");
@@ -280,8 +284,7 @@ export const changeStrokeWidth = (width: number) => {
 
 /** 현재 선택된 도형의 테두리 스타일 변경 */
 export const changeStokeStyle = (dashArray: Array<number>) => {
-  console.log(dashArray);
-  const selectedObject = drawingCanvas.getActiveObject() as fabric.Object;
+  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
   if (
     selectedObject &&
     (selectedObject instanceof fabric.Rect ||
@@ -324,5 +327,28 @@ export const changeFontBackground = (color: string) => {
     textObject.set("backgroundColor", color);
 
     controller.canvas!.requestRenderAll();
+  }
+};
+
+/** 선택된 객체들 그룹화 */
+export const makeGroup = () => {
+  const activatedObject = controller.canvas!.getActiveObject();
+
+  if (activatedObject instanceof fabric.ActiveSelection) {
+    activatedObject.toGroup();
+    controller.canvas!.requestRenderAll();
+  } else {
+    console.error("makeGroup: no ActiveSelection");
+  }
+};
+
+/** 선택된 객체들 그룹해제 */
+export const makeUnGroup = () => {
+  const activatedObject = controller.canvas!.getActiveObject();
+
+  if (activatedObject instanceof fabric.Group) {
+    activatedObject.toActiveSelection();
+  } else {
+    console.error("makeUnGroup: no Group");
   }
 };
