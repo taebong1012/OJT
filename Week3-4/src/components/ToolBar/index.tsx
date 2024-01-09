@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import UpDown from "components/ToolBar/UpDownTools";
 import ShapeTools from "components/ToolBar/ShapeTools";
 import TextTools from "components/ToolBar/TextTools";
+import MultipleTools from "components/ToolBar/MultipleTools";
 
 const ToolBar = () => {
   const activatedObjects: fabric.Object[] = useAtomValue(activatedObjectsAtom);
@@ -47,7 +48,10 @@ const ToolBar = () => {
       <Default />
       {curObjectType === "shape" ? <ShapeTools /> : null}
       {curObjectType === "text" ? <TextTools /> : null}
-      {curObjectType === "diselected" ? null : <UpDown />}
+      {curObjectType === "group" ? <MultipleTools /> : null}
+      {curObjectType !== "diselected" && curObjectType !== "group" ? (
+        <UpDown />
+      ) : null}
     </S.Container>
   );
 };
