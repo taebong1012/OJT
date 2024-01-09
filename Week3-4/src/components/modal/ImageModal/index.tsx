@@ -5,6 +5,8 @@ import { useSetAtom } from "jotai";
 import { isShowImageModalAtom } from "atoms";
 import { useEffect, useState } from "react";
 import { getImages } from "api/SolApis";
+import Controller from "controller/core";
+import fabric from "controller/fabric";
 
 type solImageType = {
   extension: string;
@@ -82,10 +84,37 @@ const ImageModalContents = () => {
     }
   };
 
+  const controller = Controller.getInstance();
   /** 추가 버튼 클릭했을 때 처리 */
   const handleOnClickAddButton = () => {
     setIsShowImageModal(false);
-    // addImg(selectedImages);
+    addImg();
+  };
+
+  /** 캔버스에 이미지 추가 */
+  const addImg = () => {
+    if (!controller.canvas) {
+      console.error("controller.canvas does not exist");
+    } else {
+      console.log("이미지들 추가");
+
+      selectedImages.forEach((selectedImage, index) => {
+        fabric.Image.fromURL(selectedImage.path, (img) => {
+          img.scaleToWidth(100);
+          img.scaleToHeight(100);
+          img.set({
+            left: 50 + index * 30,
+            top: 50 + index * 30,
+            originX: "center",
+            originY: "center",
+          });
+
+          controller.add(img);
+          controller.canvas!.setActiveObject(img);
+          controller.canvas!.requestRenderAll();
+        });
+      });
+    }
   };
 
   /** 페이지네이션 총 길이 */
