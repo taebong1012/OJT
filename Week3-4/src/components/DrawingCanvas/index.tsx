@@ -75,58 +75,7 @@ export const deleteObject = () => {
   }
 };
 
-/** 현재 선택된 도형의 배경 색 변경 */
-export const changeFill = (color: string) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (
-    selectedObject &&
-    (selectedObject instanceof fabric.Rect ||
-      selectedObject instanceof fabric.Circle ||
-      selectedObject instanceof fabric.IText)
-  ) {
-    controller.canvas!.getActiveObject()!.set("fill", color);
-    controller.canvas!.requestRenderAll();
-  }
-};
 
-/** 현재 선택된 도형의 테두리 색 변경 */
-export const changeStrokeColor = (color: string) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (
-    selectedObject &&
-    (selectedObject instanceof fabric.Rect ||
-      selectedObject instanceof fabric.Circle)
-  ) {
-    controller.canvas!.getActiveObject()!.set("stroke", color);
-    controller.canvas!.requestRenderAll();
-  }
-};
-
-/** 현재 선택된 도형의 테두리 굵기 변경 */
-export const changeStrokeWidth = (width: number) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (
-    selectedObject &&
-    (selectedObject instanceof fabric.Rect ||
-      selectedObject instanceof fabric.Circle)
-  ) {
-    controller.canvas!.getActiveObject()!.set("strokeWidth", width);
-    controller.canvas!.requestRenderAll();
-  }
-};
-
-/** 현재 선택된 도형의 테두리 스타일 변경 */
-export const changeStokeStyle = (dashArray: Array<number>) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (
-    selectedObject &&
-    (selectedObject instanceof fabric.Rect ||
-      selectedObject instanceof fabric.Circle)
-  ) {
-    controller.canvas!.getActiveObject()!.set("strokeDashArray", dashArray);
-    controller.canvas!.requestRenderAll();
-  }
-};
 
 /** 현재 선택된 텍스트의 폰트 스타일 변경 */
 export const changeFontFamily = (fontFamily: string) => {
@@ -152,13 +101,3 @@ export const changeFontSize = (fontSize: number) => {
   }
 };
 
-/** 현재 선택된 텍스트의 배경 색 변경 */
-export const changeFontBackground = (color: string) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (selectedObject && selectedObject instanceof fabric.IText) {
-    const textObject = selectedObject as fabric.IText;
-    textObject.set("backgroundColor", color);
-
-    controller.canvas!.requestRenderAll();
-  }
-};
