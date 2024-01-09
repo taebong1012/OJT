@@ -7,13 +7,14 @@ import {
 } from "react-icons/rx";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import { changeFontFamily, changeFontSize } from "components/DrawingCanvas";
 import * as S from "./style";
 import ExtenseButton from "components/common/ExtenseButton";
 import { useAtomValue } from "jotai";
 import { activatedObjectAtom } from "atoms";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ToolBarIconWithColor from "components/common/ToolBarIconWithColor";
+import fabric from "controller/fabric";
+import Controller from "controller/core";
 
 const TextTools = () => {
   /** 폰트가 저장된 배열 */
@@ -38,26 +39,6 @@ const TextTools = () => {
       }
     }
   }, [activatedObject]);
-
-  const FontFamilyPicker = () => {
-    return (
-      <S.PickerContainer>
-        {fonts.map((font, index) => {
-          return (
-            <S.Font
-              $font={font}
-              key={index}
-              onClick={() => {
-                changeFontFamily(font);
-              }}
-            >
-              {font}
-            </S.Font>
-          );
-        })}
-      </S.PickerContainer>
-    );
-  };
 
   const fontSizeDecrease = () => {
     setFontSize(fontSize! - 1);
@@ -94,6 +75,54 @@ const TextTools = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setIsPickerOpened]);
+
+  const FontFamilyPicker = () => {
+    return (
+      <S.PickerContainer>
+        {fonts.map((font, index) => {
+          return (
+            <S.Font
+              $font={font}
+              key={index}
+              onClick={() => {
+                changeFontFamily(font);
+              }}
+            >
+              {font}
+            </S.Font>
+          );
+        })}
+      </S.PickerContainer>
+    );
+  };
+
+  const controller = Controller.getInstance();
+
+  /** 현재 선택된 텍스트의 폰트 스타일 변경 */
+  const changeFontFamily = (fontFamily: string) => {
+    const selectedObject =
+      controller.canvas!.getActiveObject() as fabric.Object;
+    if (selectedObject && selectedObject instanceof fabric.IText) {
+      const textObject = selectedObject as fabric.IText;
+      textObject.set("fontFamily", fontFamily);
+
+      controller.canvas!.requestRenderAll();
+    }
+  };
+
+  /** 현재 선택된 텍스트의 폰트 크기 변경 */
+  const changeFontSize = (fontSize: number) => {
+    if (controller.canvas) {
+      const selectedObject =
+        controller.canvas.getActiveObject() as fabric.Object;
+      if (selectedObject && selectedObject instanceof fabric.IText) {
+        const textObject = selectedObject as fabric.IText;
+        textObject.set("fontSize", fontSize);
+
+        controller.canvas.requestRenderAll();
+      }
+    }
+  };
 
   return (
     <>

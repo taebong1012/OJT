@@ -74,30 +74,3 @@ export const deleteObject = () => {
     controller.canvas.requestRenderAll();
   }
 };
-
-
-
-/** 현재 선택된 텍스트의 폰트 스타일 변경 */
-export const changeFontFamily = (fontFamily: string) => {
-  const selectedObject = controller.canvas!.getActiveObject() as fabric.Object;
-  if (selectedObject && selectedObject instanceof fabric.IText) {
-    const textObject = selectedObject as fabric.IText;
-    textObject.set("fontFamily", fontFamily);
-
-    controller.canvas!.requestRenderAll();
-  }
-};
-
-/** 현재 선택된 텍스트의 폰트 크기 변경 */
-export const changeFontSize = (fontSize: number) => {
-  if (controller.canvas) {
-    const selectedObject = controller.canvas.getActiveObject() as fabric.Object;
-    if (selectedObject && selectedObject instanceof fabric.IText) {
-      const textObject = selectedObject as fabric.IText;
-      textObject.set("fontSize", fontSize);
-
-      controller.canvas.requestRenderAll();
-    }
-  }
-};
-
