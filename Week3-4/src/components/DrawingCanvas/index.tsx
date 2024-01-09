@@ -88,8 +88,8 @@ export const addChoice = () => {
     console.log("보기 상자 추가");
 
     const newRect = new fabric.Rect({
-      top: 200,
-      left: 350,
+      top: 100,
+      left: 100,
       width: 100,
       height: 100,
       fill: "white",
@@ -99,6 +99,8 @@ export const addChoice = () => {
       rx: 10,
       ry: 10,
       name: "choice",
+      originX: "center",
+      originY: "center",
     });
 
     const shadow = new fabric.Shadow({
@@ -123,8 +125,8 @@ export const addText = () => {
     console.error("controller.canvas does not exist");
   } else {
     const newText = new fabric.IText("Text", {
-      top: 200,
-      left: 350,
+      top: 100,
+      left: 100,
       fill: "black",
       fontFamily: "Helvetica",
       backgroundColor: "transparent",
