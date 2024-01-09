@@ -6,7 +6,11 @@ import {
 // import polygonSVG from "assets/svg/ic_polygon.svg";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import { makeGroup } from "components/DrawingCanvas";
+import {
+  makeCenterHorizontally,
+  makeCenterVertically,
+  makeGroup,
+} from "components/DrawingCanvas";
 
 const MultipleTools = () => {
   const test = () => {
@@ -18,12 +22,12 @@ const MultipleTools = () => {
       <Divider />
       <NamedButton handleOnClick={makeGroup} icon={<RxGroup />} text="그룹화" />
       <NamedButton
-        handleOnClick={test}
+        handleOnClick={makeCenterHorizontally}
         icon={<RxAlignCenterHorizontally />}
         text="가로 중앙 정렬"
       />
       <NamedButton
-        handleOnClick={test}
+        handleOnClick={makeCenterVertically}
         icon={<RxAlignCenterVertically />}
         text="세로 중앙 정렬"
       />

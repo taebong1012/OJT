@@ -128,6 +128,8 @@ export const addText = () => {
       fill: "black",
       fontFamily: "Helvetica",
       backgroundColor: "transparent",
+      originX: "center",
+      originY: "center",
     });
 
     controller.add(newText);
@@ -207,6 +209,8 @@ export const drawLine = () => {
         stroke: "black",
         strokeWidth: 1,
         strokeUniform: true,
+        originX: "center",
+        originY: "center",
       }
     );
 
@@ -232,6 +236,8 @@ export const addImg = (selectedImages: selectedImageType[]) => {
         img.set({
           left: 50 + index * 30,
           top: 50 + index * 30,
+          originX: "center",
+          originY: "center",
         });
 
         controller.add(img);
@@ -350,5 +356,33 @@ export const makeUnGroup = () => {
     activatedObject.toActiveSelection();
   } else {
     console.error("makeUnGroup: no Group");
+  }
+};
+
+/** 수평적으로 가운데 정렬 */
+export const makeCenterHorizontally = () => {
+  const activatedObject = controller.canvas!.getActiveObject();
+  if (activatedObject instanceof fabric.ActiveSelection) {
+    const activatedObjects = activatedObject.getObjects();
+    activatedObjects.forEach((obj) => {
+      obj.set("top", 0);
+    });
+    controller.canvas!.requestRenderAll();
+  } else {
+    console.error("makeCenterHorizontally: no ActiveSelection");
+  }
+};
+
+/** 수직적으로 가운데 정렬 */
+export const makeCenterVertically = () => {
+  const activatedObject = controller.canvas!.getActiveObject();
+  if (activatedObject instanceof fabric.ActiveSelection) {
+    const activatedObjects = activatedObject.getObjects();
+    activatedObjects.forEach((obj) => {
+      obj.set("left", 0);
+    });
+    controller.canvas!.requestRenderAll();
+  } else {
+    console.error("makeCenterHorizontally: no ActiveSelection");
   }
 };

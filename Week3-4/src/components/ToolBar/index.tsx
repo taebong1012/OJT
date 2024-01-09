@@ -8,10 +8,7 @@ import UpDown from "components/ToolBar/UpDownTools";
 import ShapeTools from "components/ToolBar/ShapeTools";
 import TextTools from "components/ToolBar/TextTools";
 import MultipleTools from "components/ToolBar/MultipleTools";
-import Divider from "components/ToolBar/Divider";
-import NamedButton from "components/common/NamedButton";
 import GroupTools from "components/ToolBar/GroupTools";
-// import { ActiveSelection, Group } from "fabric/fabric-impl";
 
 const ToolBar = () => {
   const activatedObject: fabric.Object | null =
@@ -45,7 +42,7 @@ const ToolBar = () => {
       ) {
         setCurObjectType("shape");
       } else {
-        console.log("curObjectType Err");
+        console.error("curObjectType Err");
       }
     } else {
       setCurObjectType("diselected");
