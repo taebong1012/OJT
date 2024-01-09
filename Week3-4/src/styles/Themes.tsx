@@ -9,5 +9,6 @@ export const lightTheme: DefaultTheme = {
     icons: "#666666",
     hover: "#DADFE8",
     clicked: "#CCD0D9",
+    addDisabled: "#E7E7E7",
   },
 };

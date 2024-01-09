@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
 import { useAtomValue } from "jotai";
 import { activatedObjectsAtom, isShowImageModalAtom } from "atoms";
+import Feature from "components/Feature";
 
 const Main = () => {
   const isShowImageModal: boolean = useAtomValue(isShowImageModalAtom);
@@ -39,7 +40,9 @@ const Main = () => {
         <S.CanvasWrapper>
           <DrawingCanvas />
         </S.CanvasWrapper>
-        <S.FeatureWrapper></S.FeatureWrapper>
+        <S.FeatureWrapper>
+          <Feature />
+        </S.FeatureWrapper>
       </S.Container>
     </>
   );

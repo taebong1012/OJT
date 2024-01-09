@@ -11,4 +11,6 @@ export const CanvasWrapper = styled.div`
   margin-right: 20px;
 `;
 
-export const FeatureWrapper = styled.div``;
+export const FeatureWrapper = styled.div`
+  width: 100%;
+`;

@@ -10,6 +10,7 @@ declare module "styled-components" {
       icons: string;
       hover: string;
       clicked: string;
+      addDisabled: string;
     };
   }
 }
