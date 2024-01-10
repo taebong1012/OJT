@@ -11,8 +11,14 @@ const AnswerContainer = () => {
   const activatedObject = useAtomValue(activatedObjectAtom);
   const [canAdd, setCanAdd] = useState(false);
 
-  const removeFromAnswerObjects = () => {
-    return <RxTrash />;
+  const removeFromAnswerObjects = (index: number) => {
+    if (index < answerObjects.length && index >= 0) {
+      const updatedAnswerObjects = [...answerObjects];
+      updatedAnswerObjects.splice(index, 1);
+      setAnswerObjects(updatedAnswerObjects);
+    } else {
+      console.error("removeFromAnswerObjects: index error");
+    }
   };
 
   /** 캔버스에서 선택한 객체가 있는지 없는지 확인 */
@@ -84,13 +90,13 @@ const AnswerContainer = () => {
           <ObjectImg answerObject={answerObject} />
         </S.CenterDiv>
         <S.CenterDiv>
-          <NamedButton
-            handleOnClick={removeFromAnswerObjects}
-            icon={<RxTrash color={"red"} />}
-            text="삭제"
-            marginRight={0}
-            showName={false}
-          />
+          <button
+            onClick={() => {
+              removeFromAnswerObjects(index);
+            }}
+          >
+            <RxTrash color={"red"} />
+          </button>
         </S.CenterDiv>
       </S.AnswerWrapper>
     );
