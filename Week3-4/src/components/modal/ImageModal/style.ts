@@ -27,6 +27,7 @@ export const TitleWrapper = styled.div`
   height: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Title = styled.span`

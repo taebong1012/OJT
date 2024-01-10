@@ -13,9 +13,9 @@ export const Backdrop = styled.div`
 `;
 
 export const Container = styled.div`
-  width: 900px;
-  min-width: 900px;
-  height: 680px;
+  width: 880px;
+  min-width: 880px;
+  height: 720px;
   background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
@@ -27,6 +27,7 @@ export const TitleWrapper = styled.div`
   height: 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const Title = styled.span`
