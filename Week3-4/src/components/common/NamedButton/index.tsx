@@ -6,6 +6,7 @@ type NamedButtonProps = {
   icon: ReactElement;
   text: string;
   marginRight?: number;
+  showName?: boolean;
 };
 
 const NamedButton = ({
@@ -13,6 +14,7 @@ const NamedButton = ({
   icon,
   text,
   marginRight = 15,
+  showName = true,
 }: NamedButtonProps) => {
   /** 버튼 위에 마우스가 hover 되어있는지 여부 판단 */
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -28,7 +30,7 @@ const NamedButton = ({
       </button>
 
       {/* 마우스가 hover 되어있을때만 tag 띄우기 */}
-      {isMouseOver ? <S.NameArea>{text}</S.NameArea> : null}
+      {isMouseOver && showName ? <S.NameArea>{text}</S.NameArea> : null}
     </S.Container>
   );
 };

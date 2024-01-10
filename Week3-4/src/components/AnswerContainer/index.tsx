@@ -85,9 +85,10 @@ const AnswerContainer = () => {
         <S.CenterDiv>
           <NamedButton
             handleOnClick={removeFromAnswerObjects}
-            icon={<RxTrash />}
+            icon={<RxTrash color={"red"} />}
             text="삭제"
             marginRight={0}
+            showName={false}
           />
         </S.CenterDiv>
       </S.AnswerWrapper>
