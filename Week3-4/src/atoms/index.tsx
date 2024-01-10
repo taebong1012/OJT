@@ -9,3 +9,6 @@ export const activatedObjectAtom = atom<fabric.Object | null>(null);
 
 /** 선택한 정답 객체 배열 */
 export const answerObjectsAtom = atom<fabric.Object[]>([]);
+
+/** 정답 객체의 id */
+export const answerIdAtom = atom<string>("");

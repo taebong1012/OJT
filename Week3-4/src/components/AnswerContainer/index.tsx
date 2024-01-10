@@ -1,8 +1,7 @@
-import NamedButton from "components/common/NamedButton";
 import * as S from "./style";
 import { RxPlusCircled, RxTrash } from "react-icons/rx";
-import { useAtom, useAtomValue } from "jotai";
-import { activatedObjectAtom, answerObjectsAtom } from "atoms";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { activatedObjectAtom, answerIdAtom, answerObjectsAtom } from "atoms";
 import { useEffect, useState } from "react";
 import fabric from "controller/fabric";
 
@@ -76,6 +75,15 @@ const AnswerContainer = () => {
     return <S.AnswerImgDiv $url={dataURL}></S.AnswerImgDiv>;
   };
 
+  const [checkedIndex, setCheckedIndex] = useState(0);
+
+  /** answer 배열이 수정되어서 index가 배열안에 없다면 checkedIndex를 0으로 변경*/
+  useEffect(() => {
+    if (checkedIndex >= answerObjects.length) {
+      setCheckedIndex(0);
+    }
+  }, [answerObjects]);
+
   const Answer = ({
     index,
     answerObject,
@@ -83,12 +91,18 @@ const AnswerContainer = () => {
     index: number;
     answerObject: fabric.Object;
   }) => {
+    const setAnswerId = useSetAtom(answerIdAtom);
+
+    let id: string;
+    if (answerObject instanceof fabric.Group) {
+      id = answerObject._objects[0].data.id;
+    } else {
+      id = answerObject.data.id;
+    }
+
     return (
       <S.AnswerWrapper>
-        <S.CenterDiv>{index + 1}</S.CenterDiv>
-        <S.CenterDiv>
-          <ObjectImg answerObject={answerObject} />
-        </S.CenterDiv>
+        <S.CenterDiv>{index + 1}번</S.CenterDiv>
         <S.CenterDiv>
           <button
             onClick={() => {
@@ -97,6 +111,22 @@ const AnswerContainer = () => {
           >
             <RxTrash color={"red"} />
           </button>
+        </S.CenterDiv>
+
+        <S.CenterDiv>
+          <ObjectImg answerObject={answerObject} />
+        </S.CenterDiv>
+        <S.CenterDiv>
+          <input
+            type="radio"
+            name="answerRadio"
+            value={id}
+            checked={checkedIndex === index}
+            onChange={() => {
+              setCheckedIndex(index);
+              setAnswerId(id);
+            }}
+          ></input>
         </S.CenterDiv>
       </S.AnswerWrapper>
     );
