@@ -99,20 +99,26 @@ const ImageModalContents = () => {
       console.log("이미지들 추가");
 
       selectedImages.forEach((selectedImage, index) => {
-        fabric.Image.fromURL(selectedImage.path, (img) => {
-          img.scaleToWidth(100);
-          img.scaleToHeight(100);
-          img.set({
-            left: 50 + index * 30,
-            top: 50 + index * 30,
-            originX: "center",
-            originY: "center",
-          });
+        fabric.Image.fromURL(
+          selectedImage.path,
+          (img) => {
+            img.scaleToWidth(100);
+            img.scaleToHeight(100);
+            img.set({
+              left: 50 + index * 30,
+              top: 50 + index * 30,
+              originX: "center",
+              originY: "center",
+            });
 
-          controller.add(img);
-          controller.canvas!.setActiveObject(img);
-          controller.canvas!.requestRenderAll();
-        });
+            controller.add(img);
+            controller.canvas!.setActiveObject(img);
+            controller.canvas!.requestRenderAll();
+          },
+          {
+            crossOrigin: "anonymous",
+          }
+        );
       });
     }
   };
