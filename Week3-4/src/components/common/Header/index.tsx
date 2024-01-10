@@ -1,8 +1,22 @@
-import { isShowPreviewModalAtom } from "atoms";
+import Drawer from "Instance/Drawer";
+import { answerIdAtom, isShowPreviewModalAtom } from "atoms";
 import * as S from "components/common/Header/style";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 const Header = () => {
   const setIsShowPreviewModal = useSetAtom(isShowPreviewModalAtom);
+  const answerId = useAtomValue(answerIdAtom);
+
+  const drawer = Drawer.getInstance();
+  const saveCanvasData = () => {
+    if (answerId) {
+      const drawerJsonData = JSON.stringify(drawer.toData());
+      localStorage.setItem("canvasData", drawerJsonData);
+      localStorage.setItem("answerId", answerId);
+      window.alert("저장되었습니다. [저장 완료]");
+    } else {
+      window.alert("설정된 정답이 없습니다. [저장 실패]");
+    }
+  };
 
   return (
     <S.Container>
@@ -18,7 +32,7 @@ const Header = () => {
         >
           Preview
         </S.Button>
-        <S.Button>Save</S.Button>
+        <S.Button onClick={saveCanvasData}>Save</S.Button>
       </S.ButtonWrapper>
     </S.Container>
   );
