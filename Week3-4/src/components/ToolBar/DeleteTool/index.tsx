@@ -52,10 +52,9 @@ const DeleteTool = () => {
     });
 
     if (index !== -1) {
-      // 해당 객체를 answerObjects 배열에서 삭제합니다.
       const updatedAnswerObjects = [...answerObjects];
       updatedAnswerObjects.splice(index, 1);
-      setAnswerObjects(updatedAnswerObjects); // answerObjects를 업데이트합니다.
+      setAnswerObjects(updatedAnswerObjects);
     } else {
       /** answerObject 배열에 없으므로 리턴 */
       return;

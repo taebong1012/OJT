@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
-import { useAtom, useSetAtom } from "jotai";
-import { activatedObjectAtom, answerObjectsAtom } from "atoms";
+import { useSetAtom } from "jotai";
+import { activatedObjectAtom } from "atoms";
 import Controller from "controller/core";
 
 /** fabric 캔버스 생성 */
