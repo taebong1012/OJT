@@ -9,6 +9,7 @@ import ShapeTools from "components/ToolBar/ShapeTools";
 import TextTools from "components/ToolBar/TextTools";
 import MultipleTools from "components/ToolBar/MultipleTools";
 import GroupTools from "components/ToolBar/GroupTools";
+import DeleteTool from "components/ToolBar/DeleteTool";
 
 const ToolBar = () => {
   const activatedObject: fabric.Object | null =
@@ -59,6 +60,7 @@ const ToolBar = () => {
         <UpDown />
       ) : null}
       {curObjectType === "group" ? <GroupTools /> : null}
+      {activatedObject ? <DeleteTool /> : null}
     </S.Container>
   );
 };

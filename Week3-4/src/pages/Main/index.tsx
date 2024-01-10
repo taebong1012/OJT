@@ -1,6 +1,6 @@
 import ToolBar from "components/ToolBar";
 import * as S from "./style";
-import DrawingCanvas, { deleteObject } from "components/DrawingCanvas";
+import DrawingCanvas from "components/DrawingCanvas";
 import { useEffect } from "react";
 import ImageModal from "components/modal/ImageModal";
 import { useAtomValue } from "jotai";
@@ -10,27 +10,10 @@ import Feature from "components/Feature";
 const Main = () => {
   const isShowImageModal: boolean = useAtomValue(isShowImageModalAtom);
 
-  /** main페이지에서 backspace 감지 시 객체 삭제 */
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Backspace") {
-      deleteObject();
-    }
-  };
-
   const activatedObject = useAtomValue(activatedObjectAtom);
   useEffect(() => {
     console.log("activatedObjectsAtom 변경됨", activatedObject);
   }, [activatedObject]);
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-
-    /** TODO: 페이지에서 ctrl+G 눌렸을 시 객체들 그룹화 */
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   return (
     <>

@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
-import { useSetAtom } from "jotai";
-import { activatedObjectAtom } from "atoms";
+import { useAtom, useSetAtom } from "jotai";
+import { activatedObjectAtom, answerObjectsAtom } from "atoms";
 import Controller from "controller/core";
-
-/** 커스텀 fabric 인스턴스 */
-const controller = Controller.getInstance();
 
 /** fabric 캔버스 생성 */
 const DrawingCanvas = () => {
+  /** 커스텀 fabric 인스턴스 */
+  const controller = Controller.getInstance();
+
   const setActivatedObject = useSetAtom(activatedObjectAtom);
 
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
@@ -20,6 +20,7 @@ const DrawingCanvas = () => {
     }
   };
 
+  /** 캔버스 생성 */
   useEffect(() => {
     const canvasElement = document.getElementById(
       "drawing-canvas"
@@ -55,22 +56,3 @@ const DrawingCanvas = () => {
 };
 
 export default DrawingCanvas;
-
-/** 키보드 backspace 입력 시 활성화된 객체 삭제 */
-export const deleteObject = () => {
-  if (!controller.canvas) {
-    console.error("drawingCanvas does not exist");
-  } else {
-    console.log("오브젝트 삭제");
-
-    const selectedObjects: fabric.Object[] =
-      controller.canvas.getActiveObjects();
-
-    selectedObjects.forEach((obj: fabric.Object) => {
-      controller.canvas!.remove(obj);
-    });
-
-    controller.canvas.discardActiveObject();
-    controller.canvas.requestRenderAll();
-  }
-};

@@ -55,7 +55,10 @@ const AnswerContainer = () => {
   /** add 버튼 클릭시 동작 */
   const handleOnClickAddDiv = () => {
     if (activatedObject) {
-      setAnswerObjects([...answerObjects, activatedObject]);
+      setAnswerObjects((prevAnswerObjects) => [
+        ...prevAnswerObjects,
+        activatedObject,
+      ]);
       setCanAdd(false);
     } else {
       console.error("no activated object");
@@ -66,8 +69,6 @@ const AnswerContainer = () => {
     const dataURL = answerObject.toDataURL({ format: "svg" });
     return <S.AnswerImgDiv $url={dataURL}></S.AnswerImgDiv>;
   };
-
-  useEffect(() => {}, [answerObjects]);
 
   const Answer = ({
     index,

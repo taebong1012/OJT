@@ -7,6 +7,7 @@ type NamedButtonProps = {
   text: string;
   marginRight?: number;
   showName?: boolean;
+  isDisabled?: boolean;
 };
 
 const NamedButton = ({
@@ -15,6 +16,7 @@ const NamedButton = ({
   text,
   marginRight = 15,
   showName = true,
+  isDisabled = false,
 }: NamedButtonProps) => {
   /** 버튼 위에 마우스가 hover 되어있는지 여부 판단 */
   const [isMouseOver, setIsMouseOver] = useState(false);
@@ -22,6 +24,7 @@ const NamedButton = ({
   return (
     <S.Container $marginRight={marginRight}>
       <button
+        disabled={isDisabled}
         onClick={handleOnClick}
         onMouseOver={() => setIsMouseOver(true)}
         onMouseLeave={() => setIsMouseOver(false)}
