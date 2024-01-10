@@ -1,12 +1,19 @@
 import * as S from "./style";
 import { RxPlusCircled, RxTrash } from "react-icons/rx";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { activatedObjectAtom, answerIdAtom, answerObjectsAtom } from "atoms";
+import {
+  activatedObjectAtom,
+  answerIdAtom,
+  answerObjectsAtom,
+  choiceIdArrAtom,
+} from "atoms";
 import { useEffect, useState } from "react";
 import fabric from "controller/fabric";
+import getId from "utils/getId";
 
 const AnswerContainer = () => {
   const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
+  const [choiceIdArr, setChoiceIdArr] = useAtom(choiceIdArrAtom);
   const activatedObject = useAtomValue(activatedObjectAtom);
   const [canAdd, setCanAdd] = useState(false);
 
@@ -15,6 +22,10 @@ const AnswerContainer = () => {
       const updatedAnswerObjects = [...answerObjects];
       updatedAnswerObjects.splice(index, 1);
       setAnswerObjects(updatedAnswerObjects);
+
+      const updatedChoiceAnswerArr = [...choiceIdArr];
+      updatedChoiceAnswerArr.splice(index, 1);
+      setChoiceIdArr(updatedChoiceAnswerArr);
     } else {
       console.error("removeFromAnswerObjects: index error");
     }
@@ -57,12 +68,20 @@ const AnswerContainer = () => {
     });
   };
 
+  useEffect(() => {
+    console.log(choiceIdArr);
+  }, [choiceIdArr]);
+
   /** add 버튼 클릭시 동작 */
   const handleOnClickAddDiv = () => {
     if (activatedObject) {
       setAnswerObjects((prevAnswerObjects) => [
         ...prevAnswerObjects,
         activatedObject,
+      ]);
+      setChoiceIdArr((prevChoiceIdArr) => [
+        ...prevChoiceIdArr,
+        getId(activatedObject),
       ]);
       setCanAdd(false);
     } else {

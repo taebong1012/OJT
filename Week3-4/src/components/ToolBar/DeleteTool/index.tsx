@@ -3,13 +3,14 @@ import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import fabric from "controller/fabric";
 import { useAtom } from "jotai";
-import { answerObjectsAtom } from "atoms";
+import { answerObjectsAtom, choiceIdArrAtom } from "atoms";
 import Drawer from "Instance/Drawer";
 
 const DeleteTool = () => {
   const drawer = Drawer.getInstance();
 
   const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
+  const [choiceIdArr, setChoiceIdArr] = useAtom(choiceIdArrAtom);
 
   /** 키보드 backspace 입력 시 활성화된 객체 삭제 */
   const deleteObject = () => {
@@ -54,6 +55,10 @@ const DeleteTool = () => {
       const updatedAnswerObjects = [...answerObjects];
       updatedAnswerObjects.splice(index, 1);
       setAnswerObjects(updatedAnswerObjects);
+
+      const updatedChoiceAnswerArr = [...choiceIdArr];
+      updatedChoiceAnswerArr.splice(index, 1);
+      setChoiceIdArr(updatedChoiceAnswerArr);
     } else {
       /** answerObject 배열에 없으므로 리턴 */
       return;
