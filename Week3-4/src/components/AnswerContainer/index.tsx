@@ -135,7 +135,7 @@ const AnswerContainer = () => {
   return (
     <S.Container>
       <S.AddDiv $canAdd={canAdd} onClick={handleOnClickAddDiv}>
-        <RxPlusCircled color={canAdd ? "white" : "#666666"} />
+        <RxPlusCircled color={canAdd ? "#333333" : "#999999"} />
       </S.AddDiv>
       <S.AnswersContainer>
         {answerObjects.map((answerObject, index) => {

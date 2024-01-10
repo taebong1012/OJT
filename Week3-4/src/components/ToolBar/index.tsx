@@ -55,10 +55,8 @@ const ToolBar = () => {
       <Default />
       {curObjectType === "shape" ? <ShapeTools /> : null}
       {curObjectType === "text" ? <TextTools /> : null}
+      {curObjectType !== "diselected" ? <UpDown /> : null}
       {curObjectType === "multiselected" ? <MultipleTools /> : null}
-      {curObjectType !== "diselected" && curObjectType !== "multiselected" ? (
-        <UpDown />
-      ) : null}
       {curObjectType === "group" ? <GroupTools /> : null}
       {activatedObject ? <DeleteTool /> : null}
     </S.Container>
