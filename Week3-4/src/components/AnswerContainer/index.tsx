@@ -17,33 +17,40 @@ const AnswerContainer = () => {
 
   /** 캔버스에서 선택한 객체가 있는지 없는지 확인 */
   useEffect(() => {
+    /** 여러개 선택한 것이 아니라면 */
     if (
       activatedObject &&
-      !(activatedObject instanceof fabric.ActiveSelection) &&
-      !(activatedObject instanceof fabric.Group)
+      !(activatedObject instanceof fabric.ActiveSelection)
     ) {
-      const isInAnswerObjects = answerObjects.find((obj) => {
-        if (obj instanceof fabric.Group) {
-          return obj._objects[0].data.id === activatedObject.data.id;
-        } else {
-          return obj.data.id === activatedObject.data.id;
-        }
-      });
-      setCanAdd(!isInAnswerObjects);
-    } else if (activatedObject && activatedObject instanceof fabric.Group) {
-      const firstActivatedObjectObject = activatedObject._objects[0];
-      const isInAnswerObjects = answerObjects.find((obj) => {
-        if (obj instanceof fabric.Group) {
-          return obj._objects[0].data.id === firstActivatedObjectObject.data.id;
-        } else {
-          return obj.data.id === firstActivatedObjectObject.data.id;
-        }
-      });
+      let activatedObjectId;
+      /** 선택한 것이 그룹 객체라면 */
+      if (activatedObject instanceof fabric.Group) {
+        activatedObjectId = activatedObject._objects[0].data.id;
+      } else {
+        /** 선택한 것이 그룹 객체가 아니라면 */
+        activatedObjectId = activatedObject?.data.id;
+      }
+      const isInAnswerObjects = getIsInAnswerObjects(activatedObjectId);
       setCanAdd(!isInAnswerObjects);
     } else {
+      /** activateObject가 없거나 여러개가 선택됐다면 */
       setCanAdd(false);
     }
   }, [activatedObject]);
+
+  /** 정답에 같은 id를 갖고 있는 오브젝트가 있는지 확인 후 boolean 리턴 */
+  const getIsInAnswerObjects = (targetObjId: string) => {
+    return answerObjects.some((answerObject) => {
+      let answerObjectId;
+      if (answerObject instanceof fabric.Group) {
+        answerObjectId = answerObject._objects[0].data.id;
+      } else {
+        answerObjectId = answerObject.data.id;
+      }
+
+      return answerObjectId === targetObjId;
+    });
+  };
 
   /** add 버튼 클릭시 동작 */
   const handleOnClickAddDiv = () => {
