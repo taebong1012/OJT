@@ -28,6 +28,7 @@ export default class Controller {
     object.set("data", { id: generateId(), ...data });
     this.canvas.add(object);
   }
+
   toData() {
     if (!this.canvas) return;
     const data = this.canvas.toObject(["data"]);
