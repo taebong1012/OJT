@@ -9,12 +9,23 @@ const Header = () => {
   const drawer = Drawer.getInstance();
   const saveCanvasData = () => {
     if (answerId) {
-      const drawerJsonData = JSON.stringify(drawer.toData());
-      localStorage.setItem("canvasData", drawerJsonData);
+      const canvasDataJson = JSON.stringify(drawer.toData());
+      localStorage.setItem("canvasData", canvasDataJson);
       localStorage.setItem("answerId", answerId);
       window.alert("저장되었습니다. [저장 완료]");
     } else {
       window.alert("설정된 정답이 없습니다. [저장 실패]");
+    }
+  };
+
+  const showPreviewModal = () => {
+    const canvasData = localStorage.getItem("canvasData");
+    const answerId = localStorage.getItem("answerId");
+
+    if (canvasData && answerId) {
+      setIsShowPreviewModal(true);
+    } else {
+      window.alert("저장된 데이터가 없습니다. 저장 후 실행해주세요.");
     }
   };
 
@@ -25,13 +36,7 @@ const Header = () => {
         <S.SubTitle>Learning Contents Management System</S.SubTitle>
       </S.TitleWrapper>
       <S.ButtonWrapper>
-        <S.Button
-          onClick={() => {
-            setIsShowPreviewModal(true);
-          }}
-        >
-          Preview
-        </S.Button>
+        <S.Button onClick={showPreviewModal}>Preview</S.Button>
         <S.Button onClick={saveCanvasData}>Save</S.Button>
       </S.ButtonWrapper>
     </S.Container>
