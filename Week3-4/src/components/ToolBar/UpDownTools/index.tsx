@@ -8,17 +8,17 @@ import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import { useAtomValue } from "jotai";
 import { activatedObjectAtom } from "atoms";
-import Controller from "controller/core";
+import Drawer from "Instance/Drawer";
 
 const UpDown = () => {
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
   const activatedObject = useAtomValue(activatedObjectAtom);
 
   /** 선택된 객체 앞으로 하나 가져오기 */
   const moveForward = () => {
     if (activatedObject) {
       activatedObject.bringForward();
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("moveForward: no activatedObject");
     }
@@ -28,7 +28,7 @@ const UpDown = () => {
   const moveFront = () => {
     if (activatedObject) {
       activatedObject.bringToFront();
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("moveFront: no activatedObject");
     }
@@ -38,7 +38,7 @@ const UpDown = () => {
   const moveBackward = () => {
     if (activatedObject) {
       activatedObject.sendBackwards();
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("moveBackward: no activatedObject");
     }
@@ -48,7 +48,7 @@ const UpDown = () => {
   const moveBack = () => {
     if (activatedObject) {
       activatedObject.sendToBack();
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("moveBack: no activatedObject");
     }

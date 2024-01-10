@@ -1,6 +1,5 @@
 import {
   RxPlusCircled,
-  RxTrash,
   RxText,
   RxImage,
   RxSquare,
@@ -10,23 +9,18 @@ import {
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
 import fabric from "controller/fabric";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import {
-  activatedObjectAtom,
-  answerObjectsAtom,
-  isShowImageModalAtom,
-} from "atoms";
-import Controller from "controller/core";
-import { useEffect, useState } from "react";
+import { useSetAtom } from "jotai";
+import { isShowImageModalAtom } from "atoms";
+import Drawer from "Instance/Drawer";
 
 const Default = () => {
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
   const setIsShowImageModal = useSetAtom(isShowImageModalAtom);
 
   /** 보기 상자 추가 */
   const addChoice = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas does not exist");
     } else {
       const newRect = new fabric.Rect({
         top: 100,
@@ -53,17 +47,17 @@ const Default = () => {
 
       newRect.set("shadow", shadow);
 
-      controller.add(newRect);
+      drawer.add(newRect);
 
-      controller.canvas.setActiveObject(newRect);
-      controller.canvas.requestRenderAll();
+      drawer.canvas.setActiveObject(newRect);
+      drawer.canvas.requestRenderAll();
     }
   };
 
   /** 텍스트 추가 */
   const addText = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas does not exist");
     } else {
       const newText = new fabric.IText("Text", {
         top: 100,
@@ -75,10 +69,10 @@ const Default = () => {
         originY: "center",
       });
 
-      controller.add(newText);
+      drawer.add(newText);
 
-      controller.canvas.setActiveObject(newText);
-      controller.canvas.requestRenderAll();
+      drawer.canvas.setActiveObject(newText);
+      drawer.canvas.requestRenderAll();
 
       console.log(newText);
     }
@@ -86,8 +80,8 @@ const Default = () => {
 
   /** 캔버스에 사각형 추가 */
   const drawRect = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas does not exist");
     } else {
       const newRect = new fabric.Rect({
         top: 100,
@@ -102,17 +96,17 @@ const Default = () => {
         originY: "center",
       });
 
-      controller.add(newRect);
+      drawer.add(newRect);
 
-      controller.canvas.setActiveObject(newRect);
-      controller.canvas.requestRenderAll();
+      drawer.canvas.setActiveObject(newRect);
+      drawer.canvas.requestRenderAll();
     }
   };
 
   /** 캔버스에 원 추가 */
   const drawCircle = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas does not exist");
     } else {
       console.log("원 추가");
 
@@ -128,18 +122,18 @@ const Default = () => {
         originY: "center",
       });
 
-      controller.add(newCircle);
+      drawer.add(newCircle);
 
       /** 활성화 시키기 */
-      controller.canvas!.setActiveObject(newCircle);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.setActiveObject(newCircle);
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 캔버스에 선 추가 */
   const drawLine = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas! does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas! does not exist");
     } else {
       console.log("직선 추가");
 
@@ -157,11 +151,11 @@ const Default = () => {
         }
       );
 
-      controller.add(newLine);
+      drawer.add(newLine);
 
       /** 활성화 시키기 */
-      controller.canvas!.setActiveObject(newLine);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.setActiveObject(newLine);
+      drawer.canvas!.requestRenderAll();
     }
   };
 

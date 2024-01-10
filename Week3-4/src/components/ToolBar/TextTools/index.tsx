@@ -14,7 +14,7 @@ import { activatedObjectAtom } from "atoms";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import ToolBarIconWithColor from "components/common/ToolBarIconWithColor";
 import fabric from "controller/fabric";
-import Controller from "controller/core";
+import Drawer from "Instance/Drawer";
 
 const TextTools = () => {
   /** 폰트가 저장된 배열 */
@@ -96,30 +96,28 @@ const TextTools = () => {
     );
   };
 
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
 
   /** 현재 선택된 텍스트의 폰트 스타일 변경 */
   const changeFontFamily = (fontFamily: string) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (selectedObject && selectedObject instanceof fabric.IText) {
       const textObject = selectedObject as fabric.IText;
       textObject.set("fontFamily", fontFamily);
 
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 현재 선택된 텍스트의 폰트 크기 변경 */
   const changeFontSize = (fontSize: number) => {
-    if (controller.canvas) {
-      const selectedObject =
-        controller.canvas.getActiveObject() as fabric.Object;
+    if (drawer.canvas) {
+      const selectedObject = drawer.canvas.getActiveObject() as fabric.Object;
       if (selectedObject && selectedObject instanceof fabric.IText) {
         const textObject = selectedObject as fabric.IText;
         textObject.set("fontSize", fontSize);
 
-        controller.canvas.requestRenderAll();
+        drawer.canvas.requestRenderAll();
       }
     }
   };

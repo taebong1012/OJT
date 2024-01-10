@@ -4,22 +4,21 @@ import NamedButton from "components/common/NamedButton";
 import fabric from "controller/fabric";
 import { useAtom } from "jotai";
 import { answerObjectsAtom } from "atoms";
-import Controller from "controller/core";
+import Drawer from "Instance/Drawer";
 
 const DeleteTool = () => {
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
 
   const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
 
   /** 키보드 backspace 입력 시 활성화된 객체 삭제 */
   const deleteObject = () => {
-    if (!controller.canvas) {
+    if (!drawer.canvas) {
       console.error("drawingCanvas does not exist");
     } else {
       console.log("오브젝트 삭제");
 
-      const selectedObjects: fabric.Object[] =
-        controller.canvas.getActiveObjects();
+      const selectedObjects: fabric.Object[] = drawer.canvas.getActiveObjects();
 
       selectedObjects.forEach((obj: fabric.Object) => {
         let selectedObjectsId;
@@ -32,11 +31,11 @@ const DeleteTool = () => {
         }
         deleteFromAnswerObjects(selectedObjectsId);
 
-        controller.canvas!.remove(obj);
+        drawer.canvas!.remove(obj);
       });
 
-      controller.canvas.discardActiveObject();
-      controller.canvas.requestRenderAll();
+      drawer.canvas.discardActiveObject();
+      drawer.canvas.requestRenderAll();
     }
   };
 

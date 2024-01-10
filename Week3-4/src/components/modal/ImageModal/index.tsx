@@ -5,8 +5,8 @@ import { useSetAtom } from "jotai";
 import { isShowImageModalAtom } from "atoms";
 import { useEffect, useState } from "react";
 import { getImages } from "api/SolApis";
-import Controller from "controller/core";
 import fabric from "controller/fabric";
+import Drawer from "Instance/Drawer";
 
 type solImageType = {
   extension: string;
@@ -84,7 +84,7 @@ const ImageModalContents = () => {
     }
   };
 
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
   /** 추가 버튼 클릭했을 때 처리 */
   const handleOnClickAddButton = () => {
     setIsShowImageModal(false);
@@ -93,8 +93,8 @@ const ImageModalContents = () => {
 
   /** 캔버스에 이미지 추가 */
   const addImg = () => {
-    if (!controller.canvas) {
-      console.error("controller.canvas does not exist");
+    if (!drawer.canvas) {
+      console.error("drawer.canvas does not exist");
     } else {
       console.log("이미지들 추가");
 
@@ -111,9 +111,9 @@ const ImageModalContents = () => {
               originY: "center",
             });
 
-            controller.add(img);
-            controller.canvas!.setActiveObject(img);
-            controller.canvas!.requestRenderAll();
+            drawer.add(img);
+            drawer.canvas!.setActiveObject(img);
+            drawer.canvas!.requestRenderAll();
           },
           {
             crossOrigin: "anonymous",

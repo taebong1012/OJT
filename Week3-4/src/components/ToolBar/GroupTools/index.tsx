@@ -1,20 +1,19 @@
 import { RxLayers } from "react-icons/rx";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import Controller from "controller/core";
 import fabric from "controller/fabric";
 import { useAtom } from "jotai";
 import { answerObjectsAtom } from "atoms";
+import Drawer from "Instance/Drawer";
 
 const GroupTools = () => {
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
 
   const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
 
   /** 선택된 객체들 그룹해제 */
   const makeUnGroup = () => {
-    const activatedObject =
-      controller.canvas!.getActiveObject() as fabric.Group;
+    const activatedObject = drawer.canvas!.getActiveObject() as fabric.Group;
 
     if (activatedObject instanceof fabric.Group) {
       const targetObjId = activatedObject!._objects[0].data.id;

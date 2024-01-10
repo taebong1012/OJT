@@ -5,19 +5,19 @@ import {
 } from "react-icons/rx";
 import Divider from "components/ToolBar/Divider";
 import NamedButton from "components/common/NamedButton";
-import Controller from "controller/core";
 import fabric from "controller/fabric";
+import Drawer from "Instance/Drawer";
 
 const MultipleTools = () => {
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
 
   /** 선택된 객체들 그룹화 */
   const makeGroup = () => {
-    const activatedObject = controller.canvas!.getActiveObject();
+    const activatedObject = drawer.canvas!.getActiveObject();
 
     if (activatedObject instanceof fabric.ActiveSelection) {
       activatedObject.toGroup();
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("makeGroup: no ActiveSelection");
     }
@@ -25,13 +25,13 @@ const MultipleTools = () => {
 
   /** 수평적으로 가운데 정렬 */
   const makeCenterHorizontally = () => {
-    const activatedObject = controller.canvas!.getActiveObject();
+    const activatedObject = drawer.canvas!.getActiveObject();
     if (activatedObject instanceof fabric.ActiveSelection) {
       const activatedObjects = activatedObject.getObjects();
       activatedObjects.forEach((obj) => {
         obj.set("top", 0);
       });
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("makeCenterHorizontally: no ActiveSelection");
     }
@@ -39,13 +39,13 @@ const MultipleTools = () => {
 
   /** 수직적으로 가운데 정렬 */
   const makeCenterVertically = () => {
-    const activatedObject = controller.canvas!.getActiveObject();
+    const activatedObject = drawer.canvas!.getActiveObject();
     if (activatedObject instanceof fabric.ActiveSelection) {
       const activatedObjects = activatedObject.getObjects();
       activatedObjects.forEach((obj) => {
         obj.set("left", 0);
       });
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     } else {
       console.error("makeCenterHorizontally: no ActiveSelection");
     }

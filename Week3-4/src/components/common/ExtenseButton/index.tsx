@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useRef, useState } from "react";
 import TransparentSvg from "assets/svg/ic_transparent.svg";
 import * as S from "./style";
 import fabric from "controller/fabric";
-import Controller from "controller/core";
+import Drawer from "Instance/Drawer";
 
 type NamedButtonProps = {
   icon: ReactElement;
@@ -40,74 +40,69 @@ const ExtenseButton = ({ icon, text, type }: NamedButtonProps) => {
     [20, 10],
   ];
 
-  const controller = Controller.getInstance();
+  const drawer = Drawer.getInstance();
 
   /** 현재 선택된 도형의 배경 색 변경 */
   const changeFill = (color: string) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (
       selectedObject &&
       (selectedObject instanceof fabric.Rect ||
         selectedObject instanceof fabric.Circle ||
         selectedObject instanceof fabric.IText)
     ) {
-      controller.canvas!.getActiveObject()!.set("fill", color);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.getActiveObject()!.set("fill", color);
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 현재 선택된 도형의 테두리 색 변경 */
   const changeStrokeColor = (color: string) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (
       selectedObject &&
       (selectedObject instanceof fabric.Rect ||
         selectedObject instanceof fabric.Circle)
     ) {
-      controller.canvas!.getActiveObject()!.set("stroke", color);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.getActiveObject()!.set("stroke", color);
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 현재 선택된 도형의 테두리 굵기 변경 */
   const changeStrokeWidth = (width: number) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (
       selectedObject &&
       (selectedObject instanceof fabric.Rect ||
         selectedObject instanceof fabric.Circle)
     ) {
-      controller.canvas!.getActiveObject()!.set("strokeWidth", width);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.getActiveObject()!.set("strokeWidth", width);
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 현재 선택된 도형의 테두리 스타일 변경 */
   const changeStokeStyle = (dashArray: Array<number>) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (
       selectedObject &&
       (selectedObject instanceof fabric.Rect ||
         selectedObject instanceof fabric.Circle)
     ) {
-      controller.canvas!.getActiveObject()!.set("strokeDashArray", dashArray);
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.getActiveObject()!.set("strokeDashArray", dashArray);
+      drawer.canvas!.requestRenderAll();
     }
   };
 
   /** 현재 선택된 텍스트의 배경 색 변경 */
   const changeFontBackground = (color: string) => {
-    const selectedObject =
-      controller.canvas!.getActiveObject() as fabric.Object;
+    const selectedObject = drawer.canvas!.getActiveObject() as fabric.Object;
     if (selectedObject && selectedObject instanceof fabric.IText) {
       const textObject = selectedObject as fabric.IText;
       textObject.set("backgroundColor", color);
 
-      controller.canvas!.requestRenderAll();
+      drawer.canvas!.requestRenderAll();
     }
   };
 
