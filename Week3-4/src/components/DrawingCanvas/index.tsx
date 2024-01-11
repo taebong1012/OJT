@@ -3,10 +3,10 @@ import fabric from "controller/fabric";
 import { useSetAtom } from "jotai";
 import {
   activatedObjectAtom,
-  objectHeightValueAtom,
+  objectWidthValueAtom,
   objectLeftValueAtom,
   objectTopValueAtom,
-  objectWidthValueAtom,
+  objectHeightValueAtom,
 } from "atoms";
 import Drawer from "Instance/Drawer";
 
@@ -20,8 +20,8 @@ const DrawingCanvas = () => {
   const setObjectLeftValue = useSetAtom(objectLeftValueAtom);
   const setObjectTopValue = useSetAtom(objectTopValueAtom);
 
-  const setObjectWidthValue = useSetAtom(objectWidthValueAtom);
-  const setObjectHeightValue = useSetAtom(objectHeightValueAtom);
+  const setObjectWidthValueAtom = useSetAtom(objectWidthValueAtom);
+  const setObjectHeightValueAtom = useSetAtom(objectHeightValueAtom);
 
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
@@ -33,8 +33,14 @@ const DrawingCanvas = () => {
       setObjectLeftValue(newActivatedObject.left!);
       setObjectTopValue(newActivatedObject.top!);
 
-      setObjectWidthValue(newActivatedObject.width!);
-      setObjectHeightValue(newActivatedObject.height!);
+      console.log(newActivatedObject);
+
+      setObjectWidthValueAtom(
+        newActivatedObject.scaleX! * newActivatedObject.width!
+      );
+      setObjectHeightValueAtom(
+        newActivatedObject.scaleY! * newActivatedObject.height!
+      );
     }
   };
 
@@ -68,10 +74,9 @@ const DrawingCanvas = () => {
         setObjectTopValue(e.target!.top!);
       });
 
-      /** 캔버스 객체 리사이징 이벤트 감지 */
-      drawer.canvas.on("object:resizing", (e) => {
-        setObjectWidthValue(e.target!.width!);
-        setObjectWidthValue(e.target!.height!);
+      drawer.canvas.on("object:scaling", (e) => {
+        setObjectWidthValueAtom(e.target!.scaleX! * e.target!.width!);
+        setObjectHeightValueAtom(e.target!.scaleY! * e.target!.height!);
       });
     }
 

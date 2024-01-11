@@ -17,7 +17,7 @@ const WidthSetButtons = () => {
   };
 
   const setObject = () => {
-    activatedObject!.set({ width: width });
+    activatedObject!.set({ scaleX: width / activatedObject!.width! });
     drawer.canvas!.requestRenderAll();
   };
 

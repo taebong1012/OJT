@@ -17,7 +17,7 @@ const HeightSetButtons = () => {
   };
 
   const setObject = () => {
-    activatedObject!.set({ height: height });
+    activatedObject!.set({ scaleY: height / activatedObject!.width! });
     drawer.canvas!.requestRenderAll();
   };
 

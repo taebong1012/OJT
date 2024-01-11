@@ -32,7 +32,6 @@ const TopSetButtons = () => {
   };
 
   return (
-    
     <S.Container>
       <S.SetButton onClick={TopDecrease}>
         <RxMinus />

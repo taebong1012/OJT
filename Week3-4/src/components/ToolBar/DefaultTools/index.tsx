@@ -36,6 +36,8 @@ const Default = () => {
         name: "choice",
         originX: "center",
         originY: "center",
+        scaleX: 1,
+        scaleY: 1,
       });
 
       const shadow = new fabric.Shadow({
@@ -68,6 +70,8 @@ const Default = () => {
         originX: "center",
         originY: "center",
         fontSize: 40,
+        scaleX: 1,
+        scaleY: 1,
       });
 
       drawer.add(newText);
@@ -93,6 +97,8 @@ const Default = () => {
         strokeWidth: 1,
         originX: "center",
         originY: "center",
+        scaleX: 1,
+        scaleY: 1,
       });
 
       drawer.add(newRect);
@@ -117,6 +123,8 @@ const Default = () => {
         strokeWidth: 1,
         originX: "center",
         originY: "center",
+        scaleX: 1,
+        scaleY: 1,
       });
 
       drawer.add(newCircle);
@@ -143,6 +151,8 @@ const Default = () => {
           strokeUniform: true,
           originX: "center",
           originY: "center",
+          scaleX: 1,
+          scaleY: 1,
         }
       );
 
