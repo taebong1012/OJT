@@ -71,25 +71,29 @@ const AnswerContainer = () => {
 
   /** add 버튼 클릭시 동작 */
   const handleOnClickAddDiv = () => {
-    if (activatedObject) {
-      setAnswerObjects((prevAnswerObjects) => [
-        ...prevAnswerObjects,
-        activatedObject,
-      ]);
+    if (canAdd) {
+      if (activatedObject) {
+        setAnswerObjects((prevAnswerObjects) => [
+          ...prevAnswerObjects,
+          activatedObject,
+        ]);
 
-      const activatedObjectId = getId(activatedObject);
-      setChoiceIdArr((prevChoiceIdArr) => [
-        ...prevChoiceIdArr,
-        activatedObjectId,
-      ]);
+        const activatedObjectId = getId(activatedObject);
+        setChoiceIdArr((prevChoiceIdArr) => [
+          ...prevChoiceIdArr,
+          activatedObjectId,
+        ]);
 
-      if (!answerId) {
-        setAnswerId(activatedObjectId);
+        if (!answerId) {
+          setAnswerId(activatedObjectId);
+        }
+
+        setCanAdd(false);
+      } else {
+        console.error("no activated object");
       }
-
-      setCanAdd(false);
     } else {
-      console.error("no activated object");
+      return;
     }
   };
 
