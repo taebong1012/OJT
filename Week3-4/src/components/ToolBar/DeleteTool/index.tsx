@@ -17,8 +17,6 @@ const DeleteTool = () => {
     if (!drawer.canvas) {
       console.error("drawingCanvas does not exist");
     } else {
-      console.log("오브젝트 삭제");
-
       const selectedObjects: fabric.Object[] = drawer.canvas.getActiveObjects();
 
       selectedObjects.forEach((obj: fabric.Object) => {

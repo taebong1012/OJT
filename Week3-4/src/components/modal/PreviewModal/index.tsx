@@ -19,10 +19,8 @@ const PreviewContents = () => {
 
   /** choice인지 확인 */
   const isInChoicesData = (id: string) => {
-    console.log(choiceIdArr);
     for (const choiceId of choiceIdArr) {
       if (choiceId === id) {
-        console.log("엥");
         return true;
       }
     }

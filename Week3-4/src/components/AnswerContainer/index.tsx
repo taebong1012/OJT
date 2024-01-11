@@ -69,10 +69,6 @@ const AnswerContainer = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(choiceIdArr);
-  }, [choiceIdArr]);
-
   /** add 버튼 클릭시 동작 */
   const handleOnClickAddDiv = () => {
     if (activatedObject) {

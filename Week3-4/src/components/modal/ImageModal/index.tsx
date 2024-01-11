@@ -96,8 +96,6 @@ const ImageModalContents = () => {
     if (!drawer.canvas) {
       console.error("drawer.canvas does not exist");
     } else {
-      console.log("이미지들 추가");
-
       selectedImages.forEach((selectedImage, index) => {
         fabric.Image.fromURL(
           selectedImage.path,

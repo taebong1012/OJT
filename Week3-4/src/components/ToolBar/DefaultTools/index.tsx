@@ -73,8 +73,6 @@ const Default = () => {
 
       drawer.canvas.setActiveObject(newText);
       drawer.canvas.requestRenderAll();
-
-      console.log(newText);
     }
   };
 
@@ -108,8 +106,6 @@ const Default = () => {
     if (!drawer.canvas) {
       console.error("drawer.canvas does not exist");
     } else {
-      console.log("원 추가");
-
       const newCircle = new fabric.Circle({
         top: 100,
         left: 100,
@@ -135,8 +131,6 @@ const Default = () => {
     if (!drawer.canvas) {
       console.error("drawer.canvas! does not exist");
     } else {
-      console.log("직선 추가");
-
       const newLine = new fabric.Polyline(
         [
           { x: 50, y: 50 },
