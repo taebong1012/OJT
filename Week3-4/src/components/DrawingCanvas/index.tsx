@@ -76,8 +76,19 @@ const DrawingCanvas = () => {
 
       /** 캔버스 객체 사이즈 변경 이벤트 감지 */
       drawer.canvas.on("object:scaling", (e) => {
-        setObjectWidthValueAtom(e.target!.scaleX! * e.target!.width!);
-        setObjectHeightValueAtom(e.target!.scaleY! * e.target!.height!);
+        const target = e.target;
+        if (
+          target &&
+          target.scaleX &&
+          target.scaleY &&
+          target.width &&
+          target.height
+        ) {
+          setObjectWidthValueAtom(target.scaleX * target.width);
+          setObjectHeightValueAtom(target.scaleY * target.height);
+        } else {
+          console.error("object scaling event: no target");
+        }
       });
     }
 
