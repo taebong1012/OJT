@@ -60,13 +60,14 @@ const Default = () => {
       console.error("drawer.canvas does not exist");
     } else {
       const newText = new fabric.IText("Text", {
-        top: 100,
-        left: 100,
+        top: 300,
+        left: 400,
         fill: "black",
         fontFamily: "Helvetica",
         backgroundColor: "transparent",
         originX: "center",
         originY: "center",
+        fontSize: 40,
       });
 
       drawer.add(newText);

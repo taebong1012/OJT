@@ -26,8 +26,14 @@ const TextTools = () => {
   /** 폰트 선택란 노출 여부 */
   const [isPickerOpened, setIsPickerOpened] = useState(false);
 
+  /** IText 오브젝트의 원래 폰트사이즈 */
+  let originFontSize: number | undefined;
+  if (activatedObject && activatedObject instanceof fabric.IText) {
+    originFontSize = activatedObject.fontSize;
+  }
+
   /** 폰트 사이즈 */
-  const [fontSize, setFontSize] = useState<number>();
+  const [fontSize, setFontSize] = useState<number | undefined>(originFontSize);
 
   useEffect(() => {
     if (activatedObject) {
@@ -41,11 +47,15 @@ const TextTools = () => {
   }, [activatedObject]);
 
   const fontSizeDecrease = () => {
-    setFontSize(fontSize! - 1);
+    if (fontSize) {
+      setFontSize(fontSize - 1);
+    }
   };
 
   const fontSizeIncrease = () => {
-    setFontSize(fontSize! + 1);
+    if (fontSize) {
+      setFontSize(fontSize + 1);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
