@@ -156,18 +156,21 @@ const AnswerContainer = () => {
   };
 
   return (
-    <S.Container>
-      <S.AddDiv $canAdd={canAdd} onClick={handleOnClickAddDiv}>
-        <RxPlusCircled color={canAdd ? "#333333" : "#999999"} />
-      </S.AddDiv>
-      <S.AnswersContainer>
-        {answerObjects.map((answerObject, index) => {
-          return (
-            <Answer key={index} answerObject={answerObject} index={index} />
-          );
-        })}
-      </S.AnswersContainer>
-    </S.Container>
+    <div>
+      <S.Title>Choices</S.Title>
+      <S.Container>
+        <S.AddDiv $canAdd={canAdd} onClick={handleOnClickAddDiv}>
+          <RxPlusCircled color={canAdd ? "#333333" : "#999999"} />
+        </S.AddDiv>
+        <S.AnswersContainer>
+          {answerObjects.map((answerObject, index) => {
+            return (
+              <Answer key={index} answerObject={answerObject} index={index} />
+            );
+          })}
+        </S.AnswersContainer>
+      </S.Container>
+    </div>
   );
 };
 

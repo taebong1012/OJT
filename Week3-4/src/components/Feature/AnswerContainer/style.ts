@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Title = styled.div`
+  font-family: "S-CoreDream-6Bold";
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+`;
+
 export const Container = styled.div`
   width: 100%;
   display: flex;

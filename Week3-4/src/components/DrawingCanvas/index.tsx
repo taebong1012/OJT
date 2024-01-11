@@ -1,7 +1,13 @@
 import { useEffect } from "react";
 import fabric from "controller/fabric";
 import { useSetAtom } from "jotai";
-import { activatedObjectAtom } from "atoms";
+import {
+  activatedObjectAtom,
+  objectHeightValueAtom,
+  objectLeftValueAtom,
+  objectTopValueAtom,
+  objectWidthValueAtom,
+} from "atoms";
 import Drawer from "Instance/Drawer";
 
 /** fabric 캔버스 생성 */
@@ -11,12 +17,24 @@ const DrawingCanvas = () => {
 
   const setActivatedObject = useSetAtom(activatedObjectAtom);
 
+  const setObjectLeftValue = useSetAtom(objectLeftValueAtom);
+  const setObjectTopValue = useSetAtom(objectTopValueAtom);
+
+  const setObjectWidthValue = useSetAtom(objectWidthValueAtom);
+  const setObjectHeightValue = useSetAtom(objectHeightValueAtom);
+
   /** 캔버스 내의 오브젝트가 선택됐을 시 작동할 함수 */
   const handleOnClickCanvasObject = () => {
     const newActivatedObject: fabric.Object | null =
       drawer.canvas!.getActiveObject();
     if (newActivatedObject !== null) {
       setActivatedObject(newActivatedObject as fabric.Object);
+
+      setObjectLeftValue(newActivatedObject.left!);
+      setObjectTopValue(newActivatedObject.top!);
+
+      setObjectWidthValue(newActivatedObject.width!);
+      setObjectHeightValue(newActivatedObject.height!);
     }
   };
 
@@ -42,6 +60,18 @@ const DrawingCanvas = () => {
       /** 캔버스 선택 객체 해제 이벤트 */
       drawer.canvas.on("selection:cleared", () => {
         setActivatedObject(null);
+      });
+
+      /** 캔버스 객체 이동 이벤트 감지 */
+      drawer.canvas.on("object:moving", (e) => {
+        setObjectLeftValue(e.target!.left!);
+        setObjectTopValue(e.target!.top!);
+      });
+
+      /** 캔버스 객체 리사이징 이벤트 감지 */
+      drawer.canvas.on("object:resizing", (e) => {
+        setObjectWidthValue(e.target!.width!);
+        setObjectWidthValue(e.target!.height!);
       });
     }
 

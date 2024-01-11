@@ -111,6 +111,13 @@ const GlobalStyle = createGlobalStyle`
   input[type='number'] {
     appearance: textfield;
   }
+  input {
+    width: 40px;
+    height: 30px;
+    margin-right: 4px;
+    border: 1px solid #dadfe8;
+    text-align: center;
+  }
 
   canvas {
     filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.25));

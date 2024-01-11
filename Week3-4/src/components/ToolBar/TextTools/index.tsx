@@ -154,11 +154,11 @@ const TextTools = () => {
         text="폰트 크기 감소"
         marginRight={4}
       />
-      <S.FontSizeInput
+      <input
         type="number"
         value={fontSize}
         onChange={handleInputChange}
-      />
+      ></input>
       <NamedButton
         handleOnClick={fontSizeIncrease}
         icon={<RxPlus />}

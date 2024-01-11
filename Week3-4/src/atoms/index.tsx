@@ -18,3 +18,15 @@ export const answerIdAtom = atom<string>("");
 
 /** 프리뷰 모달의 열림 여부 */
 export const isShowPreviewModalAtom = atom(false);
+
+/** left 값 */
+export const objectLeftValueAtom = atom<number>(0);
+
+/** top 값 */
+export const objectTopValueAtom = atom<number>(0);
+
+/** width 값 */
+export const objectWidthValueAtom = atom<number>(0);
+
+/** height 값 */
+export const objectHeightValueAtom = atom<number>(0);
