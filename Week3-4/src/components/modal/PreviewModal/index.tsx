@@ -54,6 +54,7 @@ const PreviewContents = () => {
   /** 오브젝트들 속성 설정 */
   const setObjects = () => {
     const canvasObjects: fabric.Object[] = previewer.canvas!.getObjects();
+
     canvasObjects.forEach((obj) => {
       const type = getObjectType(obj);
 
@@ -127,6 +128,17 @@ const PreviewContents = () => {
     previewer.canvas!.requestRenderAll();
   };
 
+  const load = async () => {
+    try {
+      await previewer.loadFromJson(canvasData);
+
+      /** 오브젝트들에게 타입 부여 */
+      setObjects();
+    } catch {
+      console.error("FAILED: canvas load from json");
+    }
+  };
+
   useEffect(() => {
     const canvasElement = document.getElementById(
       "preview-canvas"
@@ -138,10 +150,7 @@ const PreviewContents = () => {
       previewer.canvas.setDimensions({ width: 800, height: 600 });
       previewer.canvas.selection = false;
 
-      previewer.loadFromJson(canvasData);
-
-      /** 오브젝트들에게 타입 부여 */
-      setObjects();
+      load();
     }
 
     return () => {
