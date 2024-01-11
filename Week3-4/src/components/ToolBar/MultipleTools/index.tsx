@@ -10,7 +10,6 @@ import Drawer from "Instance/Drawer";
 import { useAtom } from "jotai";
 import { answerObjectsAtom, choiceIdArrAtom } from "atoms";
 import getId from "utils/getId";
-import { useEffect } from "react";
 
 const MultipleTools = () => {
   const drawer = Drawer.getInstance();

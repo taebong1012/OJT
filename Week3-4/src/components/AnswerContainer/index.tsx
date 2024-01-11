@@ -16,6 +16,7 @@ const AnswerContainer = () => {
   const [choiceIdArr, setChoiceIdArr] = useAtom(choiceIdArrAtom);
   const activatedObject = useAtomValue(activatedObjectAtom);
   const [canAdd, setCanAdd] = useState(false);
+  const [answerId, setAnswerId] = useAtom(answerIdAtom);
 
   const removeFromAnswerObjects = (index: number) => {
     if (index < answerObjects.length && index >= 0) {
@@ -79,10 +80,17 @@ const AnswerContainer = () => {
         ...prevAnswerObjects,
         activatedObject,
       ]);
+
+      const activatedObjectId = getId(activatedObject);
       setChoiceIdArr((prevChoiceIdArr) => [
         ...prevChoiceIdArr,
-        getId(activatedObject),
+        activatedObjectId,
       ]);
+
+      if (!answerId) {
+        setAnswerId(activatedObjectId);
+      }
+
       setCanAdd(false);
     } else {
       console.error("no activated object");
