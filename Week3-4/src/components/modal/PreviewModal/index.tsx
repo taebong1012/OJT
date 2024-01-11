@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { isShowPreviewModalAtom } from "atoms";
 import Previewer from "Instance/Previewer";
 import fabric from "controller/fabric";
+import getId from "utils/getId";
 
 const PreviewContents = () => {
   const setIsShowPreviewModal = useSetAtom(isShowPreviewModalAtom);
@@ -30,14 +31,9 @@ const PreviewContents = () => {
   /** 오브젝트 타입(answer, choice, none) */
   const getObjectType = (obj: fabric.Object) => {
     let type: string;
-    let id: string;
 
     /** 객체 id 받아오기 */
-    if (obj instanceof fabric.Group) {
-      id = obj._objects[0].data.id;
-    } else {
-      id = obj.data.id;
-    }
+    const id = getId(obj);
 
     /** 정답 객체라면 */
     if (id === answerId) {

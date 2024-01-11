@@ -74,6 +74,7 @@ const DrawingCanvas = () => {
         setObjectTopValue(e.target!.top!);
       });
 
+      /** 캔버스 객체 사이즈 변경 이벤트 감지 */
       drawer.canvas.on("object:scaling", (e) => {
         setObjectWidthValueAtom(e.target!.scaleX! * e.target!.width!);
         setObjectHeightValueAtom(e.target!.scaleY! * e.target!.height!);
