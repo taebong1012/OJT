@@ -25,7 +25,7 @@ const Default = () => {
       const newRect = new fabric.Rect({
         top: 100,
         left: 100,
-        width: 100,
+        width: 140,
         height: 100,
         fill: "white",
         stroke: "#D0D0D0",
