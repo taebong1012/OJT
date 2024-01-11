@@ -5,12 +5,16 @@ import fabric from "controller/fabric";
 import { useAtom } from "jotai";
 import { answerObjectsAtom, choiceIdArrAtom } from "atoms";
 import Drawer from "Instance/Drawer";
+import getId from "utils/getId";
 
 const DeleteTool = () => {
   const drawer = Drawer.getInstance();
 
-  const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
+  const [choiceObjects, setChoiceObjects] = useAtom(answerObjectsAtom);
   const [choiceIdArr, setChoiceIdArr] = useAtom(choiceIdArrAtom);
+
+  let updatedAnswerObjects: fabric.Object[];
+  let updatedChoiceAnswerArr: string[];
 
   /** 키보드 backspace 입력 시 활성화된 객체 삭제 */
   const deleteObject = () => {
@@ -19,15 +23,12 @@ const DeleteTool = () => {
     } else {
       const selectedObjects: fabric.Object[] = drawer.canvas.getActiveObjects();
 
+      updatedAnswerObjects = [...choiceObjects];
+      updatedChoiceAnswerArr = [...choiceIdArr];
+
       selectedObjects.forEach((obj: fabric.Object) => {
-        let selectedObjectsId;
-        /** 선택한 것이 그룹 객체라면 */
-        if (obj instanceof fabric.Group) {
-          selectedObjectsId = obj._objects[0].data.id;
-        } else {
-          /** 선택한 것이 그룹 객체가 아니라면 */
-          selectedObjectsId = obj?.data.id;
-        }
+        const selectedObjectsId = getId(obj);
+
         deleteFromAnswerObjects(selectedObjectsId);
 
         drawer.canvas!.remove(obj);
@@ -39,22 +40,15 @@ const DeleteTool = () => {
   };
 
   const deleteFromAnswerObjects = (targetObjId: string) => {
-    const index = answerObjects.findIndex((answerObject) => {
-      let answerObjectId;
-      if (answerObject instanceof fabric.Group) {
-        answerObjectId = answerObject._objects[0].data.id;
-      } else {
-        answerObjectId = answerObject.data.id;
-      }
-      return answerObjectId === targetObjId;
+    const index = choiceObjects.findIndex((choiceObject) => {
+      let choiceObjectId = getId(choiceObject);
+      return choiceObjectId === targetObjId;
     });
 
     if (index !== -1) {
-      const updatedAnswerObjects = [...answerObjects];
       updatedAnswerObjects.splice(index, 1);
-      setAnswerObjects(updatedAnswerObjects);
+      setChoiceObjects(updatedAnswerObjects);
 
-      const updatedChoiceAnswerArr = [...choiceIdArr];
       updatedChoiceAnswerArr.splice(index, 1);
       setChoiceIdArr(updatedChoiceAnswerArr);
     } else {

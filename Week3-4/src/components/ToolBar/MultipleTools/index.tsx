@@ -43,21 +43,14 @@ const MultipleTools = () => {
   /** answer 배열에서 id 찾아서 삭제 */
   const deleteFromAnswerObjects = (targetObjId: string) => {
     const index = choiceObjects.findIndex((choiceObject) => {
-      let answerObjectId;
-      if (choiceObject instanceof fabric.Group) {
-        answerObjectId = choiceObject._objects[0].data.id;
-      } else {
-        answerObjectId = choiceObject.data.id;
-      }
-      return answerObjectId === targetObjId;
+      let choiceObjectId = getId(choiceObject);
+      return choiceObjectId === targetObjId;
     });
 
     if (index !== -1) {
-      // const updatedAnswerObjects = [...choiceObjects];
       updatedAnswerObjects.splice(index, 1);
       setChoiceObjects(updatedAnswerObjects);
 
-      // const updatedChoiceAnswerArr = [...choiceIdArr];
       updatedChoiceAnswerArr.splice(index, 1);
       setChoiceIdArr(updatedChoiceAnswerArr);
     } else {
