@@ -8,34 +8,30 @@ import NamedButton from "components/common/NamedButton";
 import fabric from "controller/fabric";
 import Drawer from "Instance/Drawer";
 import { useAtom } from "jotai";
-import { answerObjectsAtom } from "atoms";
+import { answerObjectsAtom, choiceIdArrAtom } from "atoms";
+import getId from "utils/getId";
+import { useEffect } from "react";
 
 const MultipleTools = () => {
   const drawer = Drawer.getInstance();
-  const [answerObjects, setAnswerObjects] = useAtom(answerObjectsAtom);
+  const [choiceObjects, setChoiceObjects] = useAtom(answerObjectsAtom);
+  const [choiceIdArr, setChoiceIdArr] = useAtom(choiceIdArrAtom);
+
+  let updatedAnswerObjects: fabric.Object[];
+  let updatedChoiceAnswerArr: string[];
 
   /** 선택된 객체들 그룹화 */
   const makeGroup = () => {
     const activatedObject = drawer.canvas!.getActiveObject();
 
     if (activatedObject instanceof fabric.ActiveSelection) {
+      updatedAnswerObjects = [...choiceObjects];
+      updatedChoiceAnswerArr = [...choiceIdArr];
 
-      const updatedAnswerObjects = [...answerObjects];
-
-      activatedObject._objects.map((obj) => {
-        
-        const index = answerObjects.findIndex((answerObject) => {
-          let answerObjectId;
-          if (answerObject instanceof fabric.Group) {
-            answerObjectId = answerObject._objects[0].data.id;
-          } else {
-            answerObjectId = answerObject.data.id;
-          }
-          return answerObjectId === obj.data.id;
-        });
-
-        
-
+      /** 현재 설정된 오브젝트들을 탐색 */
+      activatedObject._objects.forEach((obj) => {
+        const objId = getId(obj);
+        deleteFromAnswerObjects(objId);
       });
 
       activatedObject.toGroup();
@@ -47,20 +43,24 @@ const MultipleTools = () => {
 
   /** answer 배열에서 id 찾아서 삭제 */
   const deleteFromAnswerObjects = (targetObjId: string) => {
-    const index = answerObjects.findIndex((answerObject) => {
+    const index = choiceObjects.findIndex((choiceObject) => {
       let answerObjectId;
-      if (answerObject instanceof fabric.Group) {
-        answerObjectId = answerObject._objects[0].data.id;
+      if (choiceObject instanceof fabric.Group) {
+        answerObjectId = choiceObject._objects[0].data.id;
       } else {
-        answerObjectId = answerObject.data.id;
+        answerObjectId = choiceObject.data.id;
       }
       return answerObjectId === targetObjId;
     });
 
     if (index !== -1) {
-      const updatedAnswerObjects = [...answerObjects];
+      // const updatedAnswerObjects = [...choiceObjects];
       updatedAnswerObjects.splice(index, 1);
-      setAnswerObjects(updatedAnswerObjects);
+      setChoiceObjects(updatedAnswerObjects);
+
+      // const updatedChoiceAnswerArr = [...choiceIdArr];
+      updatedChoiceAnswerArr.splice(index, 1);
+      setChoiceIdArr(updatedChoiceAnswerArr);
     } else {
       /** answerObject 배열에 없으므로 리턴 */
       return;
