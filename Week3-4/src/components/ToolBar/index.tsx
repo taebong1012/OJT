@@ -53,12 +53,12 @@ const ToolBar = () => {
   return (
     <S.Container>
       <Default />
-      {curObjectType === "shape" ? <ShapeTools /> : null}
-      {curObjectType === "text" ? <TextTools /> : null}
-      {curObjectType !== "diselected" ? <UpDown /> : null}
-      {curObjectType === "multiselected" ? <MultipleTools /> : null}
-      {curObjectType === "group" ? <GroupTools /> : null}
-      {activatedObject ? <DeleteTool /> : null}
+      {curObjectType === "shape" && <ShapeTools />}
+      {curObjectType === "text" && <TextTools />}
+      {curObjectType !== "diselected" && <UpDown />}
+      {curObjectType === "multiselected" && <MultipleTools />}
+      {curObjectType === "group" && <GroupTools />}
+      {activatedObject && <DeleteTool />}
     </S.Container>
   );
 };
