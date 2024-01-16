@@ -1,8 +1,9 @@
+import InputTitle from "@/components/Start/InputTitle";
 import SignInput from "@/components/Start/SignInput";
 import MainButton from "@/components/common/MainButton";
 import { useState } from "react";
 
-const Login = () => {
+const SignIn = () => {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
@@ -13,14 +14,14 @@ const Login = () => {
   return (
     <>
       <div className="h-250 w-full mb-2.5 flex flex-col">
-        <span className="text-s mb-0.5">아이디</span>
+        <InputTitle text="아이디" />
         <SignInput
           type="text"
           value={inputId}
           handleOnChange={setInputId}
           placeholder="아이디 입력"
         />
-        <span className="text-s mb-0.5">비밀번호</span>
+        <InputTitle text="비밀번호" />
         <SignInput
           type="password"
           value={inputPw}
@@ -38,4 +39,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

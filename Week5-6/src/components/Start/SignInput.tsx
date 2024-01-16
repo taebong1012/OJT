@@ -3,6 +3,7 @@ type SignInputProps = {
   value: string;
   handleOnChange: Function;
   placeholder: string;
+  isHaveMarginBottom?: boolean;
 };
 
 const SignInput = ({
@@ -10,6 +11,7 @@ const SignInput = ({
   value,
   handleOnChange,
   placeholder,
+  isHaveMarginBottom = true,
 }: SignInputProps) => {
   return (
     <input
@@ -17,7 +19,9 @@ const SignInput = ({
       value={value}
       onChange={(e) => handleOnChange(e.target.value)}
       placeholder={placeholder}
-      className="h-9 bg-lightgrey mb-5 rounded-10 px-2.5 focus: outline-none focus:outline-primary focus:-outline-offset-2"
+      className={`min-h-9 bg-lightgrey rounded-10 px-2.5 focus: outline-none focus:outline-primary focus:-outline-offset-2 ${
+        isHaveMarginBottom ? "mb-5" : ""
+      }`}
     />
   );
 };
