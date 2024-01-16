@@ -1,11 +1,18 @@
+// Start the Tailwind CLI build process
+// npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #333333;
-  background-color: #ffffff;
+  color: #404040;
+  background-color: #fcfcfc;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
