@@ -1,4 +1,6 @@
 import logo from "@/assets/svg/ic_logo.svg";
+import SignIn from "@/components/Start/SignIn";
+import SignUp from "@/components/Start/SignUp";
 import { useState } from "react";
 
 const Start = () => {
@@ -7,11 +9,11 @@ const Start = () => {
 
   /** 탭의 이름과 담고 있는 배열 */
   const tabArr = [
-    { name: "로그인", content: "로그인 컴포넌트" },
-    { name: "회원가입", content: "회원가입 컴포넌트" },
+    { name: "로그인", content: <SignIn /> },
+    { name: "회원가입", content: <SignUp /> },
   ];
 
-  /** 클릭시  */
+  /** 클릭시 tab 인덱스 변경 */
   const handleOnClick = (index: number) => {
     setTabIndex(index);
   };
@@ -49,7 +51,7 @@ const Start = () => {
               return <TabButton key={index} index={index} />;
             })}
           </div>
-          <div className="w-304 bg-background rounded-r-10 pl-5 pt-10">
+          <div className="w-304 bg-background rounded-r-10 pl-5 pt-10 pr-40">
             {tabArr[tabIndex].content}
           </div>
         </div>

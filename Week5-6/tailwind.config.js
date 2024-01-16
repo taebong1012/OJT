@@ -5,29 +5,36 @@ export default {
     extend: {
       width: {
         146: "146px",
+        160: "160px",
         304: "304px",
         1240: "1240px",
       },
       height: {
+        250: "250px",
         360: "360px",
       },
       margin: {
         60: "60px",
       },
       padding: {
+        40: "40px",
         60: "60px",
       },
       colors: {
         primary: "#5170EC",
         secondary: "#CDD6F1",
         background: "#FCFCFC",
+        lightgrey: "#E5E5E5",
+        darkgrey: "#A8A8A8",
+        buttonhover: "#4460D1",
+        buttonactive: "#364BA0",
       },
       borderRadius: {
         10: "10px",
       },
       fontSize: {
         xs: ["12px"],
-        s: ["12px"],
+        s: ["14px"],
         l: ["20px"],
         xl: ["24px"],
         "2xl": ["28px"],
