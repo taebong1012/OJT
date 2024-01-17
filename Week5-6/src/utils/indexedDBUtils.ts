@@ -1,5 +1,6 @@
 import { userType } from "@/types/userType";
 
+/** indexedDB를 열고 users 테이블을 반환 */
 const openDB = async (): Promise<IDBDatabase> => {
   const idxedDB = window.indexedDB;
 

@@ -37,6 +37,7 @@ const SignUp = () => {
   useEffect(() => {
     if (
       inputPw === inputConfirmPw &&
+      isPossibleId &&
       getCanRegist({
         inputId,
         inputPw,
@@ -60,6 +61,8 @@ const SignUp = () => {
         } catch (error: any) {
           console.error("id checking Err: ", error.message);
         }
+      } else {
+        setIsPossibleId(false);
       }
     };
 
