@@ -16,6 +16,8 @@ const SignUp = () => {
   const [inputName, setInputName] = useState("");
   const [inputBirth, setInputBirth] = useState(""); // YYYY-MM-dd
 
+  const [isPossibleId, setIsPossibleId] = useState(false);
+
   const doSignUp = async () => {
     try {
       const userData: userType = {
@@ -47,6 +49,17 @@ const SignUp = () => {
       setIsDisabled(true);
     }
   }, [inputId, inputPw, inputConfirmPw, inputName, inputBirth]);
+
+  useEffect(() => {
+    const handleOnChangeInputId = async () => {
+      console.log("id changed: ", inputId);
+      const response = await axios.get(`/checkid/${inputId}`);
+
+      console.log(response);
+    };
+
+    handleOnChangeInputId();
+  }, [inputId]);
 
   return (
     <>

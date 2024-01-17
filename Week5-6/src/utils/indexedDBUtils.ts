@@ -38,7 +38,30 @@ export const addUserToDB = async (userData: userType) => {
     });
 
     console.log("Transaction completed successfully");
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    console.error("Transaction Error: ", error);
   }
+};
+
+export const getIsPossibleId = async (id: string) => {
+  const db: IDBDatabase = await openDB();
+  const transaction: IDBTransaction = db.transaction(["users"]);
+  const objStore: IDBObjectStore = transaction.objectStore("users");
+
+  const getAllIdsRequest = objStore.getAllKeys();
+
+  return new Promise<boolean>((resolve, reject) => {
+    getAllIdsRequest.onsuccess = (e: Event) => {
+      const allIds: string[] = (e.target as IDBRequest).result;
+
+      /** 포함되어있다면 불가능, 포함되어 있지 않다면 가능 */
+      const isPossibleId = !allIds.includes(id);
+
+      resolve(isPossibleId);
+    };
+
+    getAllIdsRequest.onerror = (e: Event) => {
+      reject((e.target as IDBRequest).error);
+    };
+  });
 };
