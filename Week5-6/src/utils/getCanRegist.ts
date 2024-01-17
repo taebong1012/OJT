@@ -17,7 +17,6 @@ const getCanRegist = ({
     inputName.trim() &&
     inputBirth.trim()
   ) {
-    console.log("엥?");
     return true;
   } else {
     return false;

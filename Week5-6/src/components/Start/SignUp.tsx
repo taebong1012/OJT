@@ -2,7 +2,9 @@ import InputTitle from "@/components/Start/InputTitle";
 import SignInput from "@/components/Start/SignInput";
 import ValidityComment from "@/components/Start/ValidityComment";
 import MainButton from "@/components/common/MainButton";
+import { userType } from "@/types/userType";
 import getCanRegist from "@/utils/getCanRegist";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const SignUp = () => {
@@ -14,8 +16,20 @@ const SignUp = () => {
   const [inputName, setInputName] = useState("");
   const [inputBirth, setInputBirth] = useState(""); // YYYY-MM-dd
 
-  const handleOnClickLogInButton = () => {
-    console.log("login btn clicked");
+  const doSignUp = async () => {
+    try {
+      const userData: userType = {
+        id: inputId,
+        password: inputPw,
+        name: inputName,
+        birth: inputBirth,
+      };
+
+      await axios.post("/signup", userData);
+      console.log("sign-up SUCCESS");
+    } catch (error: any) {
+      console.error("sign-up FAILED: ", error);
+    }
   };
 
   useEffect(() => {
@@ -86,7 +100,8 @@ const SignUp = () => {
 
       <MainButton
         text="회원가입"
-        handleOnClick={handleOnClickLogInButton}
+        // handleOnClick={handleOnClickSignUpButton}
+        handleOnClick={doSignUp}
         isFull={true}
         isDisabled={isDisabled}
       />

@@ -1,31 +1,18 @@
 import { HttpResponse, http } from "msw";
-
-const allPosts = new Map();
+import { addUserToDB } from "@/utils/indexedDBUtils";
+import { userType } from "@/types/userType";
 
 export const handlers = [
-  http.get("/posts", () => {
-    console.log('Captured a "GET /posts" request');
-    return HttpResponse.json(Array.from(allPosts.values()));
-  }),
+  /** post: 회원가입 */
+  http.post("/signup", async ({ request }) => {
+    try {
+      const userData: userType = (await request.json()) as userType;
 
-  http.post("/posts", async ({ request }) => {
-    console.log('Captured a "POST /posts" request');
-    console.log(request);
-  }),
+      await addUserToDB(userData);
 
-  http.delete("/posts/:id", ({ params }) => {
-    console.log(`Captured a "DELETE /posts/${params.id}" request`);
-
-    const { id } = params;
-
-    const deletedPost = allPosts.get(id);
-
-    if (!deletedPost) {
-      return new HttpResponse(null, { status: 404 });
+      console.log("Users added successfully");
+    } catch (error: any) {
+      console.error("Error adding users to DB:", error.message);
     }
-
-    allPosts.delete(id);
-
-    return HttpResponse.json(deletedPost);
   }),
 ];
