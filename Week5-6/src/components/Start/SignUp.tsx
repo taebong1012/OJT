@@ -50,12 +50,17 @@ const SignUp = () => {
     }
   }, [inputId, inputPw, inputConfirmPw, inputName, inputBirth]);
 
+  /** 사용자가 입력한 id가 바뀔 때마다 이미 존재하는 id인지 확인 */
   useEffect(() => {
     const handleOnChangeInputId = async () => {
-      console.log("id changed: ", inputId);
-      const response = await axios.get(`/checkid/${inputId}`);
-
-      console.log(response);
+      if (inputId !== "") {
+        try {
+          const response = await axios.get(`/checkid/${inputId}`);
+          setIsPossibleId(response.data);
+        } catch (error: any) {
+          console.error("id checking Err: ", error.message);
+        }
+      }
     };
 
     handleOnChangeInputId();
@@ -72,7 +77,7 @@ const SignUp = () => {
           placeholder="아이디 설정"
           isHaveMarginBottom={false}
         />
-        <ValidityComment isCheckingID={true} isValid={false} />
+        <ValidityComment isCheckingID={true} isValid={isPossibleId} />
 
         <InputTitle text="사용할 비밀번호" />
         <SignInput
