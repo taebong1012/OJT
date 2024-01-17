@@ -1,15 +1,38 @@
 import InputTitle from "@/components/Start/InputTitle";
 import SignInput from "@/components/Start/SignInput";
+import ValidityComment from "@/components/Start/ValidityComment";
 import MainButton from "@/components/common/MainButton";
-import { useState } from "react";
+import getCanRegist from "@/utils/getCanRegist";
+import { useEffect, useState } from "react";
 
 const SignUp = () => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const [inputConfirmPw, setInputConfirmPw] = useState("");
+  const [inputName, setInputName] = useState("");
+  const [inputBirth, setInputBirth] = useState(""); // YYYY-MM-dd
 
   const handleOnClickLogInButton = () => {
     console.log("login btn clicked");
   };
+
+  useEffect(() => {
+    if (
+      inputPw === inputConfirmPw &&
+      getCanRegist({
+        inputId,
+        inputPw,
+        inputName,
+        inputBirth,
+      })
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [inputId, inputPw, inputConfirmPw, inputName, inputBirth]);
 
   return (
     <>
@@ -22,34 +45,41 @@ const SignUp = () => {
           placeholder="아이디 설정"
           isHaveMarginBottom={false}
         />
+        <ValidityComment isCheckingID={true} isValid={false} />
+
         <InputTitle text="사용할 비밀번호" />
         <SignInput
           type="password"
           value={inputPw}
           handleOnChange={setInputPw}
           placeholder="비밀번호 설정"
-          isHaveMarginBottom={false}
+          isHaveMarginBottom={true}
         />
         <InputTitle text="비밀번호 확인" />
         <SignInput
           type="password"
-          value={inputPw}
-          handleOnChange={setInputPw}
+          value={inputConfirmPw}
+          handleOnChange={setInputConfirmPw}
           placeholder="비밀번호 확인"
           isHaveMarginBottom={false}
         />
+        <ValidityComment
+          isCheckingID={false}
+          isValid={inputPw === inputConfirmPw}
+        />
+
         <InputTitle text="이름 입력" />
         <SignInput
-          type="password"
-          value={inputPw}
-          handleOnChange={setInputPw}
+          type="text"
+          value={inputName}
+          handleOnChange={setInputName}
           placeholder="이름 입력"
         />
-        <InputTitle text="이름 입력" />
+        <InputTitle text="생년월일" />
         <SignInput
-          type="password"
-          value={inputPw}
-          handleOnChange={setInputPw}
+          type="date"
+          value={inputBirth}
+          handleOnChange={setInputBirth}
           placeholder="이름 입력"
         />
       </div>
@@ -58,7 +88,7 @@ const SignUp = () => {
         text="회원가입"
         handleOnClick={handleOnClickLogInButton}
         isFull={true}
-        isDisabled={inputId.trim() === "" || inputPw.trim() === ""}
+        isDisabled={isDisabled}
       />
     </>
   );

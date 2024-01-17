@@ -21,7 +21,9 @@ const SignInput = ({
       placeholder={placeholder}
       className={`min-h-9 bg-lightgrey rounded-10 px-2.5 focus: outline-none focus:outline-primary focus:-outline-offset-2 ${
         isHaveMarginBottom ? "mb-5" : ""
-      }`}
+      }
+      ${type === "date" ? "w-36" : "w-full"}
+      `}
     />
   );
 };

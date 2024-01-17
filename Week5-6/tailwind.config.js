@@ -28,6 +28,8 @@ export default {
         darkgrey: "#A8A8A8",
         buttonhover: "#4460D1",
         buttonactive: "#364BA0",
+        wrong: "#EF8084",
+        correct: "#11A817",
       },
       borderRadius: {
         10: "10px",

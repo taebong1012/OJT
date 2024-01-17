@@ -93,3 +93,8 @@ button:focus-visible {
 ::-webkit-scrollbar-thumb:hover {
   background: #bcbcbc;
 }
+
+/* date 타입의 input 캘린더 아이콘 색상 변경 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
