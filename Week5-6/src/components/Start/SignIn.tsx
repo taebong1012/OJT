@@ -28,6 +28,8 @@ const SignIn = () => {
         window.alert(error.message);
       }
     }
+
+    setInputPw("");
   };
 
   return (
