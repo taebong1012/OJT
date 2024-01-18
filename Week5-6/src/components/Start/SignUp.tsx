@@ -78,9 +78,11 @@ const SignUp = () => {
           value={inputId}
           handleOnChange={setInputId}
           placeholder="아이디 설정"
-          isHaveMarginBottom={false}
+          isHaveMarginBottom={inputId === ""}
         />
-        <ValidityComment isCheckingID={true} isValid={isPossibleId} />
+        {inputId && (
+          <ValidityComment isCheckingID={true} isValid={isPossibleId} />
+        )}
 
         <InputTitle text="사용할 비밀번호" />
         <SignInput
@@ -96,12 +98,14 @@ const SignUp = () => {
           value={inputConfirmPw}
           handleOnChange={setInputConfirmPw}
           placeholder="비밀번호 확인"
-          isHaveMarginBottom={false}
+          isHaveMarginBottom={inputPw === ""}
         />
-        <ValidityComment
-          isCheckingID={false}
-          isValid={inputPw === inputConfirmPw}
-        />
+        {inputPw && (
+          <ValidityComment
+            isCheckingID={false}
+            isValid={inputPw === inputConfirmPw && inputPw !== ""}
+          />
+        )}
 
         <InputTitle text="이름 입력" />
         <SignInput

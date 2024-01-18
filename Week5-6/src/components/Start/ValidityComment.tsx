@@ -13,7 +13,7 @@ const ValidityComment = ({ isCheckingID, isValid }: ValidityCommentProps) => {
     /** 유효하다면 */
     if (isValid) {
       return (
-        <div className="flex justify-end text-xs text-correct mb-3.5">
+        <div className="flex justify-end text-xs text-correct mb-2">
           사용가능한 ID 입니다.
         </div>
       );
