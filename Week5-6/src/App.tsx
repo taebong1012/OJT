@@ -2,13 +2,15 @@ import Header from "@/components/common/Header";
 import Start from "@/pages/Start";
 import Main from "@/pages/Main";
 import { Outlet, Route, Routes } from "react-router-dom";
+import Profile from "@/components/common/Profile";
 
 function App() {
   const Layout = () => {
     return (
       <>
         <Header />
-        <div className="w-1240 border-2 border-red-500 mx-auto px-5">
+        <div className="w-1240 border-2 border-red-500 mx-auto px-5 flex gap-10 ">
+          <Profile />
           <Outlet />
         </div>
       </>
