@@ -10,7 +10,7 @@ const Start = () => {
   /** 탭의 이름과 담고 있는 배열 */
   const tabArr = [
     { name: "로그인", content: <SignIn /> },
-    { name: "회원가입", content: <SignUp /> },
+    { name: "회원가입", content: <SignUp setTabIndex={setTabIndex} /> },
   ];
 
   /** 클릭시 tab 인덱스 변경 */

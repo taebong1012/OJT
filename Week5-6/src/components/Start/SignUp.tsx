@@ -7,7 +7,11 @@ import getCanRegist from "@/utils/getCanRegist";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const SignUp = () => {
+interface SignUpProps {
+  setTabIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [inputId, setInputId] = useState("");
@@ -28,7 +32,9 @@ const SignUp = () => {
       };
 
       await axios.post("/signup", userData);
-      console.log("sign-up SUCCESS");
+      window.alert("회원가입이 완료되었습니다.");
+      /** 로그인 컴포넌트로 돌아가기 */
+      setTabIndex(0);
     } catch (error: any) {
       console.error("sign-up FAILED: ", error);
     }
