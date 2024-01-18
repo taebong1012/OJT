@@ -1,4 +1,4 @@
-import { userType } from "@/types/userType";
+import { userInfoType } from "@/types/userType";
 
 /** indexedDB를 열고 users 테이블을 반환 */
 const openDB = async (): Promise<IDBDatabase> => {
@@ -23,7 +23,7 @@ const openDB = async (): Promise<IDBDatabase> => {
   });
 };
 
-export const addUserToDB = async (userData: userType) => {
+export const addUserToDB = async (userData: userInfoType) => {
   try {
     const db: IDBDatabase = await openDB();
     const transaction: IDBTransaction = db.transaction(["users"], "readwrite");
@@ -62,6 +62,29 @@ export const getIsPossibleId = async (id: string) => {
     };
 
     getAllIdsRequest.onerror = (e: Event) => {
+      reject((e.target as IDBRequest).error);
+    };
+  });
+};
+
+/** DB에서 id를 기준으로 유저의 정보 찾기
+ * @param 유저의 아이디
+ * @returns 해당 아이디의 유저 정보
+ */
+export const findUser = async (id: string) => {
+  const db: IDBDatabase = await openDB();
+  const transaction: IDBTransaction = db.transaction(["users"]);
+  const objStore: IDBObjectStore = transaction.objectStore("users");
+
+  const getUserInfo = objStore.get(id);
+
+  return new Promise<userInfoType>((resolve, reject) => {
+    getUserInfo.onsuccess = (e: Event) => {
+      const userInfo: userInfoType = (e.target as IDBRequest).result;
+      resolve(userInfo);
+    };
+
+    getUserInfo.onerror = (e: Event) => {
       reject((e.target as IDBRequest).error);
     };
   });

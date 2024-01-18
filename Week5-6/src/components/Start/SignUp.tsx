@@ -2,7 +2,7 @@ import InputTitle from "@/components/Start/InputTitle";
 import SignInput from "@/components/Start/SignInput";
 import ValidityComment from "@/components/Start/ValidityComment";
 import MainButton from "@/components/common/MainButton";
-import { userType } from "@/types/userType";
+import { userInfoType } from "@/types/userType";
 import getCanRegist from "@/utils/getCanRegist";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ const SignUp = () => {
 
   const doSignUp = async () => {
     try {
-      const userData: userType = {
+      const userData: userInfoType = {
         id: inputId,
         password: inputPw,
         name: inputName,
