@@ -1,13 +1,16 @@
+type GradeAlphabetColorWrapperType = {
+  grade: string;
+  color: string;
+};
+
 export const GradeAlphabetColorWrapper = ({
   grade,
   color,
-}: {
-  grade: string;
-  color: string;
-}) => {
+}: GradeAlphabetColorWrapperType) => {
   return (
     <div
-      className={`w-20 h-8 rounded-full bg-[${color}] flex justify-center items-center text-background`}
+      className={`w-20 h-8 rounded-full flex justify-center items-center text-background`}
+      style={{ backgroundColor: `${color}` }}
     >
       {grade}등급
     </div>
@@ -23,9 +26,14 @@ export const ClassifiedWrapper = ({ text }: { text: string }) => {
 };
 
 export const DateTimeWrapper = ({ text }: { text: string }) => {
-  return <div className="w-[80px] text-center">{text}</div>;
+  return <div className="w-[100px] text-center">{text}</div>;
 };
 
 export const AchievementWrapper = ({ text }: { text: string }) => {
-  return <div className="w-12 text-center">{text}</div>;
+  return (
+    <div className="w-12 text-center">
+      {text}
+      {text !== "성취도" && "%"}
+    </div>
+  );
 };

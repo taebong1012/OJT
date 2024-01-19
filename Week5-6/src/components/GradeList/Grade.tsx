@@ -4,15 +4,24 @@ import {
   DateTimeWrapper,
   GradeAlphabetColorWrapper,
 } from "@/components/GradeList/TextWrappers";
-import { questionInfoType } from "@/types/questionType";
+import { gradeDataType } from "@/types/gradeType";
 import { simpleResultType } from "@/types/resultType";
 
 type GradeProp = {
-  questionInfo: questionInfoType;
+  questionInfo: gradeDataType;
   simpleResult: simpleResultType;
 };
 
 const Grade = ({ questionInfo, simpleResult }: GradeProp) => {
+  /** simpleResult가 없다면 */
+  if (!simpleResult) {
+    simpleResult = {
+      date: "-",
+      time: "-",
+      achievement: 0,
+    };
+  }
+
   return (
     <div className="h-20 rounded-10 border-[1px] border-[#D1D1D1] flex items-center px-[40px] font-bold justify-between">
       <GradeAlphabetColorWrapper
@@ -28,3 +37,4 @@ const Grade = ({ questionInfo, simpleResult }: GradeProp) => {
 };
 
 export default Grade;
+9;
