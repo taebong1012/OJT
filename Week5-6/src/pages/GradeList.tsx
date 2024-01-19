@@ -35,7 +35,7 @@ const GradeList = () => {
         {gradeDataArr.map((gradeData, index) => (
           <Grade
             key={index}
-            questionInfo={gradeData}
+            gradeData={gradeData}
             simpleResult={simpleResultsDummy[gradeData.grade]}
           />
         ))}
