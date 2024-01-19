@@ -35,7 +35,7 @@ export const handlers = [
     }
   }),
 
-  /** post: 아이디와 비밀번호를 받고 db와 일치하는지 판별
+  /** post: 아이디와 비밀번호를 받고 db와 일치하는지 판별한 후 맞다면 유저 정보 
    * @return status: 200 - 일치하므로 로그인 진행
    * @return status: 400 - 일치하지 않으므로 로그인 진행 X
    */
@@ -46,7 +46,7 @@ export const handlers = [
       const userInfo: userInfoType = await findUser(inputUser.id);
 
       if (userInfo && userInfo.password === inputUser.password) {
-        return HttpResponse.json(null, { status: 200 });
+        return HttpResponse.json(userInfo, { status: 200 });
       } else {
         return HttpResponse.json(null, { status: 400 });
       }

@@ -1,8 +1,8 @@
 import InputTitle from "@/components/Start/InputTitle";
 import SignInput from "@/components/Start/SignInput";
 import MainButton from "@/components/common/MainButton";
+import useSignIn from "@/hooks/useSignIn";
 import { signInUserType } from "@/types/userType";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,24 +12,24 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
+  const signInUserData: signInUserType = {
+    id: inputId,
+    password: inputPw,
+  };
+
+  const { mutate, data, isLoading, isError, error } = useSignIn(signInUserData);
+
   const handleOnClickLogInButton = async () => {
-    const signInUserData: signInUserType = {
-      id: inputId,
-      password: inputPw,
-    };
+    mutate();
 
-    try {
-      await axios.post("/signin", signInUserData);
-      navigate("/");
-    } catch (error: any) {
-      if (error.response.status === 400) {
-        window.alert("아이디 혹은 비밀번호가 틀렸습니다.");
-      } else {
-        window.alert(error.message);
-      }
+    if (!isLoading && !isError) {
+      console.log("최종: 로그인 성공");
+      console.log(data);
+      // navigate("/");
+    } else {
+      console.log("최종: 로그인 실패");
+      setInputPw("");
     }
-
-    setInputPw("");
   };
 
   return (

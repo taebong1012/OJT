@@ -24,7 +24,7 @@ const GradeList = () => {
   };
 
   return (
-    <div className="border-2 border-pink-400 w-full flex flex-col">
+    <div className="w-full flex flex-col">
       <Title text="진단 단계 선택" />
       <select className="bg-transparent w-[130px] font-bold text-darkgrey mb-10">
         <option value="math">재능스스로수학</option>
