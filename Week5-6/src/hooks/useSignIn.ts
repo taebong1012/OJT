@@ -1,29 +1,24 @@
-import { signInUserType } from "@/types/userType";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useMutation } from "react-query";
+import { signInUserType } from "@/types/userType";
 
 const useSignIn = (signInUserData: signInUserType) => {
+  /** 로그인 진행 api */
   const postSignIn = async () => {
     try {
-      const response = await axios.post("/signin", signInUserData);
-      console.log("로그인 성공");
-      return response.data;
-    } catch (error: any) {
-      console.log("로그인 실패");
-      throw new Error(
-        error.response?.data?.message || "로그인에 실패했습니다."
-      );
+      await axios.post("/signin", signInUserData);
+    } catch (error) {
+      throw error;
     }
   };
 
-  const { mutate, data, isLoading, isError, error } = useMutation(postSignIn, {
-    onSuccess: (data) => {
-      console.log("data: ", data);
-    },
+  const { isError, isSuccess, mutate } = useMutation({
+    mutationFn: postSignIn,
+    onSuccess: () => {},
     onError: () => {},
   });
 
-  return { mutate, data, isLoading, isError, error };
+  return { isError, isSuccess, signInMutate: mutate };
 };
 
 export default useSignIn;

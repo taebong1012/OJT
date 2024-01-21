@@ -3,13 +3,13 @@ import SignInput from "@/components/Start/SignInput";
 import MainButton from "@/components/common/MainButton";
 import useSignIn from "@/hooks/useSignIn";
 import { signInUserType } from "@/types/userType";
-import { useState } from "react";
+import { setCookieId, setCookieIsLogin } from "@/utils/getSetCookie";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
-
   const navigate = useNavigate();
 
   const signInUserData: signInUserType = {
@@ -17,20 +17,24 @@ const SignIn = () => {
     password: inputPw,
   };
 
-  const { mutate, data, isLoading, isError, error } = useSignIn(signInUserData);
+  const { isError, isSuccess, signInMutate } = useSignIn(signInUserData);
 
-  const handleOnClickLogInButton = async () => {
-    mutate();
+  const handleOnClickLogInButton = () => {
+    console.log("로그인 버튼 클릭");
 
-    if (!isLoading && !isError) {
-      console.log("최종: 로그인 성공");
-      console.log(data);
-      // navigate("/");
+    signInMutate();
+  };
+
+  /** error가 없고 성공했을 경우에 로그인 유저의 정보를 쿠키에 저장하고 메인페이지로 이동 */
+  useEffect(() => {
+    if (!isError && isSuccess) {
+      setCookieId(inputId);
+      setCookieIsLogin(true);
+      navigate("/");
     } else {
-      console.log("최종: 로그인 실패");
       setInputPw("");
     }
-  };
+  }, [isError, isSuccess]);
 
   return (
     <>
