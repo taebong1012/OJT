@@ -1,9 +1,16 @@
 import logo from "@/assets/svg/ic_logo.svg";
 import SignIn from "@/components/Start/SignIn";
 import SignUp from "@/components/Start/SignUp";
-import { useState } from "react";
+import { setCookieId, setCookieIsLogin } from "@/utils/getSetCookie";
+import { useEffect, useState } from "react";
 
 const Start = () => {
+  /** 로그인, 회원가입 페이지 진입 시 로그인 쿠키 정보 초기화 */
+  useEffect(() => {
+    setCookieId("");
+    setCookieIsLogin(false);
+  }, []);
+
   /** tab의 인덱스를 가지고 있는 state */
   const [tabIndex, setTabIndex] = useState(0);
 

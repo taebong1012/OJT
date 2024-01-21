@@ -20,7 +20,11 @@ export const getCookieId = (): string | null => {
   for (const cookie of cookies) {
     const [cookieName, cookieValue] = cookie.split("=");
     if (cookieName.trim() === "id") {
-      return cookieValue;
+      if (cookieValue.trim() === "") {
+        return null;
+      } else {
+        return cookieValue;
+      }
     }
   }
   return null;
