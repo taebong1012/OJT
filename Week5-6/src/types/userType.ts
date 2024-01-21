@@ -4,6 +4,13 @@ export type userInfoType = {
   name: string;
   birth: string;
   age: number;
+  acheivement: number;
+};
+
+export type userProfileType = {
+  name: string;
+  age: number;
+  acheivement: number;
 };
 
 export type signInUserType = {

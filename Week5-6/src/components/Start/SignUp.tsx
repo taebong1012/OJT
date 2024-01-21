@@ -31,6 +31,7 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
         name: inputName,
         birth: inputBirth,
         age: getAge(inputBirth),
+        acheivement: 0,
       };
 
       await axios.post("/signup", userData);

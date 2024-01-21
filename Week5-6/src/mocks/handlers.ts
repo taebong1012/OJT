@@ -1,6 +1,10 @@
 import { HttpResponse, http } from "msw";
 import { addUserToDB, findUser, getIsPossibleId } from "@/utils/indexedDBUtils";
-import { signInUserType, userInfoType } from "@/types/userType";
+import {
+  signInUserType,
+  userInfoType,
+  userProfileType,
+} from "@/types/userType";
 
 export const handlers = [
   /** post: 회원가입 진행 */
@@ -51,6 +55,28 @@ export const handlers = [
         return HttpResponse.json(null, { status: 400 });
       }
     } catch (error: any) {
+      return HttpResponse.json(null, { status: error.status });
+    }
+  }),
+
+  /** get: id를 통해서 사용자의 정보를 가져오고 이름, 나이, 성취도 데이터 리턴
+   * @param id: 정보 데이터를 받을 사용자 id
+   * @return 사용자의 이름, 나이, 성취도
+   */
+  http.get("/userinfo/:id", async ({ params }) => {
+    try {
+      const id = params.id as string;
+
+      const userInfo = await findUser(id);
+      const userProfileInfo: userProfileType = {
+        age: userInfo.age,
+        name: userInfo.name,
+        acheivement: userInfo.acheivement,
+      };
+
+      return HttpResponse.json(userProfileInfo, { status: 200 });
+    } catch (error: any) {
+      console.error("Error no userInfo: ", error.message);
       return HttpResponse.json(null, { status: error.status });
     }
   }),
