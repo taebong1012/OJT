@@ -3,6 +3,7 @@ export type userInfoType = {
   password: string;
   name: string;
   birth: string;
+  age: number;
 };
 
 export type signInUserType = {

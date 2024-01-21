@@ -3,6 +3,7 @@ import SignInput from "@/components/Start/SignInput";
 import ValidityComment from "@/components/Start/ValidityComment";
 import MainButton from "@/components/common/MainButton";
 import { userInfoType } from "@/types/userType";
+import getAge from "@/utils/getAge";
 import getCanRegist from "@/utils/getCanRegist";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -29,6 +30,7 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
         password: inputPw,
         name: inputName,
         birth: inputBirth,
+        age: getAge(inputBirth),
       };
 
       await axios.post("/signup", userData);
