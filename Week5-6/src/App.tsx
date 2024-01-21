@@ -1,23 +1,10 @@
-import Header from "@/components/common/Header";
 import Start from "@/pages/Start";
 import GradeList from "@/pages/GradeList";
-import { Outlet, Route, Routes } from "react-router-dom";
-import Profile from "@/components/common/Profile";
+import { Route, Routes } from "react-router-dom";
 import Result from "@/pages/Result";
+import Layout from "@/components/common/Layout";
 
 function App() {
-  const Layout = () => {
-    return (
-      <>
-        <Header />
-        <div className="w-1240 mx-auto px-5 flex gap-10 ">
-          <Profile />
-          <Outlet />
-        </div>
-      </>
-    );
-  };
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
