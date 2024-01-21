@@ -2,26 +2,19 @@ import Grade from "@/components/GradeList/Grade";
 import GradeTitle from "@/components/GradeList/GradeTitle";
 import Title from "@/components/common/Title";
 import { gradeDataArr } from "@/data/gradeDataArr";
-import { simpleResultType } from "@/types/resultType";
+import { getResult } from "@/utils/resultDBUtils";
+import { useEffect } from "react";
 
 /** 진단 평가의 리스트들 */
 const GradeList = () => {
-  // json 더미 데이터
-  type SimpleResultsDummyType = {
-    [key: string]: simpleResultType;
+  const test = async () => {
+    const res = await getResult("dksxogus1012");
+    console.log("진단결과: ", res);
   };
-  const simpleResultsDummy: SimpleResultsDummyType = {
-    F: {
-      achievement: 20,
-      date: "2023-12-11",
-      time: "00:05:01",
-    },
-    E: {
-      achievement: 37,
-      date: "2023-12-13",
-      time: "00:12:52",
-    },
-  };
+
+  useEffect(() => {
+    test();
+  }, []);
 
   return (
     <div className="w-full flex flex-col">
@@ -32,13 +25,13 @@ const GradeList = () => {
       {/* 타이틀 */}
       <GradeTitle />
       <div className="flex flex-col gap-2.5">
-        {gradeDataArr.map((gradeData, index) => (
+        {/* {gradeDataArr.map((gradeData, index) => (
           <Grade
             key={index}
             gradeData={gradeData}
-            simpleResult={simpleResultsDummy[gradeData.grade]}
+            simpleResult={}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );

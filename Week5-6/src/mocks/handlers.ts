@@ -1,5 +1,5 @@
 import { HttpResponse, http } from "msw";
-import { addUserToDB, findUser, getIsPossibleId } from "@/utils/indexedDBUtils";
+import { addUserToDB, findUser, getIsPossibleId } from "@/utils/userDBUtils";
 import {
   signInUserType,
   userInfoType,
