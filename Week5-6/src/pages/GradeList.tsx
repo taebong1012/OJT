@@ -26,7 +26,7 @@ const GradeList = () => {
       <div className="flex flex-col gap-2.5">
         {gradeDataArr.map((gradeData, index) => {
           let simpleResult;
-          if (!data || (gradeData.grade !== "e" && gradeData.grade !== "f")) {
+          if (!data || (gradeData.grade !== "E" && gradeData.grade !== "F")) {
             simpleResult = emptySimpleResult;
           } else {
             if (data[gradeData.grade] && data[gradeData.grade]!.simple) {

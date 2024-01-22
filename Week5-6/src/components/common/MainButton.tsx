@@ -17,7 +17,7 @@ const MainButton = ({
     <button
       onClick={handleOnClick}
       disabled={isDisabled}
-      className={`h-10  font-bold text-background focus:outline-none
+      className={`h-10  font-bold text-background focus:outline-none flex justify-center items-center
       ${isFull ? "w-full" : "w-160"}
       ${
         isDisabled

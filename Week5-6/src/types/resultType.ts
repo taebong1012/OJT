@@ -1,10 +1,10 @@
 export interface resultInterface {
   id: string;
-  f?: {
+  F?: {
     simple: simpleResultType;
     specific: specificResultType;
   };
-  e?: {
+  E?: {
     simple: simpleResultType;
     specific: specificResultType;
   };

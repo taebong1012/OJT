@@ -1,9 +1,15 @@
-import { useParams } from "react-router-dom";
+import NoResult from "@/components/Result/NoResult";
+import SimpleResultContainer from "@/components/Result/SimpleResultContainer";
+import Title from "@/components/common/Title";
 
 const Result = () => {
-  const { grade } = useParams<{ grade: string }>();
-
-  return <div>{grade}등급 결과 페이지</div>;
+  return (
+    <div className="w-full flex flex-col">
+      <Title text="평가 결과" />
+      <SimpleResultContainer />
+      <NoResult />
+    </div>
+  );
 };
 
 export default Result;
