@@ -1,27 +1,23 @@
-export interface resultType {
+export interface resultInterface {
   id: string;
   f?: {
-    simple: {
-      acheivement: number;
-      date: string;
-      time: string;
-    };
-    specific: {
-      wrongCnt: number;
-      wrongProblem: Array<number>[];
-      wrongImgae: Array<string>[];
-    };
+    simple: simpleResultType;
+    specific: specificResultType;
   };
   e?: {
-    simple: {
-      acheivement: number;
-      date: string;
-      time: string;
-    };
-    specific: {
-      wrongCnt: number;
-      wrongProblem: Array<number>[];
-      wrongImgae: Array<string>[];
-    };
+    simple: simpleResultType;
+    specific: specificResultType;
   };
 }
+
+export type simpleResultType = {
+  achievement: number;
+  date: string;
+  time: string;
+};
+
+export type specificResultType = {
+  wrongCnt: number;
+  wrongProblem: Array<number>[];
+  wrongImgae: Array<string>[];
+};

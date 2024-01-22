@@ -5,6 +5,7 @@ import {
   userInfoType,
   userProfileType,
 } from "@/types/userType";
+import { getResult } from "@/utils/resultDBUtils";
 
 export const handlers = [
   /** post: 회원가입 진행 */
@@ -77,6 +78,22 @@ export const handlers = [
       return HttpResponse.json(userProfileInfo, { status: 200 });
     } catch (error: any) {
       console.error("Error no userInfo: ", error.message);
+      return HttpResponse.json(null, { status: error.status });
+    }
+  }),
+
+  /** get: id를 통해서 사용자의 진단결과를 가져옴.
+   * @param id: 결과 데이터를 받을 사용자 id
+   * @return resultType의 객체
+   */
+  http.get("/result/:id", async ({ params }) => {
+    try {
+      const id = params.id as string;
+
+      const resultData = await getResult(id);
+
+      return HttpResponse.json(resultData, { status: 200 });
+    } catch (error: any) {
       return HttpResponse.json(null, { status: error.status });
     }
   }),

@@ -14,14 +14,6 @@ type GradeProp = {
 };
 
 const Grade = ({ gradeData, simpleResult }: GradeProp) => {
-  /** simpleResult가 없다면 */
-  if (!simpleResult) {
-    simpleResult = {
-      date: "-",
-      time: "-",
-      achievement: 0,
-    };
-  }
   const navigate = useNavigate();
   const handleOnClickGrade = () => {
     navigate(`/result/${gradeData.grade}`);
@@ -45,4 +37,3 @@ const Grade = ({ gradeData, simpleResult }: GradeProp) => {
 };
 
 export default Grade;
-9;

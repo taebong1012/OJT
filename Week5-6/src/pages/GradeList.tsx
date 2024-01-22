@@ -2,19 +2,18 @@ import Grade from "@/components/GradeList/Grade";
 import GradeTitle from "@/components/GradeList/GradeTitle";
 import Title from "@/components/common/Title";
 import { gradeDataArr } from "@/data/gradeDataArr";
-import { getResult } from "@/utils/resultDBUtils";
-import { useEffect } from "react";
+import useGradeResults from "@/hooks/useGradeResults";
+import { simpleResultType } from "@/types/resultType";
+
+const emptySimpleResult: simpleResultType = {
+  date: "-",
+  time: "-",
+  achievement: 0,
+};
 
 /** 진단 평가의 리스트들 */
 const GradeList = () => {
-  const test = async () => {
-    const res = await getResult("dksxogus1012");
-    console.log("진단결과: ", res);
-  };
-
-  useEffect(() => {
-    test();
-  }, []);
+  const { data } = useGradeResults();
 
   return (
     <div className="w-full flex flex-col">
@@ -25,13 +24,26 @@ const GradeList = () => {
       {/* 타이틀 */}
       <GradeTitle />
       <div className="flex flex-col gap-2.5">
-        {/* {gradeDataArr.map((gradeData, index) => (
-          <Grade
-            key={index}
-            gradeData={gradeData}
-            simpleResult={}
-          />
-        ))} */}
+        {gradeDataArr.map((gradeData, index) => {
+          let simpleResult;
+          if (!data || (gradeData.grade !== "e" && gradeData.grade !== "f")) {
+            simpleResult = emptySimpleResult;
+          } else {
+            if (data[gradeData.grade] && data[gradeData.grade]!.simple) {
+              simpleResult = data[gradeData.grade]!.simple;
+            } else {
+              simpleResult = emptySimpleResult;
+            }
+          }
+
+          return (
+            <Grade
+              key={index}
+              gradeData={gradeData}
+              simpleResult={simpleResult}
+            />
+          );
+        })}
       </div>
     </div>
   );
