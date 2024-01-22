@@ -1,10 +1,5 @@
 import Drawer from "Instance/Drawer";
-import {
-  answerIdAtom,
-  answerObjectsAtom,
-  choiceIdArrAtom,
-  isShowPreviewModalAtom,
-} from "atoms";
+import { answerIdAtom, choiceIdArrAtom, isShowPreviewModalAtom } from "atoms";
 import * as S from "components/common/Header/style";
 import { useAtomValue, useSetAtom } from "jotai";
 const Header = () => {
