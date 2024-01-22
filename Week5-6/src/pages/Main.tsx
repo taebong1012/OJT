@@ -12,7 +12,7 @@ const emptySimpleResult: simpleResultType = {
 };
 
 /** 진단 평가의 리스트들 */
-const GradeList = () => {
+const Main = () => {
   const { data } = useGradeResults();
 
   return (
@@ -49,4 +49,4 @@ const GradeList = () => {
   );
 };
 
-export default GradeList;
+export default Main;

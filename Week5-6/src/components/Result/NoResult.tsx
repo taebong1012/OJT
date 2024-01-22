@@ -1,8 +1,16 @@
 import MainButton from "@/components/common/MainButton";
+import { useNavigate, useParams } from "react-router-dom";
 
 const NoResult = () => {
+  const { grade } = useParams<{ grade: string }>();
+  const navigate = useNavigate();
+
   const handleOnClickButton = () => {
-    console.log("진단하기 버튼 임시 함수");
+    if (grade === "E" || grade === "F") {
+      navigate(`/test/${grade}`);
+    } else {
+      window.alert("진단 서비스 제공 예정 등급입니다.");
+    }
   };
 
   return (
