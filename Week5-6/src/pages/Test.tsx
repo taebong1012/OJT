@@ -10,10 +10,10 @@ const Test = () => {
   const [questionNum, setQuestionNum] = useState(0);
 
   return (
-    <div className="border-2 border-red-500 w-full flex flex-col mb-15">
+    <div className="w-full flex flex-col mb-15">
       <Title text="평가 진행" />
       <TestInfoContainer grade={grade} />
-      <ProgressBar />
+      <ProgressBar questionNum={questionNum} />
     </div>
   );
 };
