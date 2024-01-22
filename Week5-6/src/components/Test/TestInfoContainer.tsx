@@ -1,17 +1,11 @@
 import TextColorWrapper from "@/components/common/TextColorWrapper";
-import { simpleResultType } from "@/types/resultType";
 import getGradeInfo from "@/utils/getGradeInfo";
+import getTodayDate from "@/utils/getTodayDate";
 
-type SimpleResultContainerProps = {
-  grade: string | undefined;
-  simpleResult: simpleResultType;
-};
-
-const SimpleResultContainer = ({
-  grade,
-  simpleResult,
-}: SimpleResultContainerProps) => {
+const TestInfoContainer = ({ grade }: { grade: string | undefined }) => {
   const { gradeColor, gradeClassify } = getGradeInfo(grade);
+
+  const todayDate = getTodayDate();
 
   return (
     <div>
@@ -22,15 +16,15 @@ const SimpleResultContainer = ({
       <div className="mb-[50px] flex font-bold">
         <div className="flex items-center">
           <TextColorWrapper text="실시 일자" />
-          <div className="w-[100px]">{simpleResult.date}</div>
+          <div className="w-[100px]">{todayDate}</div>
         </div>
         <div className="flex items-center">
-          <TextColorWrapper text="학습 시간" />
-          <span>{simpleResult.time}</span>
+          <TextColorWrapper text="진행 시간" />
+          <span></span>
         </div>
       </div>
     </div>
   );
 };
 
-export default SimpleResultContainer;
+export default TestInfoContainer;
