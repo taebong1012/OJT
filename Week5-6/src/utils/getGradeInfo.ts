@@ -1,6 +1,6 @@
 import { gradeDataArr } from "@/data/gradeDataArr";
 
-const getGradeInfo = (grade: string | null) => {
+const getGradeInfo = (grade: string | undefined) => {
   for (const gradeData of gradeDataArr) {
     if (gradeData.grade === grade) {
       return { gradeColor: gradeData.color, gradeClassify: gradeData.classify };
