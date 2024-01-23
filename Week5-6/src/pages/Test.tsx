@@ -19,12 +19,12 @@ const Test = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [isStart, setIsStart] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
+  const [proceedTime, setProceedTime] = useState("00:00:00");
 
   let questionDataArr: Array<questionDataType>;
   if (grade === "F") {
     questionDataArr = gradeFquestionDataArr;
   } else {
-    /** TODO: 다른 문제 데이터로 분기처리 */
     questionDataArr = gradeCquestionDataArr;
   }
 
@@ -64,13 +64,19 @@ const Test = () => {
   useEffect(() => {
     if (questionNum > 9) {
       setIsEnd(true);
+      setIsStart(false);
     }
   }, [questionNum]);
 
   return (
     <div className="w-full flex flex-col mb-15">
       <Title text="평가 진행" />
-      <TestInfoContainer grade={grade} />
+      <TestInfoContainer
+        grade={grade}
+        isStart={isStart}
+        proceedTime={proceedTime}
+        setProceedTime={setProceedTime}
+      />
       <ProgressBar questionNum={questionNum} />
       {/* 문제 띄우는 iframe */}
       {isEnd ? (
