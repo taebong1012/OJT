@@ -28,7 +28,7 @@ const Test = () => {
     if (iframeRef.current && iframeRef.current.contentWindow) {
       iframeRef.current.contentWindow.postMessage(questionDataArr[questionNum]);
     }
-  }, [questionNum, iframeRef, isIframeLoaded]);
+  }, [questionNum, iframeRef, isIframeLoaded, questionDataArr]);
 
   return (
     <div className="w-full flex flex-col mb-15">
