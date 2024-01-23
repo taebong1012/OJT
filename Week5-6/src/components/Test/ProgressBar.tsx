@@ -14,7 +14,7 @@ const ProgressBar = ({ questionNum }: { questionNum: number }) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mb-[20px]">
       <div className="h-5 bg-lightgrey rounded-full w-[600px] relative">
         <div
           className={`h-5 bg-primary rounded-full absolute left-0 ${width[questionNum]} transition-all duration-500  
