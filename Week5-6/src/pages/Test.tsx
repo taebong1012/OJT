@@ -1,6 +1,5 @@
 import ProgressBar from "@/components/Test/ProgressBar";
 import TestInfoContainer from "@/components/Test/TestInfoContainer";
-import MainButton from "@/components/common/MainButton";
 import Title from "@/components/common/Title";
 import {
   gradeFquestionDataArr,
@@ -30,16 +29,28 @@ const Test = () => {
     }
   }, [questionNum, iframeRef, isIframeLoaded, questionDataArr]);
 
+  useEffect(() => {
+    const handleOnMessage = (e: MessageEvent) => {
+      if (e.data.isWrong !== undefined) {
+        console.log(e.data);
+
+        setTimeout(() => {
+          setQuestionNum((prev) => prev + 1);
+        }, 2000);
+      }
+    };
+
+    window.addEventListener("message", handleOnMessage);
+
+    return () => {
+      window.removeEventListener("message", handleOnMessage);
+    };
+  }, []);
+
   return (
     <div className="w-full flex flex-col mb-15">
       <Title text="평가 진행" />
       <TestInfoContainer grade={grade} />
-      <MainButton
-        text="호잇"
-        handleOnClick={() => {
-          setQuestionNum((prev) => prev + 1);
-        }}
-      />
       <ProgressBar questionNum={questionNum} />
       {/* 문제 띄우는 iframe */}
       <iframe
