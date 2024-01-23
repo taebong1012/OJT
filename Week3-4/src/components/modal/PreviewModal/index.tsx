@@ -70,58 +70,50 @@ const PreviewContents = () => {
 
       /** 타입에 따라 함수등록 */
       if (type === "answer") {
-        obj.on("mousedown", showCorrectText);
+        obj.on("mousedown", () => handleOnClickAnswer(obj));
       } else if (type === "choice") {
-        obj.on("mousedown", showWrongText);
+        obj.on("mousedown", () => handleOnClickWrong(obj));
       }
     });
     previewer.canvas!.requestRenderAll();
   };
 
-  const blurRect = new fabric.Rect({
-    width: 800,
-    height: 600,
-    originX: "center",
-    originY: "center",
-    top: 300,
-    left: 400,
-    hoverCursor: "default",
-    fill: "#EAEAEA",
-    opacity: 0.8,
-  });
+  const handleOnClickAnswer = (obj: fabric.Object) => {
+    if (obj instanceof fabric.Group) {
+      obj._objects.forEach((o) => {
+        if (o instanceof fabric.Rect) {
+          o.set({ stroke: "#00da21", fill: "#dff5e2" });
+        } else {
+          o.set({ fill: "#00da21" });
+        }
+      });
+    }
+  };
 
-  const showCorrectText = () => {
-    const correctText = new fabric.Text("정답", {
-      fontFamily: "국민연금체",
-      fontSize: 80,
-      fill: "#4DA723",
-      originX: "center",
-      originY: "center",
-      top: 300,
-      left: 400,
-      hoverCursor: "default",
-    });
-
-    previewer.canvas!.add(blurRect);
-    previewer.canvas!.add(correctText);
+  const handleOnClickWrong = (obj: fabric.Object) => {
+    if (obj instanceof fabric.Group) {
+      obj._objects.forEach((o) => {
+        if (o instanceof fabric.Rect) {
+          o.set({ stroke: "#ff0000", fill: "#ffd6d6" });
+        } else {
+          o.set({ fill: "#ff0000" });
+        }
+      });
+    }
+    showAnswer();
     previewer.canvas!.requestRenderAll();
   };
 
-  const showWrongText = () => {
-    const wrongText = new fabric.Text("오답", {
-      fontFamily: "국민연금체",
-      fontSize: 80,
-      fill: "#EA1616",
-      originX: "center",
-      originY: "center",
-      top: 300,
-      left: 400,
-      hoverCursor: "default",
-    });
+  const showAnswer = () => {
+    const canvasObjects: fabric.Object[] = previewer.canvas!.getObjects();
 
-    previewer.canvas!.add(blurRect);
-    previewer.canvas!.add(wrongText);
-    previewer.canvas!.requestRenderAll();
+    for (const canvasObject of canvasObjects) {
+      const type = getObjectType(canvasObject);
+      if (type === "answer") {
+        handleOnClickAnswer(canvasObject);
+        return;
+      }
+    }
   };
 
   const load = async () => {
