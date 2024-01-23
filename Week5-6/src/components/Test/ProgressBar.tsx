@@ -1,7 +1,7 @@
 const ProgressBar = ({ questionNum }: { questionNum: number }) => {
   type widthType = Record<number, string>;
   const width: widthType = {
-    0: "w-[0px]",
+    0: "w-[20px]",
     1: "w-[60px]",
     2: "w-[120px]",
     3: "w-[180px]",
@@ -11,6 +11,7 @@ const ProgressBar = ({ questionNum }: { questionNum: number }) => {
     7: "w-[420px]",
     8: "w-[480px]",
     9: "w-[540px]",
+    10: "w-[600px]",
   };
 
   return (
