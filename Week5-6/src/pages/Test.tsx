@@ -9,6 +9,7 @@ import {
   questionDataType,
 } from "@/data/questionDataArr";
 import useUpdateResult from "@/hooks/useUpdateResult";
+import useUpdateUserInfo from "@/hooks/useUpdateUserInfo";
 import getTodayDate from "@/utils/getTodayDate";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -32,6 +33,9 @@ const Test = () => {
   };
 
   const { resultMutate } = useUpdateResult(resultObject);
+  const { userAchievementMutate } = useUpdateUserInfo(
+    wrongQuestion.filter((num) => num === null).length * 10
+  );
 
   /** 현재 평가 등급에 따라 문제 배열 변경 */
   let questionDataArr: Array<questionDataType>;
@@ -78,11 +82,14 @@ const Test = () => {
     if (questionNum > 9) {
       setIsEnd(true);
       setIsStart(false); // 진행 시간 멈추기 위해서 false로 변경
+
+      /** 방금 평가 결과 indexedDB에 저장 */
       resultMutate();
 
-      console.log(wrongQuestion);
+      /** 빙금 평가 결과를 포함한 유저의 종합성취도로 저장 */
+      userAchievementMutate();
     }
-  }, [questionNum, resultMutate, wrongQuestion]);
+  }, [questionNum, resultMutate, userAchievementMutate, wrongQuestion]);
 
   return (
     <div className="w-full flex flex-col mb-15">

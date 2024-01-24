@@ -1,5 +1,10 @@
 import { HttpResponse, http } from "msw";
-import { addUserToDB, findUser, getIsPossibleId } from "@/utils/userDBUtils";
+import {
+  addUserToDB,
+  findUser,
+  getIsPossibleId,
+  updateUser,
+} from "@/utils/userDBUtils";
 import {
   signInUserType,
   userInfoType,
@@ -75,6 +80,7 @@ export const handlers = [
 
       const userInfo = await findUser(id);
       const userProfileInfo: userProfileType = {
+        id: userInfo.id,
         age: userInfo.age,
         name: userInfo.name,
         acheivement: userInfo.acheivement,
@@ -84,6 +90,22 @@ export const handlers = [
     } catch (error) {
       console.error("Error no userInfo: ", error);
       return HttpResponse.json(null, { status: 500 });
+    }
+  }),
+
+  /** post: 사용자의 정보를 업데이트
+   * @param: 사용자 정보 객체
+   */
+  http.post("/userinfo", async ({ request }) => {
+    try {
+      const requestData: userInfoType = (await request.json()) as userInfoType;
+
+      await updateUser(requestData);
+
+      return HttpResponse.json(null, { status: 200 });
+    } catch (error) {
+      console.error("post: /userinfo Err: ", error);
+      return HttpResponse.json(null, { status: 404 });
     }
   }),
 
