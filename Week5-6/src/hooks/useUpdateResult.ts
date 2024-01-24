@@ -1,5 +1,4 @@
 import useGradeResults from "@/hooks/useGradeResults";
-import { simpleResultType, specificResultType } from "@/types/resultType";
 import getTodayDate from "@/utils/getTodayDate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
