@@ -5,7 +5,8 @@ import {
   userInfoType,
   userProfileType,
 } from "@/types/userType";
-import { createResult, getResult } from "@/utils/resultDBUtils";
+import { createResult, getResult, updateResult } from "@/utils/resultDBUtils";
+import { resultInterface } from "@/types/resultType";
 
 type userIdRequestType = {
   id: string;
@@ -113,6 +114,21 @@ export const handlers = [
       return HttpResponse.json(null, { status: 200 });
     } catch (error) {
       console.error("Error adding result to DB:", error);
+      return HttpResponse.json(null, { status: 404 });
+    }
+  }),
+
+  /** user의 result 테이블 업데이트 */
+  http.post("/result", async ({ request }) => {
+    try {
+      const requestData: resultInterface =
+        (await request.json()) as resultInterface;
+
+      await updateResult(requestData);
+
+      return HttpResponse.json(null, { status: 200 });
+    } catch (error) {
+      console.error("Error update result to DB:", error);
       return HttpResponse.json(null, { status: 404 });
     }
   }),

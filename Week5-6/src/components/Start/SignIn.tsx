@@ -34,7 +34,7 @@ const SignIn = () => {
     } else {
       setInputPw("");
     }
-  }, [isError, isSuccess]);
+  }, [inputId, isError, isSuccess, navigate]);
 
   return (
     <>

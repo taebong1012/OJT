@@ -40,8 +40,14 @@ export const createResult = async (inputId: string) => {
   /** id가 들어간 초기 객체 생성 */
   const addRequest: IDBRequest = objStore.add({
     id: inputId,
-    F: null,
-    E: null,
+    F: {
+      simple: null,
+      specific: null,
+    },
+    E: {
+      simple: null,
+      specific: null,
+    },
   });
 
   await new Promise<void>((resolve, reject) => {
@@ -50,7 +56,26 @@ export const createResult = async (inputId: string) => {
     };
 
     addRequest.onerror = () => {
-      reject(new Error("Error adding initResult"));
+      reject(new Error("IDB: Error adding initResult"));
+    };
+  });
+};
+
+export const updateResult = async (requestData: resultInterface) => {
+  const db: IDBDatabase = await openDB();
+  const transaction: IDBTransaction = db.transaction(["results"], "readwrite");
+  const objStore: IDBObjectStore = transaction.objectStore("results");
+
+  /** 유저의 결과 데이터 업데이트 */
+  const addRequest: IDBRequest = objStore.put(requestData);
+
+  await new Promise<void>((resolve, reject) => {
+    addRequest.onsuccess = () => {
+      resolve();
+    };
+
+    addRequest.onerror = () => {
+      reject(new Error("IDB: Error adding update Result"));
     };
   });
 };

@@ -17,7 +17,5 @@ export type simpleResultType = {
 };
 
 export type specificResultType = {
-  wrongCnt: number;
-  wrongProblem: Array<number>[];
-  wrongImgae: Array<string>[];
+  wrongImage: Array<string | null>;
 };

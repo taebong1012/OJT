@@ -8,6 +8,8 @@ import {
   gradeFquestionDataArr,
   questionDataType,
 } from "@/data/questionDataArr";
+import useUpdateResult from "@/hooks/useUpdateResult";
+import getTodayDate from "@/utils/getTodayDate";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -20,7 +22,18 @@ const Test = () => {
   const [isStart, setIsStart] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
   const [proceedTime, setProceedTime] = useState("00:00:00");
+  const [wrongQuestion, setWrongQuestion] = useState<Array<string | null>>([]);
 
+  const resultObject = {
+    grade: grade,
+    wrongQuestion: wrongQuestion,
+    time: proceedTime,
+    date: getTodayDate(),
+  };
+
+  const { resultMutate } = useUpdateResult(resultObject);
+
+  /** 현재 평가 등급에 따라 문제 배열 변경 */
   let questionDataArr: Array<questionDataType>;
   if (grade === "F") {
     questionDataArr = gradeFquestionDataArr;
@@ -44,8 +57,8 @@ const Test = () => {
   /** iframe에서 보내는 데이터를 받기 위한 이벤트 등록 hook */
   useEffect(() => {
     const handleOnMessage = (e: MessageEvent) => {
-      if (e.data.isWrong !== undefined) {
-        console.log(e.data);
+      if (e.data.isWrong !== undefined && e.data.canvasImg !== undefined) {
+        setWrongQuestion((prev) => [...prev, e.data.canvasImg]);
 
         setTimeout(() => {
           setQuestionNum((prev) => prev + 1);
@@ -58,15 +71,18 @@ const Test = () => {
     return () => {
       window.removeEventListener("message", handleOnMessage);
     };
-  }, []);
+  }, [wrongQuestion]);
 
   /** 문제 번호(index 기준)가 9를 초과하면 EndInfo 컴포넌트 띄우기 */
   useEffect(() => {
     if (questionNum > 9) {
       setIsEnd(true);
-      setIsStart(false);
+      setIsStart(false); // 진행 시간 멈추기 위해서 false로 변경
+      resultMutate();
+
+      console.log(wrongQuestion);
     }
-  }, [questionNum]);
+  }, [questionNum, resultMutate, wrongQuestion]);
 
   return (
     <div className="w-full flex flex-col mb-15">
@@ -80,7 +96,7 @@ const Test = () => {
       <ProgressBar questionNum={questionNum} />
       {/* 문제 띄우는 iframe */}
       {isEnd ? (
-        <EndInfo />
+        <EndInfo grade={grade} />
       ) : isStart ? (
         <iframe
           ref={iframeRef}
@@ -91,7 +107,7 @@ const Test = () => {
           }}
         />
       ) : (
-        <StartInfo setIsStart={setIsStart}></StartInfo>
+        <StartInfo setIsStart={setIsStart} />
       )}
     </div>
   );

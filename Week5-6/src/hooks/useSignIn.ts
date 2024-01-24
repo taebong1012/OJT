@@ -5,11 +5,7 @@ import { signInUserType } from "@/types/userType";
 const useSignIn = (signInUserData: signInUserType) => {
   /** 로그인 진행 api */
   const postSignIn = async () => {
-    try {
-      await axios.post("/signin", signInUserData);
-    } catch (error) {
-      throw error;
-    }
+    await axios.post("/signin", signInUserData);
   };
 
   const { isError, isSuccess, mutate } = useMutation({
