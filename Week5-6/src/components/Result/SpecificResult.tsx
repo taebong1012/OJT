@@ -8,6 +8,18 @@ import { simpleResultType, specificResultType } from "@/types/resultType";
 import scrollToTop from "@/utils/scrollToTop";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import loadingCharacter from "@/assets/svg/ic_loadingCharacter.svg";
+
+const OnLoadingComponent = () => {
+  return (
+    <div className="h-[320px] flex flex-col justify-center items-center">
+      <img src={loadingCharacter} alt="로딩 이미지" className="w-[340px]" />
+      <span className="text-xl font-extrabold text-primary">
+        결과를 불러오고 있어요!
+      </span>
+    </div>
+  );
+};
 
 interface resultDataInterface {
   simple: simpleResultType;
@@ -19,19 +31,27 @@ const SpecificResult = () => {
   const { grade } = useParams<{ grade: string }>();
   const { data } = useGradeResults();
   const [resultData, setResultData] = useState<resultDataInterface>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (data && (grade === "E" || grade === "F") && data[grade]) {
-      setResultData(data[grade]);
-    } else {
-      console.error("ERR: no grade result");
-      navigate("/");
-    }
+    const makeValuableData = () => {
+      if (data && (grade === "E" || grade === "F") && data[grade]) {
+        setResultData(data[grade]);
+      } else {
+        console.error("ERR: no grade result");
+        navigate("/");
+      }
+    };
+
+    setTimeout(() => {
+      makeValuableData();
+      setIsLoading(false);
+    }, 2000);
   }, [data, grade, navigate]);
 
   return (
     <>
-      {resultData && (
+      {!isLoading && resultData ? (
         <>
           <div>
             <Statement achievement={resultData.simple.achievement} />
@@ -63,6 +83,8 @@ const SpecificResult = () => {
             />
           </div>
         </>
+      ) : (
+        <OnLoadingComponent />
       )}
     </>
   );
