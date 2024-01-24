@@ -52,7 +52,8 @@ export default {
         6: "6px",
       },
       boxShadow: {
-        default: "0px 1px 4px 0px rgba(0, 0, 0, 0.25);",
+        default: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
+        header: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
       },
     },
   },

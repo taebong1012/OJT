@@ -2,8 +2,10 @@ import ChartBox from "@/components/Result/ChartBox";
 import Statement from "@/components/Result/Statement";
 import WrongQuestion from "@/components/Result/WrongQuestion";
 import WrongQuestionImages from "@/components/Result/WrongQuestionImages";
+import MainButton from "@/components/common/MainButton";
 import useGradeResults from "@/hooks/useGradeResults";
 import { simpleResultType, specificResultType } from "@/types/resultType";
+import scrollToTop from "@/utils/scrollToTop";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -42,6 +44,24 @@ const SpecificResult = () => {
           <WrongQuestionImages
             wrongQuestionData={resultData.specific.wrongImage}
           />
+          <div className="flex justify-center gap-[40px]">
+            <button
+              onClick={() => {
+                navigate("/");
+                scrollToTop();
+              }}
+              className="h-10 font-bold focus:outline-none flex justify-center items-center w-160 bg-[#EAEAEA] hover:bg-[#D1D1D1] active:bg-[#BCBCBC]"
+            >
+              메인으로
+            </button>
+            <MainButton
+              text="다시 진단하기"
+              handleOnClick={() => {
+                navigate(`/test/${grade}`);
+                scrollToTop();
+              }}
+            />
+          </div>
         </>
       )}
     </>

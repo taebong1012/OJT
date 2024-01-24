@@ -5,7 +5,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-w-[1240px] w-screen h-16  mb-60 bg-secondary">
+    <div className="min-w-[1240px] w-screen h-16  mb-60 bg-secondary shadow-header">
       <div className="w-1240 max-w-1240 h-full mx-auto px-5 flex items-center">
         <img
           src={logo}

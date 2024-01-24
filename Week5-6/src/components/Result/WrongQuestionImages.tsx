@@ -24,7 +24,7 @@ const WrongQuestion = ({
   wrongQuestionData: Array<string | null>;
 }) => {
   return (
-    <div className="w-full rounded-10 py-8 px-10 flex flex-col items-start shadow-default">
+    <div className="w-full rounded-10 py-8 px-10 flex flex-col items-start shadow-default mb-[60px]">
       <span className="font-bold text-xl mb-1">오답 보기</span>
       <span className="mb-5">
         <span className="text-wrong font-bold">빨간색</span>은 선택했던{" "}
