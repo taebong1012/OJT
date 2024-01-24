@@ -15,7 +15,6 @@ type questionDataType = {
 function App() {
   useEffect(() => {
     const messageEventHandler = (e: MessageEvent) => {
-      console.log("자식의 콘솔 이벤트 감지!");
       const questionData = e.data;
       load(questionData);
     };
@@ -86,7 +85,24 @@ function App() {
       previewer.canvas!.requestRenderAll();
     };
 
+    /** 한 군데 클릭 되면 클릭 금지 시키기 */
+    const makeClickDisable = () => {
+      const canvasObjects: fabric.Object[] = previewer.canvas!.getObjects();
+
+      canvasObjects.forEach((obj) => {
+        obj.set({
+          hoverCursor: "default",
+        });
+
+        obj.off("mousedown");
+      });
+
+      previewer.canvas!.requestRenderAll();
+    };
+
     const handleOnClickAnswer = (obj: fabric.Object) => {
+      makeClickDisable();
+
       if (obj instanceof fabric.Group) {
         obj._objects.forEach((o) => {
           if (o instanceof fabric.Rect) {
@@ -105,6 +121,8 @@ function App() {
     };
 
     const handleOnClickWrong = (obj: fabric.Object) => {
+      makeClickDisable();
+
       if (obj instanceof fabric.Group) {
         obj._objects.forEach((o) => {
           if (o instanceof fabric.Rect) {
