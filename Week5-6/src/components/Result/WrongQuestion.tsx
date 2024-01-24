@@ -11,7 +11,7 @@ const QuestionWrapper = ({ isCorrect, questionNum }: QuestionWrapperProps) => {
   return (
     <div className="flex flex-col items-center">
       <div className="mb-[12px] font-bold">{questionNum}</div>
-      <img src={isCorrect ? correctSvg : wrongSvg} alt="Answer Icon" />
+      <img src={isCorrect ? correctSvg : wrongSvg} alt="정답 여부 아이콘" />
     </div>
   );
 };
@@ -22,8 +22,8 @@ const WrongQuestion = ({
   wrongQuestionData: Array<string | null>;
 }) => {
   return (
-    <div className="w-full rounded-10 py-8 px-10 flex flex-col shadow-default">
-      <BoxTitle text="답안 보기" />
+    <div className="w-full rounded-10 py-8 px-10 mb-[40px] flex flex-col shadow-default">
+      <BoxTitle text="정답 현황" />
       <div className="flex justify-between">
         {wrongQuestionData.map((data, index) => {
           /** 틀렸다면 */

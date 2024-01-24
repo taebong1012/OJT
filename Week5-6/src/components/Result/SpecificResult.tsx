@@ -1,6 +1,7 @@
 import ChartBox from "@/components/Result/ChartBox";
 import Statement from "@/components/Result/Statement";
 import WrongQuestion from "@/components/Result/WrongQuestion";
+import WrongQuestionImages from "@/components/Result/WrongQuestionImages";
 import useGradeResults from "@/hooks/useGradeResults";
 import { simpleResultType, specificResultType } from "@/types/resultType";
 import { useEffect, useState } from "react";
@@ -38,6 +39,9 @@ const SpecificResult = () => {
             <div className="w-[45%] rounded-10 py-8 px-10 flex flex-col items-center shadow-default"></div>
           </div>
           <WrongQuestion wrongQuestionData={resultData.specific.wrongImage} />
+          <WrongQuestionImages
+            wrongQuestionData={resultData.specific.wrongImage}
+          />
         </>
       )}
     </>
