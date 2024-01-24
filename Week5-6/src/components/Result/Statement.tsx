@@ -15,8 +15,8 @@ const Statement = ({ achievement }: { achievement: number }) => {
 
   return (
     <div className="flex flex-col text-3xl font-extrabold mb-[40px]">
-      <span>{data?.name} 님의</span>
-      <div className="flex items-end">
+      <span className="text-2xl">{data?.name} 님의</span>
+      <div className="flex items-center">
         <div>성취도는 {achievement}%로&nbsp;</div>
         <div className="text-4xl text-primary">{statement}</div>합니다.
       </div>

@@ -1,3 +1,4 @@
+import ChartBox from "@/components/Result/ChartBox";
 import Statement from "@/components/Result/Statement";
 import useGradeResults from "@/hooks/useGradeResults";
 import { simpleResultType, specificResultType } from "@/types/resultType";
@@ -27,9 +28,15 @@ const SpecificResult = () => {
   return (
     <>
       {resultData && (
-        <div>
-          <Statement achievement={resultData!.simple.achievement} />
-        </div>
+        <>
+          <div>
+            <Statement achievement={resultData.simple.achievement} />
+          </div>
+          <div className="flex gap-[40px] mb-[40px]">
+            <ChartBox achievement={resultData.simple.achievement} />
+            <div className="w-[45%] rounded-10 p-5 flex flex-col items-center shadow-default"></div>
+          </div>
+        </>
       )}
     </>
   );
