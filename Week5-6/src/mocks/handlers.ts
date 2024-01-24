@@ -5,7 +5,11 @@ import {
   userInfoType,
   userProfileType,
 } from "@/types/userType";
-import { getResult } from "@/utils/resultDBUtils";
+import { createResult, getResult } from "@/utils/resultDBUtils";
+
+type userIdRequestType = {
+  id: string;
+};
 
 export const handlers = [
   /** post: 회원가입 진행 */
@@ -18,8 +22,8 @@ export const handlers = [
       console.log("Users added successfully");
 
       return HttpResponse.json(null, { status: 200 });
-    } catch (error: any) {
-      console.error("Error adding users to DB:", error.message);
+    } catch (error) {
+      console.error("Error adding users to DB:", error);
       return HttpResponse.json(null, { status: 404 });
     }
   }),
@@ -34,9 +38,9 @@ export const handlers = [
       const isPossibleId = await getIsPossibleId(id);
 
       return HttpResponse.json(isPossibleId, { status: 200 });
-    } catch (error: any) {
-      console.error("Error getIsPossibleId: ", error.message);
-      return HttpResponse.json(null, { status: error.status });
+    } catch (error) {
+      console.error("Error getIsPossibleId: ", error);
+      return HttpResponse.json(null, { status: 500 });
     }
   }),
 
@@ -55,8 +59,8 @@ export const handlers = [
       } else {
         return HttpResponse.json(null, { status: 400 });
       }
-    } catch (error: any) {
-      return HttpResponse.json(null, { status: error.status });
+    } catch (error) {
+      return HttpResponse.json(null, { status: 500 });
     }
   }),
 
@@ -76,9 +80,9 @@ export const handlers = [
       };
 
       return HttpResponse.json(userProfileInfo, { status: 200 });
-    } catch (error: any) {
-      console.error("Error no userInfo: ", error.message);
-      return HttpResponse.json(null, { status: error.status });
+    } catch (error) {
+      console.error("Error no userInfo: ", error);
+      return HttpResponse.json(null, { status: 500 });
     }
   }),
 
@@ -93,8 +97,23 @@ export const handlers = [
       const resultData = await getResult(id);
 
       return HttpResponse.json(resultData, { status: 200 });
-    } catch (error: any) {
-      return HttpResponse.json(null, { status: error.status });
+    } catch (error) {
+      return HttpResponse.json(null, { status: 500 });
+    }
+  }),
+
+  /** 회원가입 시 유저의 진단 결과 객체 생성 후 테이블에 삽입 */
+  http.post("/makeUserResult", async ({ request }) => {
+    try {
+      const requestUserId: userIdRequestType =
+        (await request.json()) as userIdRequestType;
+
+      await createResult(requestUserId.id);
+
+      return HttpResponse.json(null, { status: 200 });
+    } catch (error) {
+      console.error("Error adding result to DB:", error);
+      return HttpResponse.json(null, { status: 404 });
     }
   }),
 ];

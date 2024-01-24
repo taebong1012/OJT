@@ -35,10 +35,11 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
       };
 
       await axios.post("/signup", userData);
+      await axios.post("/makeUserResult", { id: inputId });
       window.alert("회원가입이 완료되었습니다.");
       /** 로그인 컴포넌트로 돌아가기 */
       setTabIndex(0);
-    } catch (error: any) {
+    } catch (error) {
       console.error("sign-up FAILED: ", error);
     }
   };
@@ -58,7 +59,7 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
     } else {
       setIsDisabled(true);
     }
-  }, [inputId, inputPw, inputConfirmPw, inputName, inputBirth]);
+  }, [inputId, inputPw, inputConfirmPw, inputName, inputBirth, isPossibleId]);
 
   /** 사용자가 입력한 id가 바뀔 때마다 이미 존재하는 id인지 확인 */
   useEffect(() => {
@@ -67,8 +68,8 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
         try {
           const response = await axios.get(`/checkid/${inputId}`);
           setIsPossibleId(response.data);
-        } catch (error: any) {
-          console.error("id checking Err: ", error.message);
+        } catch (error) {
+          console.error("id checking Err: ", error);
         }
       } else {
         setIsPossibleId(false);

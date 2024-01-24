@@ -17,7 +17,7 @@ export const addUserToDB = async (userData: userInfoType) => {
     });
 
     console.log("Transaction completed successfully");
-  } catch (error: any) {
+  } catch (error) {
     console.error("Transaction Error: ", error);
   }
 };
