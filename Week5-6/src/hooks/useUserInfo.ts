@@ -15,6 +15,7 @@ const useUserProfileData = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["userProfileData"],
     queryFn: getUserProfileData,
+    refetchOnMount: false,
   });
 
   return { isLoading, error, data };
