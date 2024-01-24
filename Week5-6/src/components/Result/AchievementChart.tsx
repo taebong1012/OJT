@@ -81,7 +81,7 @@ const AchievementChart = ({ achievement }: { achievement: number }) => {
     <div className="flex items-end justify-between">
       <div className="w-[65%] relative">
         <canvas ref={chartRef} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#66D5E3] text-4xl font-extrabold">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#66D5E3] text-[56px] font-extrabold">
           {achievement}%
         </div>
       </div>
