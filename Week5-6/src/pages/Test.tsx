@@ -12,7 +12,7 @@ import useUpdateResult from "@/hooks/useUpdateResult";
 import useUpdateUserInfo from "@/hooks/useUpdateUserInfo";
 import getTodayDate from "@/utils/getTodayDate";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Test = () => {
   const { grade } = useParams<{ grade: string }>();
@@ -24,6 +24,7 @@ const Test = () => {
   const [isEnd, setIsEnd] = useState(false);
   const [proceedTime, setProceedTime] = useState("00:00:00");
   const [wrongQuestion, setWrongQuestion] = useState<Array<string | null>>([]);
+  const navigate = useNavigate();
 
   const resultObject = {
     grade: grade,
@@ -37,16 +38,20 @@ const Test = () => {
     wrongQuestion.filter((num) => num === null).length * 10
   );
 
-  /** 현재 평가 등급에 따라 문제 배열 변경 */
-  let questionDataArr: Array<questionDataType>;
-  if (grade === "F") {
-    questionDataArr = gradeFquestionDataArr;
-  } else {
-    questionDataArr = gradeCquestionDataArr;
-  }
-
   /** iframe으로 문제 정보를 전달하는 hook */
   useEffect(() => {
+    /** 현재 평가 등급에 따라 문제 배열 변경 */
+    let questionDataArr: Array<questionDataType>;
+    if (grade === "F") {
+      questionDataArr = gradeFquestionDataArr;
+    } else if (grade === "E") {
+      questionDataArr = gradeCquestionDataArr;
+    } else {
+      window.alert("올바르지 않은 접근 입니다. 로그아웃 됩니다.");
+      navigate("/start");
+      return;
+    }
+
     if (
       isStart &&
       !isEnd &&
@@ -56,7 +61,7 @@ const Test = () => {
     ) {
       iframeRef.current.contentWindow.postMessage(questionDataArr[questionNum]);
     }
-  }, [questionNum, iframeRef, isIframeLoaded, questionDataArr, isStart, isEnd]);
+  }, [questionNum, iframeRef, isIframeLoaded, isStart, isEnd, grade, navigate]);
 
   /** iframe에서 보내는 데이터를 받기 위한 이벤트 등록 hook */
   useEffect(() => {
