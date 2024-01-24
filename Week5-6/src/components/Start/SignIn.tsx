@@ -20,8 +20,6 @@ const SignIn = () => {
   const { isError, isSuccess, signInMutate } = useSignIn(signInUserData);
 
   const handleOnClickLogInButton = () => {
-    console.log("로그인 버튼 클릭");
-
     signInMutate();
   };
 

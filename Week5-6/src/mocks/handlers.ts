@@ -25,8 +25,6 @@ export const handlers = [
 
       await addUserToDB(userData);
 
-      console.log("Users added successfully");
-
       return HttpResponse.json(null, { status: 200 });
     } catch (error) {
       console.error("Error adding users to DB:", error);

@@ -15,8 +15,6 @@ export const addUserToDB = async (userData: userInfoType) => {
       };
       addRequest.onerror = () => reject(new Error("Error adding user to DB"));
     });
-
-    console.log("Transaction completed successfully");
   } catch (error) {
     console.error("Transaction Error: ", error);
   }
@@ -72,8 +70,6 @@ export const updateUser = async (requestData: userInfoType) => {
   const db: IDBDatabase = await openDB();
   const transaction: IDBTransaction = db.transaction(["users"], "readwrite");
   const objStore: IDBObjectStore = transaction.objectStore("users");
-
-  console.log("requestData: ", requestData);
 
   /** 유저의 성취도 업데이트 */
   const addRequest: IDBRequest = objStore.put(requestData);
