@@ -15,7 +15,7 @@ const useUpdateUserInfo = (curAchievement: number) => {
       if (data.acheivement === 0) {
         average = curAchievement;
       } else {
-        average = (average + curAchievement) / 2;
+        average = (data.acheivement + curAchievement) / 2;
       }
 
       data.acheivement = average;
