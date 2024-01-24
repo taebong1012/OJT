@@ -1,4 +1,3 @@
-import { initResult } from "@/data/initResult";
 import { resultInterface } from "@/types/resultType";
 import openDB from "@/utils/openIndexedDB";
 

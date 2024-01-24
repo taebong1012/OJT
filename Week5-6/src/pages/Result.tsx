@@ -26,7 +26,11 @@ const Result = () => {
           emptySimpleResult
         }
       />
-      {data ? <SpecificResult /> : <NoResult />}
+      {(grade === "E" || grade === "F") && data?.[grade]?.specific ? (
+        <SpecificResult />
+      ) : (
+        <NoResult />
+      )}
     </div>
   );
 };
