@@ -1,9 +1,10 @@
 type SignInputProps = {
   type: string;
   value: string;
-  handleOnChange: Function;
+  handleOnChange: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
   isHaveMarginBottom?: boolean;
+  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const SignInput = ({
@@ -12,6 +13,7 @@ const SignInput = ({
   handleOnChange,
   placeholder,
   isHaveMarginBottom = true,
+  onKeyPress,
 }: SignInputProps) => {
   return (
     <input
@@ -24,6 +26,7 @@ const SignInput = ({
       }
       ${type === "date" ? "w-36" : "w-full"}
       `}
+      onKeyPress={onKeyPress}
     />
   );
 };

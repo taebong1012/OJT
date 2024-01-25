@@ -23,6 +23,13 @@ const SignIn = () => {
     signInMutate();
   };
 
+  const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log("handleOnKeyPress: ", e.key);
+    if (e.key === "Enter" && inputId.trim() !== "" && inputPw.trim() !== "") {
+      handleOnClickLogInButton();
+    }
+  };
+
   /** error가 없고 성공했을 경우에 로그인 유저의 정보를 쿠키에 저장하고 메인페이지로 이동 */
   useEffect(() => {
     if (!isError && isSuccess) {
@@ -43,6 +50,7 @@ const SignIn = () => {
           value={inputId}
           handleOnChange={setInputId}
           placeholder="아이디 입력"
+          onKeyPress={handleOnKeyPress}
         />
         <InputTitle text="비밀번호" />
         <SignInput
@@ -50,6 +58,7 @@ const SignIn = () => {
           value={inputPw}
           handleOnChange={setInputPw}
           placeholder="비밀번호 입력"
+          onKeyPress={handleOnKeyPress}
         />
       </div>
       <MainButton

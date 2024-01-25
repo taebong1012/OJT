@@ -44,7 +44,7 @@ const Footer = () => {
                 (주)재능교육
               </span>
               <span>
-                사업자번호: 123-45-67890 전화: 1588-1234 이메일: aaa@jei.com
+                사업자번호: 123-45-67890 | 전화: 1588-1234 | 이메일: aaa@jei.com
               </span>
               <span>통신판매업 신고번호: 제 2040-서울서울-3111호</span>
               <span>Copyright © JEI corporation. All rights reserved.</span>
