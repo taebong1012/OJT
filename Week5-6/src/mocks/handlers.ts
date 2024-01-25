@@ -5,11 +5,7 @@ import {
   getIsPossibleId,
   updateUser,
 } from "@/utils/userDBUtils";
-import {
-  signInUserType,
-  userInfoType,
-  userProfileType,
-} from "@/types/userType";
+import { signInUserType, userInfoType } from "@/types/userType";
 import { createResult, getResult, updateResult } from "@/utils/resultDBUtils";
 import { resultInterface } from "@/types/resultType";
 
@@ -77,12 +73,7 @@ export const handlers = [
       const id = params.id as string;
 
       const userInfo = await findUser(id);
-      const userProfileInfo: userProfileType = {
-        id: userInfo.id,
-        age: userInfo.age,
-        name: userInfo.name,
-        acheivement: userInfo.acheivement,
-      };
+      const userProfileInfo: userInfoType = userInfo as userInfoType;
 
       return HttpResponse.json(userProfileInfo, { status: 200 });
     } catch (error) {
