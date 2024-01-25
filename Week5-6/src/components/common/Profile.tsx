@@ -2,12 +2,14 @@ import ProfileImage from "@/components/common/ProfileImage";
 import ProfileInfo from "@/components/common/ProfileInfo";
 import ProfileName from "@/components/common/ProfileName";
 import useUserProfileData from "@/hooks/useUserInfo";
+import { doLogout } from "@/utils/doLogout";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
   const moveToStart = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
+      doLogout();
       navigate("/start");
     }
   };

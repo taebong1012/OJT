@@ -10,6 +10,7 @@ import {
 } from "@/data/questionDataArr";
 import useUpdateResult from "@/hooks/useUpdateResult";
 import useUpdateUserInfo from "@/hooks/useUpdateUserInfo";
+import { doLogout } from "@/utils/doLogout";
 import getTodayDate from "@/utils/getTodayDate";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -46,6 +47,7 @@ const Test = () => {
       questionDataArr = gradeCquestionDataArr;
     } else {
       window.alert("올바르지 않은 접근 입니다. 로그아웃 됩니다.");
+      doLogout();
       navigate("/start");
       return;
     }

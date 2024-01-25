@@ -1,10 +1,9 @@
-import React from "react";
 import Header from "@/components/common/Header";
 import Profile from "@/components/common/Profile";
 import { Outlet } from "react-router-dom";
 import Footer from "@/components/common/Footer";
 
-const Layout: React.FC = () => {
+const Layout = () => {
   return (
     <>
       <Header />
