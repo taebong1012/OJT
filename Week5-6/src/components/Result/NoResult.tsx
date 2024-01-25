@@ -1,4 +1,5 @@
 import MainButton from "@/components/common/MainButton";
+import scrollToTop from "@/utils/scrollToTop";
 import { useNavigate, useParams } from "react-router-dom";
 
 const NoResult = () => {
@@ -21,7 +22,18 @@ const NoResult = () => {
       <span className="font-extrabold text-xl mb-[70px]">
         진단을 시작하고 성취도를 확인하세요!
       </span>
-      <MainButton text="진단하기" handleOnClick={handleOnClickButton} />
+      <div className="flex justify-center gap-[40px]">
+        <button
+          onClick={() => {
+            navigate("/");
+            scrollToTop();
+          }}
+          className="h-10 font-bold focus:outline-none flex justify-center items-center w-160 bg-[#EAEAEA] hover:bg-[#D1D1D1] active:bg-[#BCBCBC]"
+        >
+          메인으로
+        </button>
+        <MainButton text="진단하기" handleOnClick={handleOnClickButton} />
+      </div>
     </div>
   );
 };
