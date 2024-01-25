@@ -34,9 +34,7 @@ const Test = () => {
   };
 
   const { resultMutate } = useUpdateResult(resultObject);
-  const { userAchievementMutate } = useUpdateUserInfo(
-    wrongQuestion.filter((num) => num === null).length * 10
-  );
+  const { userAchievementMutate } = useUpdateUserInfo();
 
   /** iframe으로 문제 정보를 전달하는 hook */
   useEffect(() => {

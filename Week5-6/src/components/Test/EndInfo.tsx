@@ -1,4 +1,5 @@
 import MainButton from "@/components/common/MainButton";
+import scrollToTop from "@/utils/scrollToTop";
 import { useNavigate } from "react-router-dom";
 
 const EndInfo = ({ grade }: { grade: string | undefined }) => {
@@ -9,6 +10,7 @@ const EndInfo = ({ grade }: { grade: string | undefined }) => {
       window.alert("ERR: no grade");
       navigate("/");
     } else {
+      scrollToTop();
       navigate(`/result/${grade}`);
     }
   };
