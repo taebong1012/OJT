@@ -19,7 +19,7 @@ const Profile = () => {
       <ProfileImage />
       <ProfileName name={data?.name || "err"} />
       <ProfileInfo title="나이" value={data?.age || 0} />
-      <ProfileInfo title="성취도" value={data?.acheivement || 0} />
+      <ProfileInfo title="종합 성취도" value={data?.acheivement || 0} />
       <span
         onClick={moveToStart}
         className="text-s underline underline-offset-4 text-[#BCBCBC] hover:no-underline hover:cursor-pointer hover:text-primary"

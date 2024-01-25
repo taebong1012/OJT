@@ -9,6 +9,7 @@ import scrollToTop from "@/utils/scrollToTop";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import loadingCharacter from "@/assets/svg/ic_loadingCharacter.svg";
+import DateTime from "@/components/Result/DateTime";
 
 const OnLoadingComponent = () => {
   return (
@@ -58,7 +59,7 @@ const SpecificResult = () => {
           </div>
           <div className="flex gap-[40px] mb-[40px]">
             <ChartBox achievement={resultData.simple.achievement} />
-            <div className="w-[45%] rounded-10 py-8 px-10 flex flex-col items-center shadow-default"></div>
+            <DateTime simpleData={resultData.simple}/>
           </div>
           <WrongQuestion wrongQuestionData={resultData.specific.wrongImage} />
           <WrongQuestionImages
