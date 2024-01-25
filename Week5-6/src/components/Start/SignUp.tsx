@@ -46,14 +46,15 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
 
   useEffect(() => {
     if (
-      inputPw === inputConfirmPw &&
-      isPossibleId &&
       getCanRegist({
         inputId,
         inputPw,
         inputName,
         inputBirth,
-      })
+        setInputBirth,
+      }) &&
+      inputPw === inputConfirmPw &&
+      isPossibleId
     ) {
       setIsDisabled(false);
     } else {
@@ -135,7 +136,6 @@ const SignUp: React.FC<SignUpProps> = ({ setTabIndex }) => {
 
       <MainButton
         text="회원가입"
-        // handleOnClick={handleOnClickSignUpButton}
         handleOnClick={doSignUp}
         isFull={true}
         isDisabled={isDisabled}
