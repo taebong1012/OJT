@@ -96,6 +96,18 @@ const Test = () => {
     }
   }, [questionNum, resultMutate, userAchievementMutate, wrongQuestion]);
 
+  useEffect(() => {
+    const preventClose = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener("beforeunload", preventClose);
+
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
+
   return (
     <div className="w-full flex flex-col mb-15">
       <Title text="평가 진행" />
