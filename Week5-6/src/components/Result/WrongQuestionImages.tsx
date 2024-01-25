@@ -10,13 +10,13 @@ const WrongQuestionImage = ({
   questionNum,
 }: wrongQuestionImageType) => {
   return (
-    <div className="w-[48%] min-h-[200px] flex flex-col border-2 rounded-10 border-lightgrey bg-white">
+    <div className="w-[48%] min-h-[200px] flex flex-col border-2 rounded-10 border-lightgrey bg-white pb-[5px]">
       <div className="flex justify-end pr-[30px] mb-[10px]">
         <div className="w-[60px] h-[30px] bg-wrong flex justify-center items-center font-bold text-background rounded-b-[8px]">
           {questionNum}
         </div>
       </div>
-      <img src={imageUrl} />
+      <img src={imageUrl} alt="틀린 문제의 이미지" />
     </div>
   );
 };

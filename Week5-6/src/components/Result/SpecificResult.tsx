@@ -59,7 +59,7 @@ const SpecificResult = () => {
           </div>
           <div className="flex gap-[40px] mb-[40px]">
             <ChartBox achievement={resultData.simple.achievement} />
-            <DateTime simpleData={resultData.simple}/>
+            <DateTime simpleData={resultData.simple} />
           </div>
           <WrongQuestion wrongQuestionData={resultData.specific.wrongImage} />
           <WrongQuestionImages
