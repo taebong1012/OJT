@@ -7,7 +7,7 @@ const ErrorPage = () => {
   const navigate = useNavigate();
   const handleOnClick = () => {
     doLogout();
-    navigate(-1);
+    navigate("/");
   };
 
   return (
@@ -18,7 +18,7 @@ const ErrorPage = () => {
           요청하신 페이지를 찾을 수 없습니다.
         </span>
       </div>
-      <MainButton text="뒤로 돌아가기" handleOnClick={handleOnClick} />
+      <MainButton text="메인으로" handleOnClick={handleOnClick} />
     </div>
   );
 };
