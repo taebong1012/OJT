@@ -4,7 +4,7 @@ type SignInputProps = {
   handleOnChange: React.Dispatch<React.SetStateAction<string>>;
   placeholder: string;
   isHaveMarginBottom?: boolean;
-  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 const SignInput = ({
