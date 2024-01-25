@@ -3,8 +3,8 @@ import { useEffect, useRef } from "react";
 
 const AchievementChart = ({ achievement }: { achievement: number }) => {
   const Label = () => {
-    const wrongCnt: number = achievement / 10;
-    const correctCnt: number = 10 - wrongCnt;
+    const correctCnt: number = achievement / 10;
+    const wrongCnt: number = 10 - correctCnt;
 
     return (
       <div className="flex flex-col">
@@ -33,8 +33,8 @@ const AchievementChart = ({ achievement }: { achievement: number }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const wrongCnt: number = achievement / 10;
-    const correctCnt: number = 10 - wrongCnt;
+    const correctCnt: number = achievement / 10;
+    const wrongCnt: number = 10 - correctCnt;
 
     const chartLabels = ["맞은 문제", "틀림 문제"];
     const chartData = [correctCnt, wrongCnt];
@@ -85,7 +85,7 @@ const AchievementChart = ({ achievement }: { achievement: number }) => {
           {achievement}%
         </div>
       </div>
-      <div className="w-[30%]">
+      <div className="w-[32%]">
         <Label />
       </div>
     </div>
