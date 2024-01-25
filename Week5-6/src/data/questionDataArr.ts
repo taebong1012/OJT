@@ -1999,7 +1999,7 @@ export const gradeFquestionDataArr: Array<questionDataType> = [
       ],
       background: "white",
     },
-    answerId: "LRJSvwLhJmBgpMOL",
+    answerId: "lEQpVGFuzbupKkfl",
   },
   // 7번
   {
@@ -2326,7 +2326,7 @@ export const gradeFquestionDataArr: Array<questionDataType> = [
       ],
       background: "white",
     },
-    answerId: "mxtTHynNHnTnypKU",
+    answerId: "IoXATYrixMaxiJLo",
   },
   // 8번
   {
