@@ -30,6 +30,8 @@ export default {
         buttonactive: "#364BA0",
         wrong: "#EF8084",
         correct: "#11A817",
+        footerbackground: "#F0F0F7",
+        footertext: "#666666",
       },
       borderRadius: {
         10: "10px",
