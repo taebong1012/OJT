@@ -71,7 +71,7 @@ const Test = () => {
 
         setTimeout(() => {
           setQuestionNum((prev) => prev + 1);
-        }, 2000);
+        }, 500);
       }
     };
 

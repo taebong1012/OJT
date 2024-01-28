@@ -24,7 +24,6 @@ const SignIn = () => {
   };
 
   const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log("handleOnKeyPress: ", e.key);
     if (e.key === "Enter" && inputId.trim() !== "" && inputPw.trim() !== "") {
       handleOnClickLogInButton();
     }

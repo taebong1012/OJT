@@ -15,7 +15,7 @@ const useGradeResults = () => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["gradeResults"],
     queryFn: getGradeResults,
-    refetchOnMount: false,
+    // refetchOnMount: false,
   });
 
   return {
