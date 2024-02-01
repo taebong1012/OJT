@@ -175,7 +175,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
         this.bejiPlayer.anims.play("bejiWalk", true);
       }
     } else if (isDPressed) {
-      console.log(this.bejiPlayer.x);
       if (this.bejiPlayer.x <= 350) {
         this.bejiPlayer.setVelocityX(160);
       } else {
@@ -196,7 +195,12 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.bearkongPlayer.setVelocityY(-500);
       this.bearkongPlayer.anims.play("bearkongJump");
     } else if (this.cursors.left.isDown) {
-      this.bearkongPlayer.setVelocityX(-160);
+      if (this.bearkongPlayer.x >= 452) {
+        this.bearkongPlayer.setVelocityX(-160);
+      } else {
+        this.bearkongPlayer.setVelocityX(0);
+      }
+
       if (this.bearkongPlayer.body.blocked.down) {
         this.bearkongPlayer.anims.play("bearkongWalk", true);
       }
