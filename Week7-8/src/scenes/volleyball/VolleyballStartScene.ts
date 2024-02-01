@@ -39,7 +39,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 580, "ground");
-    platforms.create(400, 469, "net");
+    platforms.create(400, 464, "net");
 
     /** 중력의 영향을 받지 않는 꾸밈 요소들 설정 */
     const decorations = this.physics.add.staticGroup();
@@ -50,7 +50,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     // 웨일 애니메이션 설정
     this.anims.create({
       key: "whaleMove",
-      frames: this.anims.generateFrameNames("whale", { start: 1, end: 7 }),
+      frames: this.anims.generateFrameNames("whale", { start: 0, end: 6 }),
       frameRate: 6,
       repeat: -1,
     });
@@ -62,7 +62,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
       200,
       443,
       "bejiPlay",
-      "beji-play-1.png"
+      "beji-1.png"
     );
 
     this.bejiPlayer.anims.create({
@@ -107,10 +107,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** 베어콩 캐릭터 설정 */
     this.bearkongPlayer = this.physics.add.sprite(
-      200,
+      600,
       443,
       "bearkongPlay",
-      "bearkong-play-1.png"
+      "bearkong-1.png"
     );
 
     this.bearkongPlayer.anims.create({
@@ -170,11 +170,17 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.bejiPlayer.anims.play("bejiJump");
     } else if (isAPressed) {
       this.bejiPlayer.setVelocityX(-160);
+
       if (this.bejiPlayer.body.blocked.down) {
         this.bejiPlayer.anims.play("bejiWalk", true);
       }
     } else if (isDPressed) {
-      this.bejiPlayer.setVelocityX(160);
+      console.log(this.bejiPlayer.x);
+      if (this.bejiPlayer.x <= 350) {
+        this.bejiPlayer.setVelocityX(160);
+      } else {
+        this.bejiPlayer.setVelocityX(0);
+      }
       if (this.bejiPlayer.body.blocked.down) {
         this.bejiPlayer.anims.play("bejiWalk", true);
       }
