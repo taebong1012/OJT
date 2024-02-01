@@ -1,8 +1,8 @@
-import MainScene from "@/scenes/MainScene";
+import MainScene from "@/scenes/tutorial/MainScene";
 import Phaser from "phaser";
 import { useEffect } from "react";
 
-const Game = () => {
+const TutorialGame = () => {
   useEffect(() => {
     const game = new Phaser.Game({
       type: Phaser.WEBGL,
@@ -28,4 +28,4 @@ const Game = () => {
   return <div id="phaser-tutorial" className="border-2 border-red-500"></div>;
 };
 
-export default Game;
+export default TutorialGame;
