@@ -1,0 +1,109 @@
+import backgroundImage from "@/assets/volleyball/background.svg";
+import groundImage from "@/assets/volleyball/ground.svg";
+import bejiPlayImage from "@/assets/volleyball/anim/beji-play.png";
+import bejiPlayJson from "@/assets/volleyball/anim/beji-play.json";
+import netImage from "@/assets/volleyball/net.svg";
+
+export default class VolleyballStartScene extends Phaser.Scene {
+  private bejiPlayer!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+
+  constructor() {
+    super({ key: "main" });
+  }
+
+  preload() {
+    this.load.image("background", backgroundImage);
+    this.load.atlas("bejiPlay", bejiPlayImage, bejiPlayJson);
+    this.load.image("ground", groundImage);
+    this.load.image("net", netImage);
+  }
+
+  create() {
+    /** 배경 설정 */
+    this.add.image(400, 300, "background");
+
+    /** 커서 설정 */
+    this.cursors = this.input.keyboard!.createCursorKeys();
+
+    /** 중력의 영향을 받지 않는 땅바닥 설정 */
+    const platforms = this.physics.add.staticGroup();
+
+    /** wndfur */
+
+    platforms.create(400, 580, "ground");
+    platforms.create(400, 469, "net");
+
+    this.bejiPlayer = this.physics.add.sprite(
+      200,
+      443,
+      "bejiPlay",
+      "beji-play-1.png"
+    );
+
+    this.bejiPlayer.anims.create({
+      key: "bejiWalk",
+      frames: this.anims.generateFrameNames("bejiPlay", {
+        prefix: "beji-",
+        start: 1,
+        end: 3,
+        suffix: ".png",
+      }),
+      repeat: -1,
+      yoyo: true,
+      frameRate: 6,
+    });
+
+    this.bejiPlayer.anims.create({
+      key: "bejiStay",
+      frames: this.anims.generateFrameNames("bejiPlay", {
+        prefix: "beji-",
+        start: 4,
+        end: 5,
+        suffix: ".png",
+      }),
+      repeat: -1,
+      yoyo: true,
+      frameRate: 4,
+    });
+
+    this.bejiPlayer.anims.create({
+      key: "bejiJump",
+      frames: this.anims.generateFrameNames("bejiPlay", {
+        prefix: "beji-",
+        start: 6,
+        end: 8,
+        suffix: ".png",
+      }),
+      //   repeat: 1,
+      //   yoyo: true,
+      frameRate: 8,
+    });
+
+    this.bejiPlayer.play("bejiStay");
+    this.bejiPlayer.setCollideWorldBounds(true);
+    this.physics.add.collider(this.bejiPlayer, platforms);
+  }
+
+  update(): void {
+    const wKey = this.input.keyboard?.addKey("W");
+    const aKey = this.input.keyboard?.addKey("A");
+    const dKey = this.input.keyboard?.addKey("D");
+
+    if (aKey?.isDown) {
+      this.bejiPlayer.setVelocityX(-160);
+      this.bejiPlayer.anims.play("bejiWalk", true);
+    } else if (dKey?.isDown) {
+      this.bejiPlayer.setVelocityX(160);
+      this.bejiPlayer.anims.play("bejiWalk", true);
+    } else {
+      this.bejiPlayer.setVelocityX(0);
+      this.bejiPlayer.anims.play("bejiStay", true);
+    }
+
+    if (wKey?.isDown && this.bejiPlayer.body!.touching.down) {
+      this.bejiPlayer.setVelocityY(-500);
+      this.bejiPlayer.anims.play("bejiJump", true);
+    }
+  }
+}

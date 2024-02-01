@@ -1,0 +1,207 @@
+{
+  "frames": {
+    "beji-2.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-3.png": {
+      "frame": {
+        "x": 0,
+        "y": 94,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-6.png": {
+      "frame": {
+        "x": 0,
+        "y": 188,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-7.png": {
+      "frame": {
+        "x": 0,
+        "y": 282,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-8.png": {
+      "frame": {
+        "x": 0,
+        "y": 376,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-1.png": {
+      "frame": {
+        "x": 0,
+        "y": 470,
+        "w": 75,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-5.png": {
+      "frame": {
+        "x": 0,
+        "y": 564,
+        "w": 75.5,
+        "h": 93
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 1,
+        "w": 75.5,
+        "h": 93
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "beji-4.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 75.5,
+        "h": 94
+      },
+      "sourceSize": {
+        "w": 75.5,
+        "h": 94
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "beji-play.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 76,
+      "h": 657
+    },
+    "scale": 0.5
+  }
+}
