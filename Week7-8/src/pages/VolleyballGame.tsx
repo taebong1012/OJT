@@ -19,7 +19,8 @@ const VolleyballGame = () => {
         default: "arcade",
         arcade: {
           //   debug: import.meta.env.DEV,
-          debug: true,
+          //   debug: true,
+          debug: false,
           gravity: { y: 800 },
         },
       },

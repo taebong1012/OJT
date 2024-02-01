@@ -3,6 +3,7 @@ import groundImage from "@/assets/volleyball/ground.svg";
 import bejiPlayImage from "@/assets/volleyball/anim/beji-play.png";
 import bejiPlayJson from "@/assets/volleyball/anim/beji-play.json";
 import netImage from "@/assets/volleyball/net.svg";
+import whaleImage from "@/assets/volleyball/whale.png";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -17,6 +18,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.atlas("bejiPlay", bejiPlayImage, bejiPlayJson);
     this.load.image("ground", groundImage);
     this.load.image("net", netImage);
+    this.load.spritesheet("whale", whaleImage, {
+      frameWidth: 320,
+      frameHeight: 320,
+    });
   }
 
   create() {
@@ -29,10 +34,24 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 중력의 영향을 받지 않는 땅바닥 설정 */
     const platforms = this.physics.add.staticGroup();
 
-    /** wndfur */
-
     platforms.create(400, 580, "ground");
     platforms.create(400, 469, "net");
+
+    /** 중력의 영향을 받지 않는 꾸밈 요소들 설정 */
+    const decorations = this.physics.add.staticGroup();
+
+    const whale = decorations.create(160, 300, "whale");
+    whale.setScale(0.3);
+
+    // 웨일 애니메이션 설정
+    this.anims.create({
+      key: "whaleMove",
+      frames: this.anims.generateFrameNames("whale", { start: 1, end: 7 }),
+      frameRate: 6,
+      repeat: -1,
+    });
+
+    whale.play("whaleMove");
 
     this.bejiPlayer = this.physics.add.sprite(
       200,
@@ -63,7 +82,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
         suffix: ".png",
       }),
       repeat: -1,
-      yoyo: true,
       frameRate: 4,
     });
 
@@ -75,8 +93,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
         end: 8,
         suffix: ".png",
       }),
-      //   repeat: 1,
-      //   yoyo: true,
       frameRate: 8,
     });
 
@@ -90,20 +106,29 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const aKey = this.input.keyboard?.addKey("A");
     const dKey = this.input.keyboard?.addKey("D");
 
-    if (aKey?.isDown) {
+    // 키보드 입력 감지
+    const isWPressed = wKey?.isDown;
+    const isAPressed = aKey?.isDown;
+    const isDPressed = dKey?.isDown;
+
+    if (isWPressed && this.bejiPlayer.body.blocked.down) {
+      this.bejiPlayer.setVelocityY(-500);
+      this.bejiPlayer.anims.play("bejiJump");
+    } else if (isAPressed) {
       this.bejiPlayer.setVelocityX(-160);
-      this.bejiPlayer.anims.play("bejiWalk", true);
-    } else if (dKey?.isDown) {
+      if (this.bejiPlayer.body.blocked.down) {
+        this.bejiPlayer.anims.play("bejiWalk", true);
+      }
+    } else if (isDPressed) {
       this.bejiPlayer.setVelocityX(160);
-      this.bejiPlayer.anims.play("bejiWalk", true);
+      if (this.bejiPlayer.body.blocked.down) {
+        this.bejiPlayer.anims.play("bejiWalk", true);
+      }
     } else {
       this.bejiPlayer.setVelocityX(0);
-      this.bejiPlayer.anims.play("bejiStay", true);
-    }
-
-    if (wKey?.isDown && this.bejiPlayer.body!.touching.down) {
-      this.bejiPlayer.setVelocityY(-500);
-      this.bejiPlayer.anims.play("bejiJump", true);
+      if (this.bejiPlayer.body.blocked.down) {
+        this.bejiPlayer.anims.play("bejiStay", true);
+      }
     }
   }
 }
