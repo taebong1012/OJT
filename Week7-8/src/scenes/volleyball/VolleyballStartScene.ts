@@ -2,7 +2,9 @@ import backgroundImage from "@/assets/volleyball/background.svg";
 import groundImage from "@/assets/volleyball/ground.svg";
 import whaleImage from "@/assets/volleyball/whale.png";
 import gameButtonImage from "@/assets/volleyball/game-button.svg";
+import gameButtonActiveImage from "@/assets/volleyball/game-button-active.svg";
 import howToImage from "@/assets/volleyball/how-to-game-button.svg";
+import howToActiveImage from "@/assets/volleyball/how-to-game-button-active.svg";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartButton";
 import HowToButton from "@/components/Volleyball/HowToButton";
@@ -16,7 +18,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("gameButton", gameButtonImage);
+    this.load.image("gameButtonActive", gameButtonActiveImage);
     this.load.image("howto", howToImage);
+    this.load.image("howtoActive", howToActiveImage);
     this.load.spritesheet("whale", whaleImage, {
       frameWidth: 320,
       frameHeight: 320,
