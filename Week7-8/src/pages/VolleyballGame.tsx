@@ -1,4 +1,5 @@
 import VolleyballStartScene from "@/scenes/volleyball/VolleyballStartScene";
+import VolleyballGameScene from "@/scenes/volleyball/VolleyballGameScene";
 import { useEffect } from "react";
 
 const VolleyballGame = () => {
@@ -24,7 +25,7 @@ const VolleyballGame = () => {
           gravity: { y: 800 },
         },
       },
-      scene: [VolleyballStartScene],
+      scene: [VolleyballStartScene, VolleyballGameScene],
     });
 
     return () => {
