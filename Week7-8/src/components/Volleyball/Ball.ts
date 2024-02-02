@@ -6,7 +6,7 @@ export default class Ball extends Phaser.Physics.Arcade.Image {
 
     this.setScale(0.4);
     this.setBounce(1);
-    this.setMass(0.2);
+    this.setMass(0.3);
     this.setCollideWorldBounds(true);
   }
 }

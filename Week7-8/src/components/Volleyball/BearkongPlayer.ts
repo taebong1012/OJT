@@ -44,8 +44,6 @@ export default class BearkongPlayer extends Phaser.Physics.Arcade.Sprite {
   }
 
   update(cursors: Phaser.Types.Input.Keyboard.CursorKeys): void {
-    console.log("베어콩 업데이트");
-
     /** 베어콩 키보드 입력 설정 */
     if (cursors.up.isDown && this.body && this.body.blocked.down) {
       this.setVelocityY(-500);
