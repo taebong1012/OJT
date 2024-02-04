@@ -5,6 +5,7 @@ import gameButtonImage from "@/assets/volleyball/buttons/game-button.png";
 import howToButtonImage from "@/assets/volleyball/buttons/how-to-button.png";
 import closeButtonImage from "@/assets/volleyball/buttons/close-button.png";
 import modalYellowImage from "@/assets/volleyball/modal-yellow.svg";
+import modalSmallImage from "@/assets/volleyball/modal-small.svg";
 import wasdKeyImage from "@/assets/volleyball/key-wasd.svg";
 import arrowKeyImage from "@/assets/volleyball/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/key-separate.png";
@@ -21,6 +22,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("modalYellow", modalYellowImage);
+    this.load.image("modalSmall", modalSmallImage);
     this.load.image("arrowKey", arrowKeyImage);
     this.load.image("wasdKey", wasdKeyImage);
     this.load.spritesheet("whale", whaleImage, {

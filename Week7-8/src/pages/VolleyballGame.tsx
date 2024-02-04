@@ -1,6 +1,7 @@
 import VolleyballStartScene from "@/scenes/volleyball/VolleyballStartScene";
 import VolleyballGameScene from "@/scenes/volleyball/VolleyballGameScene";
 import { useEffect } from "react";
+import VolleyballResultScene from "@/scenes/volleyball/VolleyballResultScene";
 
 const VolleyballGame = () => {
   useEffect(() => {
@@ -19,13 +20,11 @@ const VolleyballGame = () => {
       physics: {
         default: "arcade",
         arcade: {
-          //   debug: import.meta.env.DEV,
-          debug: true,
-          //   debug: false,
+          debug: false,
           gravity: { y: 800 },
         },
       },
-      scene: [VolleyballStartScene, VolleyballGameScene],
+      scene: [VolleyballStartScene, VolleyballGameScene, VolleyballResultScene],
     });
 
     return () => {

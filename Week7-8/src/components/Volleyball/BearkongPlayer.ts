@@ -46,28 +46,30 @@ export default class BearkongPlayer extends Phaser.Physics.Arcade.Sprite {
 
   update(cursors: Phaser.Types.Input.Keyboard.CursorKeys): void {
     /** 베어콩 키보드 입력 설정 */
-    if (cursors.up.isDown && this.body && this.body.blocked.down) {
-      this.setVelocityY(-500);
-      this.anims.play("bearkongJump");
-    } else if (cursors.left.isDown) {
-      if (this.x >= 452) {
-        this.setVelocityX(-160);
+    if (this.body) {
+      if (cursors.up.isDown && this.body.blocked.down) {
+        this.setVelocityY(-500);
+        this.anims.play("bearkongJump");
+      } else if (cursors.left.isDown) {
+        if (this.x >= 452) {
+          this.setVelocityX(-160);
+        } else {
+          this.setVelocityX(0);
+        }
+
+        if (this.body.blocked.down) {
+          this.anims.play("bearkongWalk", true);
+        }
+      } else if (cursors.right.isDown) {
+        this.setVelocityX(160);
+        if (this.body.blocked.down) {
+          this.anims.play("bearkongWalk", true);
+        }
       } else {
         this.setVelocityX(0);
-      }
-
-      if (this.body && this.body.blocked.down) {
-        this.anims.play("bearkongWalk", true);
-      }
-    } else if (cursors.right.isDown) {
-      this.setVelocityX(160);
-      if (this.body && this.body.blocked.down) {
-        this.anims.play("bearkongWalk", true);
-      }
-    } else {
-      this.setVelocityX(0);
-      if (this.body && this.body.blocked.down) {
-        this.anims.play("bearkongStay", true);
+        if (this.body.blocked.down) {
+          this.anims.play("bearkongStay", true);
+        }
       }
     }
   }

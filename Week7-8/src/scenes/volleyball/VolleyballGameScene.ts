@@ -12,6 +12,7 @@ import BejiPlayer from "@/components/Volleyball/BejiPlayer";
 import Ball from "@/components/Volleyball/Ball";
 import Whale from "@/components/Volleyball/Whale";
 import BearkongPlayer from "@/components/Volleyball/BearkongPlayer";
+import RoundResultModal from "@/components/Volleyball/RoundResultModal";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -23,12 +24,17 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private keyA!: Phaser.Input.Keyboard.Key;
   private keyD!: Phaser.Input.Keyboard.Key;
   private keyW!: Phaser.Input.Keyboard.Key;
+  private bejiScore!: number;
+  private bearkongScore!: number;
 
   constructor() {
     super({ key: "volleyBallGame" });
   }
 
   preload() {
+    this.bejiScore = 0;
+    this.bearkongScore = 0;
+
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
     this.load.atlas("bearkongPlayer", bearkongPlayImage, bearkongPlayJson);
@@ -72,13 +78,20 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   countdown(): void {
+    if (this.bejiPlayer && this.bearkongPlayer && this.ball) {
+      this.bejiPlayer.destroy();
+      this.bearkongPlayer.destroy();
+      this.ball.destroy();
+    }
+
     let count = 3;
 
-    const countdownText = this.add.text(400, 300, `${count}`, {
-      font: "100px NanumSquareRoundEB",
-      color: "#ffffff",
-    });
-    countdownText.setOrigin(0.5);
+    const countdownText = this.add
+      .text(400, 300, `${count}`, {
+        font: "100px NanumSquareRoundEB",
+        color: "#ffffff",
+      })
+      .setOrigin(0.5);
 
     const countdownTimer = this.time.addEvent({
       delay: 1000,
@@ -90,6 +103,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
         } else {
           countdownText.destroy();
           countdownTimer.destroy();
+
           this.startGame();
         }
       },
@@ -107,7 +121,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.bejiPlayer = new BejiPlayer(this, 200, 443);
     this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
 
-    /** 공 설정 */
     /** 공이 생성되는 X 좌표를 랜덤으로 설정. 100~300 사이 혹은 500 ~ 700 사이에서 생성 */
     const ballRandomX =
       Phaser.Math.Between(100, 300) + Phaser.Math.Between(0, 1) * 400;
@@ -188,9 +201,23 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const hitX = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds().x;
     if (hitX < 400) {
       console.log("베어콩 승");
+      this.bearkongScore++;
     } else {
       console.log("베지 승");
+      this.bejiScore++;
     }
+
+    const roundResultModal = new RoundResultModal(this, 400, 300);
+    this.scene.add("roundResultModal", roundResultModal);
+    this.scene.pause("volleyBallGame");
+
+    /** ??: scene을 pause 해서 this.time.delayedCall로 할 경우 호출되지 않아서 일단 setTimeout으로 설정 */
+    setTimeout(() => {
+      this.scene.remove("roundResultModal");
+      roundResultModal.destroy();
+      this.scene.resume("volleyBallGame");
+      this.countdown();
+    }, 3000);
   }
 
   update(): void {
