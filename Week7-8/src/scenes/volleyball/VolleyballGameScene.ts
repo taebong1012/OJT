@@ -53,12 +53,15 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 배경 설정 */
     this.add.image(400, 300, "background");
 
-    /** 중력의 영향을 받지 않는 땅바닥과 네트 설정 */
-    const platforms = this.physics.add.staticGroup();
-    platforms.create(400, 580, "ground");
-    platforms.create(400, 464, "net");
+    /** 중력의 영향을 받지 않는 땅바닥 설정, 공과 상호작용 */
+    const ground = this.physics.add.staticGroup();
+    ground.create(400, 580, "ground");
 
-    /** 중력의 영향을 받지 않는 꾸밈 요소들 설정 */
+    /** 중력의 영향을 받지 않는 네트 설정, 공과 상호작용 */
+    const net = this.physics.add.staticGroup();
+    net.create(400, 464, "net");
+
+    /** 중력의 영향을 받지 않는 꾸밈 요소들 설정, 공과 상호작용 불가 */
     const decorations = this.physics.add.staticGroup();
     decorations.add(new Whale(this, 160, 300));
 
@@ -75,14 +78,21 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 베지 캐릭터 설정 */
     this.bejiPlayer = new BejiPlayer(this, 200, 443);
     this.bejiPlayer.setCollideWorldBounds(true);
-    this.physics.add.collider(this.bejiPlayer, platforms);
+    this.physics.add.collider(this.bejiPlayer, ground);
 
     /** 베어콩 캐릭터 설정 */
     this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
     this.bearkongPlayer.setCollideWorldBounds(true);
-    this.physics.add.collider(this.bearkongPlayer, platforms);
+    this.physics.add.collider(this.bearkongPlayer, ground);
 
-    this.physics.add.collider(this.ball, platforms);
+    this.physics.add.collider(this.ball, net);
+    this.physics.add.collider(
+      this.ball,
+      ground,
+      this.countScore,
+      undefined,
+      this
+    );
     this.physics.add.collider(
       this.ball,
       this.bejiPlayer,
@@ -115,8 +125,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const overlapCenterX = ballBounds.centerX - bejiPlayerBounds.centerX;
     const overlapCenterY = bejiPlayerBounds.centerY - ballBounds.centerY;
 
-    console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
-
     const throwXPower = overlapCenterX * 5;
     (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
@@ -136,14 +144,21 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const overlapCenterX = ballBounds.centerX - bearkongPlayerBounds.centerX;
     const overlapCenterY = bearkongPlayerBounds.centerY - ballBounds.centerY;
 
-    console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
-
     const throwXPower = overlapCenterX * 5;
     (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
     if (overlapCenterY < 84 && overlapCenterY > 20) {
       const throwYPower = Math.abs(overlapCenterX * 5) * -1;
       (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
+    }
+  }
+
+  countScore(): void {
+    const hitX = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds().x;
+    if (hitX < 400) {
+      console.log("베어콩 승");
+    } else {
+      console.log("베지 승");
     }
   }
 }
