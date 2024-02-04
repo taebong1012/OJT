@@ -121,7 +121,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
     if (overlapCenterY < 76 && overlapCenterY > 20) {
-      const throwYPower = overlapCenterX * 5;
+      const throwYPower = Math.abs(overlapCenterX * 5) * -1;
       (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
     }
   }
@@ -142,7 +142,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
     if (overlapCenterY < 84 && overlapCenterY > 20) {
-      const throwYPower = overlapCenterX * 5;
+      const throwYPower = Math.abs(overlapCenterX * 5) * -1;
       (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
     }
   }
