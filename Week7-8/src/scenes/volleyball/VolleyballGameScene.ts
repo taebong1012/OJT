@@ -75,7 +75,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     let count = 3;
 
     const countdownText = this.add.text(400, 300, `${count}`, {
-      font: "80px NanumSquareRoundEB",
+      font: "100px NanumSquareRoundEB",
       color: "#ffffff",
     });
     countdownText.setOrigin(0.5);
@@ -108,7 +108,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
 
     /** 공 설정 */
-    this.ball = new Ball(this, 200, 100);
+    /** 공이 생성되는 X 좌표를 랜덤으로 설정. 100~300 사이 혹은 500 ~ 700 사이에서 생성 */
+    const ballRandomX =
+      Phaser.Math.Between(100, 300) + Phaser.Math.Between(0, 1) * 400;
+    this.ball = new Ball(this, ballRandomX, 100);
     this.tweens.add({
       targets: this.ball,
       angle: 360,

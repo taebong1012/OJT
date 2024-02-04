@@ -44,6 +44,7 @@ export default class BejiPlayer extends Phaser.Physics.Arcade.Sprite {
       frameRate: 8,
     });
 
+    this.setCollideWorldBounds(true);
     this.anims.play("bejiStay");
   }
 
