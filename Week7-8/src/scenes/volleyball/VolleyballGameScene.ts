@@ -63,7 +63,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     decorations.add(new Whale(this, 160, 300));
 
     /** 공 설정 */
-    this.ball = new Ball(this, 600, 100);
+    this.ball = new Ball(this, 200, 100);
     this.tweens.add({
       targets: this.ball,
       angle: 360,
@@ -111,26 +111,18 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.bejiPlayer as Phaser.Physics.Arcade.Sprite
     ).getBounds();
 
-    // 두 경계 상자가 겹치는지 확인
-    const isOverlap = Phaser.Geom.Intersects.RectangleToRectangle(
-      ballBounds,
-      bejiPlayerBounds
-    );
+    // 겹치는 영역의 중심 좌표
+    const overlapCenterX = ballBounds.centerX - bejiPlayerBounds.centerX;
+    const overlapCenterY = bejiPlayerBounds.centerY - ballBounds.centerY;
 
-    if (isOverlap) {
-      // 겹치는 영역의 중심 좌표
-      const overlapCenterX = ballBounds.centerX - bejiPlayerBounds.centerX;
-      const overlapCenterY = bejiPlayerBounds.centerY - ballBounds.centerY;
+    console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
 
-      console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
+    const throwXPower = overlapCenterX * 5;
+    (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
-      const throwXPower = overlapCenterX * 4;
-      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
-
-      if (overlapCenterY < 84 && overlapCenterY > 20) {
-        const throwYPower = overlapCenterX * 5;
-        (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
-      }
+    if (overlapCenterY < 76 && overlapCenterY > 20) {
+      const throwYPower = overlapCenterX * 5;
+      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
     }
   }
 
@@ -140,26 +132,18 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.bearkongPlayer as Phaser.Physics.Arcade.Sprite
     ).getBounds();
 
-    // 두 경계 상자가 겹치는지 확인
-    const isOverlap = Phaser.Geom.Intersects.RectangleToRectangle(
-      ballBounds,
-      bearkongPlayerBounds
-    );
+    // 겹치는 영역의 중심 좌표
+    const overlapCenterX = ballBounds.centerX - bearkongPlayerBounds.centerX;
+    const overlapCenterY = bearkongPlayerBounds.centerY - ballBounds.centerY;
 
-    if (isOverlap) {
-      // 겹치는 영역의 중심 좌표
-      const overlapCenterX = ballBounds.centerX - bearkongPlayerBounds.centerX;
-      const overlapCenterY = bearkongPlayerBounds.centerY - ballBounds.centerY;
+    console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
 
-      console.log(`Overlap at (${overlapCenterX}, ${overlapCenterY})`);
+    const throwXPower = overlapCenterX * 5;
+    (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
 
-      const throwXPower = overlapCenterX * 5;
-      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
-
-      if (overlapCenterY < 84 && overlapCenterY > 20) {
-        const throwYPower = overlapCenterX * 5;
-        (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
-      }
+    if (overlapCenterY < 84 && overlapCenterY > 20) {
+      const throwYPower = overlapCenterX * 5;
+      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
     }
   }
 }

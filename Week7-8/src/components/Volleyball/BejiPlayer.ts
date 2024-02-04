@@ -52,30 +52,29 @@ export default class BejiPlayer extends Phaser.Physics.Arcade.Sprite {
     keyD: Phaser.Input.Keyboard.Key,
     keyW: Phaser.Input.Keyboard.Key
   ): void {
-    if (this.body) {
-      if (keyW.isDown && this.body.blocked.down) {
-        this.setVelocityY(-500);
-        this.anims.play("bejiJump");
-      } else if (keyA.isDown) {
-        this.setVelocityX(-160);
+    if (keyW.isDown && this.body && this.body.blocked.down) {
+      this.setVelocityY(-500);
+      this.anims.play("bejiJump");
+    } else if (keyA.isDown) {
+      this.setVelocityX(-160);
 
-        if (this.body.blocked.down) {
-          this.anims.play("bejiWalk", true);
-        }
-      } else if (keyD.isDown) {
-        if (this.x <= 350) {
-          this.setVelocityX(160);
-        } else {
-          this.setVelocityX(0);
-        }
-        if (this.body.blocked.down) {
-          this.anims.play("bejiWalk", true);
-        }
+      if (this.body && this.body.blocked.down) {
+        this.anims.play("bejiWalk", true);
+      }
+    } else if (keyD.isDown) {
+      if (this.x <= 350) {
+        this.setVelocityX(160);
       } else {
         this.setVelocityX(0);
-        if (this.body.blocked.down) {
-          this.anims.play("bejiStay", true);
-        }
+      }
+
+      if (this.body && this.body.blocked.down) {
+        this.anims.play("bejiWalk", true);
+      }
+    } else {
+      this.setVelocityX(0);
+      if (this.body && this.body.blocked.down) {
+        this.anims.play("bejiStay", true);
       }
     }
   }
