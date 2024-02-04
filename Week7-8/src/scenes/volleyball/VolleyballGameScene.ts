@@ -17,6 +17,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
   private bearkongPlayer!: BearkongPlayer;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  private ground!: Phaser.Physics.Arcade.StaticGroup;
+  private net!: Phaser.Physics.Arcade.StaticGroup;
   private ball!: GameObjects.GameObject;
   private keyA!: Phaser.Input.Keyboard.Key;
   private keyD!: Phaser.Input.Keyboard.Key;
@@ -53,17 +55,57 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 배경 설정 */
     this.add.image(400, 300, "background");
 
-    /** 중력의 영향을 받지 않는 땅바닥 설정, 공과 상호작용 */
-    const ground = this.physics.add.staticGroup();
-    ground.create(400, 580, "ground");
-
-    /** 중력의 영향을 받지 않는 네트 설정, 공과 상호작용 */
-    const net = this.physics.add.staticGroup();
-    net.create(400, 464, "net");
-
     /** 중력의 영향을 받지 않는 꾸밈 요소들 설정, 공과 상호작용 불가 */
     const decorations = this.physics.add.staticGroup();
     decorations.add(new Whale(this, 160, 300));
+
+    /** 중력의 영향을 받지 않는 땅바닥 설정, 공과 상호작용 */
+    this.ground = this.physics.add.staticGroup();
+    this.ground.create(400, 580, "ground");
+
+    /** 중력의 영향을 받지 않는 네트 설정, 공과 상호작용 */
+    this.net = this.physics.add.staticGroup();
+    this.net.create(400, 464, "net");
+
+    /** 카운트 다운 시작 */
+    this.countdown();
+  }
+
+  countdown(): void {
+    let count = 3;
+
+    const countdownText = this.add.text(400, 300, `${count}`, {
+      font: "80px NanumSquareRoundEB",
+      color: "#ffffff",
+    });
+    countdownText.setOrigin(0.5);
+
+    const countdownTimer = this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        count--;
+
+        if (count >= 0) {
+          countdownText.setText(`${count}`);
+        } else {
+          countdownText.destroy();
+          countdownTimer.destroy();
+          this.startGame();
+        }
+      },
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  startGame(): void {
+    this.initializeObjects();
+    this.setColliders();
+  }
+
+  initializeObjects(): void {
+    this.bejiPlayer = new BejiPlayer(this, 200, 443);
+    this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
 
     /** 공 설정 */
     this.ball = new Ball(this, 200, 100);
@@ -74,21 +116,15 @@ export default class VolleyballStartScene extends Phaser.Scene {
       repeat: -1,
       ease: "Linear",
     });
+  }
 
-    /** 베지 캐릭터 설정 */
-    this.bejiPlayer = new BejiPlayer(this, 200, 443);
-    this.bejiPlayer.setCollideWorldBounds(true);
-    this.physics.add.collider(this.bejiPlayer, ground);
-
-    /** 베어콩 캐릭터 설정 */
-    this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
-    this.bearkongPlayer.setCollideWorldBounds(true);
-    this.physics.add.collider(this.bearkongPlayer, ground);
-
-    this.physics.add.collider(this.ball, net);
+  setColliders(): void {
+    this.physics.add.collider(this.bejiPlayer, this.ground);
+    this.physics.add.collider(this.bearkongPlayer, this.ground);
+    this.physics.add.collider(this.ball, this.net);
     this.physics.add.collider(
       this.ball,
-      ground,
+      this.ground,
       this.countScore,
       undefined,
       this
@@ -109,19 +145,12 @@ export default class VolleyballStartScene extends Phaser.Scene {
     );
   }
 
-  update(): void {
-    this.bearkongPlayer.update(this.cursors);
-    this.bejiPlayer.update(this.keyA, this.keyD, this.keyW);
-  }
-
   bejiThrowBall(): void {
-    // ball과 bejiPlayer의 경계 상자 가져오기
     const ballBounds = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds();
     const bejiPlayerBounds = (
       this.bejiPlayer as Phaser.Physics.Arcade.Sprite
     ).getBounds();
 
-    // 겹치는 영역의 중심 좌표
     const overlapCenterX = ballBounds.centerX - bejiPlayerBounds.centerX;
     const overlapCenterY = bejiPlayerBounds.centerY - ballBounds.centerY;
 
@@ -140,7 +169,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.bearkongPlayer as Phaser.Physics.Arcade.Sprite
     ).getBounds();
 
-    // 겹치는 영역의 중심 좌표
     const overlapCenterX = ballBounds.centerX - bearkongPlayerBounds.centerX;
     const overlapCenterY = bearkongPlayerBounds.centerY - ballBounds.centerY;
 
@@ -159,6 +187,13 @@ export default class VolleyballStartScene extends Phaser.Scene {
       console.log("베어콩 승");
     } else {
       console.log("베지 승");
+    }
+  }
+
+  update(): void {
+    if (this.bearkongPlayer && this.bejiPlayer) {
+      this.bearkongPlayer.update(this.cursors);
+      this.bejiPlayer.update(this.keyA, this.keyD, this.keyW);
     }
   }
 }
