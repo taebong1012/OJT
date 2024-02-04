@@ -1,0 +1,10 @@
+<svg width="400" height="260" viewBox="0 0 400 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="143" y="143" width="114" height="114" rx="11" fill="white" stroke="#999999" stroke-width="6"/>
+<rect x="143" y="3" width="114" height="114" rx="11" fill="white" stroke="#F3CE8C" stroke-width="6"/>
+<rect x="3" y="143" width="114" height="114" rx="11" fill="white" stroke="#F3CE8C" stroke-width="6"/>
+<rect x="283" y="143" width="114" height="114" rx="11" fill="white" stroke="#F3CE8C" stroke-width="6"/>
+<path d="M197 86C197 87.6569 198.343 89 200 89C201.657 89 203 87.6569 203 86L197 86ZM200 35L182.679 65L217.321 65L200 35ZM203 86L203 62L197 62L197 86L203 86Z" fill="#333333"/>
+<path d="M86 203C87.6569 203 89 201.657 89 200C89 198.343 87.6569 197 86 197V203ZM35 200L65 217.321V182.679L35 200ZM86 197H62V203H86V197Z" fill="#333333"/>
+<path d="M315 197C313.343 197 312 198.343 312 200C312 201.657 313.343 203 315 203V197ZM366 200L336 182.679V217.321L366 200ZM315 203H339V197H315V203Z" fill="#333333"/>
+<path d="M203 175C203 173.343 201.657 172 200 172C198.343 172 197 173.343 197 175H203ZM200 226L217.321 196H182.679L200 226ZM197 175V199H203V175H197Z" fill="#999999"/>
+</svg>

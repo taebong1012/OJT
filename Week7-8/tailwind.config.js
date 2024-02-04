@@ -2,7 +2,13 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        normal: ["NanumSquareRound", "system-ui"],
+        bold: ["NanumSquareRoundB", "system-ui"],
+        extrabold: ["NanumSquareRoundEB", "system-ui"],
+      },
+    },
   },
   plugins: [],
 };
