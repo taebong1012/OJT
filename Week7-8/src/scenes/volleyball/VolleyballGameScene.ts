@@ -23,7 +23,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private keyW!: Phaser.Input.Keyboard.Key;
 
   constructor() {
-    super({ key: "game" });
+    super({ key: "volleyBallGame" });
   }
 
   preload() {
