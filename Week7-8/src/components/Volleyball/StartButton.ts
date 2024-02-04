@@ -7,22 +7,10 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
 
     /** 마우스 hover 했을 경우 포인터 커서로 변경 */
     this.setInteractive()
-      .on(
-        "pointerover",
-        () => {
-          this.onButtonHover(scene);
-        },
-        scene
-      )
+      .on("pointerover", this.onButtonHover)
 
       /** 마우스가 버튼 밖으로 나갔을 경우 했을 경우 기본 커서로 변경 */
-      .on(
-        "pointerout",
-        () => {
-          this.onButtonOut(scene);
-        },
-        scene
-      )
+      .on("pointerout", this.onButtonOut)
 
       /** 마우스 클릭다운 시 다음 프레임을 통해서 버튼 눌린 이미지 표현 */
       .on("pointerdown", this.onMouseDown)
@@ -31,13 +19,13 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
       .on("pointerup", this.onMouseUp);
   }
 
-  onButtonHover(scene: Phaser.Scene) {
+  onButtonHover() {
     // scene.input.setDefaultCursor("url(hover-cursor.png), pointer");
-    scene.input.setDefaultCursor("pointer");
+    this.scene.input.setDefaultCursor("pointer");
   }
-  onButtonOut(scene: Phaser.Scene) {
+  onButtonOut() {
     // scene.input.setDefaultCursor("url(default-cursor.png), default");
-    scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor("default");
   }
   onMouseDown() {
     this.setFrame(1);
@@ -45,5 +33,6 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
 
   onMouseUp() {
     this.setFrame(0);
+    this.scene.scene.start("volleyBallGame");
   }
 }
