@@ -1,3 +1,5 @@
+import HowToModal from "@/components/Volleyball/HowToModal";
+
 export default class HowToButton extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, "howToButton");
@@ -33,5 +35,6 @@ export default class HowToButton extends Phaser.Physics.Arcade.Image {
 
   onMouseUp() {
     this.setFrame(0);
+    new HowToModal(this.scene, 400, 300);
   }
 }

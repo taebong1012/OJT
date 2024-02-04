@@ -3,6 +3,10 @@ import groundImage from "@/assets/volleyball/ground.svg";
 import whaleImage from "@/assets/volleyball/whale.png";
 import gameButtonImage from "@/assets/volleyball/buttons/game-button.png";
 import howToButtonImage from "@/assets/volleyball/buttons/how-to-button.png";
+import closeButtonImage from "@/assets/volleyball/buttons/close-button.png";
+import modalYellowImage from "@/assets/volleyball/modal-yellow.png";
+import wasdKeyImage from "@/assets/volleyball/wasd-key.svg";
+import arrowKeyImage from "@/assets/volleyball/arrow-key.png";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartButton";
 import HowToButton from "@/components/Volleyball/HowToButton";
@@ -15,6 +19,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
   preload() {
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
+    this.load.image("modalYellow", modalYellowImage);
+    this.load.image("arrowKey", arrowKeyImage);
+    this.load.image("wasdKey", wasdKeyImage);
     this.load.spritesheet("whale", whaleImage, {
       frameWidth: 320,
       frameHeight: 320,
@@ -26,6 +33,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.spritesheet("howToButton", howToButtonImage, {
       frameWidth: 280,
       frameHeight: 92,
+    });
+    this.load.spritesheet("closeButton", closeButtonImage, {
+      frameWidth: 147,
+      frameHeight: 147,
     });
   }
 
