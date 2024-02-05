@@ -104,7 +104,7 @@ export default class VolleyballResultScene extends Phaser.Scene {
     const bejiWinLoseText = new Phaser.GameObjects.Text(
       this,
       260,
-      200,
+      210,
       "",
       characterNameTextStyle
     ).setOrigin(0.5, 0.5);
@@ -112,7 +112,7 @@ export default class VolleyballResultScene extends Phaser.Scene {
     const bearkongWinLoseText = new Phaser.GameObjects.Text(
       this,
       540,
-      200,
+      210,
       "",
       characterNameTextStyle
     ).setOrigin(0.5, 0.5);
@@ -138,7 +138,7 @@ export default class VolleyballResultScene extends Phaser.Scene {
     this.add.existing(bejiWinLoseText);
     this.add.existing(bearkongWinLoseText);
 
-    this.add.image(260, 290, "bejiWin").setScale(0.7);
+    this.add.image(260, 298, "bejiWin").setScale(0.55);
     this.add.image(540, 290, "bearkongWin").setScale(0.7).setFlipX(true);
 
     /** 게임 다시하기 버튼 */

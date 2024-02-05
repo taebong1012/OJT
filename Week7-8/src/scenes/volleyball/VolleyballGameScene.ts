@@ -95,7 +95,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.roundText = new Phaser.GameObjects.Text(
       this,
       400,
-      30,
+      40,
       `${this.roundNum} 라운드`,
       pointTextStyle
     ).setOrigin(0.5, 0.5);
@@ -103,7 +103,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.scoreText = new Phaser.GameObjects.Text(
       this,
       400,
-      64,
+      74,
       `${this.bejiScore} : ${this.bearkongScore}`,
       scoreTextStyle
     ).setOrigin(0.5, 0.5);
@@ -262,7 +262,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.scene.remove("roundResultModal");
       roundResultModal.destroy();
 
-      if (this.bearkongScore === 5 || this.bejiScore === 5) {
+      if (this.bearkongScore >= 5 || this.bejiScore >= 5) {
         /** 베지 혹은 베어콩의 점수가 5점이라면
          * 플레이어별 점수와 라운드 수를 가지고
          * 결과 scene으로 넘어가기 */
