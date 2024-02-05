@@ -26,7 +26,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
     const RoundText = new Phaser.GameObjects.Text(
       scene,
       0,
-      -80,
+      -64,
       `${roundNum} 라운드 결과`,
       RoundTextStyle
     ).setOrigin(0.5);
@@ -35,7 +35,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
     const winCharacterName = new Phaser.GameObjects.Text(
       scene,
       0,
-      10,
+      18,
       "err",
       winCharacterTextStyle
     ).setOrigin(0.5, 0.5);
@@ -45,7 +45,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
       winCharacterImage = new Phaser.GameObjects.Image(
         scene,
         -90,
-        10,
+        18,
         "bejiWin"
       ).setScale(0.5);
 
@@ -56,7 +56,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
       winCharacterImage = new Phaser.GameObjects.Image(
         scene,
         -90,
-        10,
+        18,
         "bearkongWin"
       ).setScale(0.5);
 
@@ -67,7 +67,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
     const winText = new Phaser.GameObjects.Text(
       scene,
       90,
-      10,
+      18,
       "승리!",
       winCharacterTextStyle
     ).setOrigin(0.5);
