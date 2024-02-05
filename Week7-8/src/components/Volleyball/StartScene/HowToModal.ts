@@ -158,6 +158,7 @@ export default class HowToModal extends Phaser.GameObjects.Container {
 
   onMouseUpCloseButton(closeButton: Phaser.GameObjects.Sprite) {
     closeButton.setFrame(0);
+    this.scene.input.setDefaultCursor("default");
     this.destroy();
   }
 }
