@@ -33,5 +33,8 @@ export default class GoToMainButton extends Phaser.GameObjects.Sprite {
 
   onMouseUp() {
     this.setFrame(0);
+    this.scene.scene.start("volleyBallStart");
+    this.scene.input.setDefaultCursor("default");
+    this.scene.scene.stop("volleyBallResult");
   }
 }

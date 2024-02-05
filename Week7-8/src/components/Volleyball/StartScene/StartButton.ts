@@ -34,5 +34,7 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
   onMouseUp() {
     this.setFrame(0);
     this.scene.scene.start("volleyBallGame");
+    this.scene.input.setDefaultCursor("default");
+    this.scene.scene.stop("volleyBallStart");
   }
 }

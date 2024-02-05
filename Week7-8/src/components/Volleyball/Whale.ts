@@ -5,13 +5,14 @@ export default class Whale extends Phaser.Physics.Arcade.Sprite {
 
     this.setScale(0.3);
 
-    scene.anims.create({
-      key: "whaleMove",
-      frames: scene.anims.generateFrameNames("whale", { start: 0, end: 6 }),
-      frameRate: 6,
-      repeat: -1,
-    });
-
+    if (!scene.anims.exists("whaleMove")) {
+      scene.anims.create({
+        key: "whaleMove",
+        frames: scene.anims.generateFrameNames("whale", { start: 0, end: 6 }),
+        frameRate: 6,
+        repeat: -1,
+      });
+    }
     this.play("whaleMove");
   }
 }
