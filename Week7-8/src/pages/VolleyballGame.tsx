@@ -2,6 +2,7 @@ import VolleyballStartScene from "@/scenes/volleyball/VolleyballStartScene";
 import VolleyballGameScene from "@/scenes/volleyball/VolleyballGameScene";
 import VolleyballResultScene from "@/scenes/volleyball/VolleyballResultScene";
 import { useEffect } from "react";
+import VolleyballPauseScene from "@/scenes/volleyball/VolleyballPauseScene";
 
 const VolleyballGame = () => {
   useEffect(() => {
@@ -24,7 +25,12 @@ const VolleyballGame = () => {
           gravity: { y: 800 },
         },
       },
-      scene: [VolleyballStartScene, VolleyballGameScene, VolleyballResultScene],
+      scene: [
+        VolleyballStartScene,
+        VolleyballGameScene,
+        VolleyballResultScene,
+        VolleyballPauseScene,
+      ],
     });
 
     return () => {

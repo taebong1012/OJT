@@ -9,6 +9,7 @@ import whaleImage from "@/assets/volleyball/whale.png";
 import ballImage from "@/assets/volleyball/ball.svg";
 import bejiWinImage from "@/assets/volleyball/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/bearkong-win.svg";
+import pauseButtonImage from "@/assets/volleyball/buttons/pause-button.png";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
@@ -16,6 +17,7 @@ import Whale from "@/components/Volleyball/Whale";
 import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
+import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -54,6 +56,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
       frameWidth: 320,
       frameHeight: 320,
     });
+    this.load.spritesheet("pauseButton", pauseButtonImage, {
+      frameWidth: 146,
+      frameHeight: 146,
+    });
   }
 
   create() {
@@ -69,6 +75,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** 배경 설정 */
     this.add.image(400, 300, "background");
+
+    /** 일시정지 버튼 설정 */
+    new PauseButton(this, 760, 40);
 
     /** 중력의 영향을 받지 않는 꾸밈 요소들 설정, 공과 상호작용 불가 */
     const decorations = this.physics.add.staticGroup();
@@ -249,10 +258,11 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** ??: scene을 pause 해서 this.time.delayedCall로 할 경우 호출되지 않아서 일단 setTimeout으로 설정 */
     setTimeout(() => {
-      if (this.bearkongScore === 0 || this.bejiScore === 0) {
-        this.scene.remove("roundResultModal");
-        roundResultModal.destroy();
+      /** 라운드 결과를 출력하는 모달 제거, 파괴하여 재생성 시 key 중복 방지 */
+      this.scene.remove("roundResultModal");
+      roundResultModal.destroy();
 
+      if (this.bearkongScore === 5 || this.bejiScore === 5) {
         /** 베지 혹은 베어콩의 점수가 5점이라면
          * 플레이어별 점수와 라운드 수를 가지고
          * 결과 scene으로 넘어가기 */
@@ -262,8 +272,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
         });
       } else {
         /** 5점이 된 플레이어가 아무도 없다면 라운드결과모달을 지우고 다음 경기 재개 */
-        this.scene.remove("roundResultModal");
-        roundResultModal.destroy();
         this.scene.resume("volleyBallGame");
         this.roundNum++;
         this.roundText.setText(`${this.roundNum} 라운드`);
