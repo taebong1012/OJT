@@ -61,7 +61,7 @@ export default class RoundResultModal extends Phaser.GameObjects.Container {
       ).setScale(0.5);
 
       winCharacterName.setText("베어콩");
-      winCharacterName.setColor("#DCDC4A");
+      winCharacterName.setColor("#D6D648");
     }
 
     const winText = new Phaser.GameObjects.Text(
