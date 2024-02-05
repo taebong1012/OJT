@@ -33,3 +33,15 @@ export const scoreTextStyle = {
   color: "#333333",
   antialias: true,
 };
+
+export const resultScoreTextStyle = {
+  font: "60px NanumSquareRoundEB",
+  color: "#333333",
+  antialias: true,
+};
+
+export const characterNameTextStyle = {
+  font: "24px NanumSquareRoundEB",
+  color: "#F3D000",
+  antialias: true,
+};

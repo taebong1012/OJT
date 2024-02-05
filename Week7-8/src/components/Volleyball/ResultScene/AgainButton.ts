@@ -1,11 +1,9 @@
-import HowToModal from "@/components/Volleyball/HowToModal";
-
-export default class HowToButton extends Phaser.Physics.Arcade.Image {
+export default class AgainButton extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, "howToButton");
+    super(scene, x, y, "againButton");
     scene.add.existing(this);
 
-    this.setScale(0.7);
+    this.setScale(0.5);
 
     /** 마우스 hover 했을 경우 포인터 커서로 변경 */
     this.setInteractive()
@@ -35,6 +33,8 @@ export default class HowToButton extends Phaser.Physics.Arcade.Image {
 
   onMouseUp() {
     this.setFrame(0);
-    new HowToModal(this.scene, 400, 300);
+    this.scene.scene.start("volleyBallGame");
+    this.scene.input.setDefaultCursor("default");
+    this.scene.scene.stop("volleyBallResult");
   }
 }

@@ -10,8 +10,8 @@ import wasdKeyImage from "@/assets/volleyball/key-wasd.svg";
 import arrowKeyImage from "@/assets/volleyball/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/key-separate.png";
 import Whale from "@/components/Volleyball/Whale";
-import StartButton from "@/components/Volleyball/StartButton";
-import HowToButton from "@/components/Volleyball/HowToButton";
+import StartButton from "@/components/Volleyball/StartScene/StartButton";
+import HowToButton from "@/components/Volleyball/StartScene/HowToButton";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   constructor() {

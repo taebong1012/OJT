@@ -10,11 +10,11 @@ import ballImage from "@/assets/volleyball/ball.svg";
 import bejiWinImage from "@/assets/volleyball/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/bearkong-win.svg";
 import { GameObjects } from "phaser";
-import BejiPlayer from "@/components/Volleyball/BejiPlayer";
-import Ball from "@/components/Volleyball/Ball";
+import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
+import Ball from "@/components/Volleyball/GameScene/Ball";
 import Whale from "@/components/Volleyball/Whale";
-import BearkongPlayer from "@/components/Volleyball/BearkongPlayer";
-import RoundResultModal from "@/components/Volleyball/RoundResultModal";
+import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
+import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 
 export default class VolleyballStartScene extends Phaser.Scene {
@@ -249,13 +249,27 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** ??: scene을 pause 해서 this.time.delayedCall로 할 경우 호출되지 않아서 일단 setTimeout으로 설정 */
     setTimeout(() => {
-      this.scene.remove("roundResultModal");
-      roundResultModal.destroy();
-      this.scene.resume("volleyBallGame");
-      this.roundNum++;
-      this.roundText.setText(`${this.roundNum} 라운드`);
-      this.scoreText.setText(`${this.bejiScore} : ${this.bearkongScore}`);
-      this.countdown();
+      if (this.bearkongScore === 0 || this.bejiScore === 0) {
+        this.scene.remove("roundResultModal");
+        roundResultModal.destroy();
+
+        /** 베지 혹은 베어콩의 점수가 5점이라면
+         * 플레이어별 점수와 라운드 수를 가지고
+         * 결과 scene으로 넘어가기 */
+        this.scene.start("volleyBallResult", {
+          bejiScore: this.bejiScore,
+          bearkongScore: this.bearkongScore,
+        });
+      } else {
+        /** 5점이 된 플레이어가 아무도 없다면 라운드결과모달을 지우고 다음 경기 재개 */
+        this.scene.remove("roundResultModal");
+        roundResultModal.destroy();
+        this.scene.resume("volleyBallGame");
+        this.roundNum++;
+        this.roundText.setText(`${this.roundNum} 라운드`);
+        this.scoreText.setText(`${this.bejiScore} : ${this.bearkongScore}`);
+        this.countdown();
+      }
     }, 3000);
   }
 
