@@ -7,6 +7,8 @@ import bearkongPlayJson from "@/assets/volleyball/anim/bearkong-play.json";
 import netImage from "@/assets/volleyball/net.svg";
 import whaleImage from "@/assets/volleyball/whale.png";
 import ballImage from "@/assets/volleyball/ball.svg";
+import bejiWinImage from "@/assets/volleyball/beji-win.svg";
+import bearkongWinImage from "@/assets/volleyball/bearkong-win.svg";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/BejiPlayer";
 import Ball from "@/components/Volleyball/Ball";
@@ -26,6 +28,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private keyW!: Phaser.Input.Keyboard.Key;
   private bejiScore!: number;
   private bearkongScore!: number;
+  private roundNum!: number;
 
   constructor() {
     super({ key: "volleyBallGame" });
@@ -34,6 +37,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   preload() {
     this.bejiScore = 0;
     this.bearkongScore = 0;
+    this.roundNum = 1;
 
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
@@ -41,6 +45,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.image("ground", groundImage);
     this.load.image("net", netImage);
     this.load.image("ball", ballImage);
+    this.load.image("bearkongWin", bearkongWinImage);
+    this.load.image("bejiWin", bejiWinImage);
     this.load.spritesheet("whale", whaleImage, {
       frameWidth: 320,
       frameHeight: 320,
@@ -199,15 +205,22 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
   countScore(): void {
     const hitX = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds().x;
+    let isBejiWin!: boolean;
     if (hitX < 400) {
-      console.log("베어콩 승");
       this.bearkongScore++;
+      isBejiWin = false;
     } else {
-      console.log("베지 승");
       this.bejiScore++;
+      isBejiWin = true;
     }
 
-    const roundResultModal = new RoundResultModal(this, 400, 300);
+    const roundResultModal = new RoundResultModal(
+      this,
+      400,
+      300,
+      this.roundNum,
+      isBejiWin
+    );
     this.scene.add("roundResultModal", roundResultModal);
     this.scene.pause("volleyBallGame");
 
@@ -216,6 +229,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.scene.remove("roundResultModal");
       roundResultModal.destroy();
       this.scene.resume("volleyBallGame");
+      this.roundNum++;
       this.countdown();
     }, 3000);
   }

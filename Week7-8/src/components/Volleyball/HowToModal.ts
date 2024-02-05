@@ -1,3 +1,10 @@
+import {
+  contentTextStyle,
+  pointTextStyle,
+  subTextStyle,
+  titleTextStyle,
+} from "@/utils/phaser/phaserTextStyle";
+
 export default class HowToModal extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y);
@@ -29,11 +36,7 @@ export default class HowToModal extends Phaser.GameObjects.Container {
     this.add(closeButton);
 
     /** 모달 제목 추가 */
-    const titleTextStyle = {
-      font: "24px NanumSquareRoundEB",
-      fill: "#333333",
-      antialias: true,
-    };
+
     const titleText = new Phaser.GameObjects.Text(
       scene,
       -250,
@@ -43,12 +46,6 @@ export default class HowToModal extends Phaser.GameObjects.Container {
     );
     this.add(titleText);
 
-    /** 게임방법 모달 텍스트 추가 */
-    const contentTextStyle = {
-      font: "20px NanumSquareRoundB",
-      fill: "#333333",
-      antialias: true,
-    };
     const contentNo1Text = new Phaser.GameObjects.Text(
       scene,
       -250,
@@ -71,24 +68,14 @@ export default class HowToModal extends Phaser.GameObjects.Container {
       contentTextStyle
     );
 
-    const contentExplainTextStyle = {
-      font: "14px NanumSquareRoundB",
-      fill: "#333333",
-      antialias: true,
-    };
     const contentKeyExplainText = new Phaser.GameObjects.Text(
       scene,
       0,
       46,
       "왼쪽으로 이동                   오른쪽으로 이동                   위로 점프",
-      contentExplainTextStyle
+      subTextStyle
     ).setOrigin(0.5, 0.5);
 
-    const pointTextStyle = {
-      font: "20px NanumSquareRoundEB",
-      fill: "#F3CE8C",
-      antialias: true,
-    };
     const pointText = new Phaser.GameObjects.Text(
       scene,
       -220,
