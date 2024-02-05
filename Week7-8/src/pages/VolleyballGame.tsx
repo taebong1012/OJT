@@ -1,7 +1,7 @@
 import VolleyballStartScene from "@/scenes/volleyball/VolleyballStartScene";
-import VolleyballGameScene from "@/scenes/volleyball/VolleyballGameScene";
 import { useEffect } from "react";
 import VolleyballResultScene from "@/scenes/volleyball/VolleyballResultScene";
+import VolleyballGameScene from "@/scenes/volleyball/VolleyballGameScene";
 
 const VolleyballGame = () => {
   useEffect(() => {

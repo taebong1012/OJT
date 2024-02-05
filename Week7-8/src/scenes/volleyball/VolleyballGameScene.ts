@@ -15,6 +15,7 @@ import Ball from "@/components/Volleyball/Ball";
 import Whale from "@/components/Volleyball/Whale";
 import BearkongPlayer from "@/components/Volleyball/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/RoundResultModal";
+import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -28,7 +29,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private keyW!: Phaser.Input.Keyboard.Key;
   private bejiScore!: number;
   private bearkongScore!: number;
+  private scoreText!: Phaser.GameObjects.Text;
   private roundNum!: number;
+  private roundText!: Phaser.GameObjects.Text;
 
   constructor() {
     super({ key: "volleyBallGame" });
@@ -78,6 +81,26 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 중력의 영향을 받지 않는 네트 설정, 공과 상호작용 */
     this.net = this.physics.add.staticGroup();
     this.net.create(400, 464, "net");
+
+    /** 라운드와 점수 출력 */
+    this.roundText = new Phaser.GameObjects.Text(
+      this,
+      400,
+      30,
+      `${this.roundNum} 라운드`,
+      pointTextStyle
+    ).setOrigin(0.5, 0.5);
+
+    this.scoreText = new Phaser.GameObjects.Text(
+      this,
+      400,
+      64,
+      `${this.bejiScore} : ${this.bearkongScore}`,
+      scoreTextStyle
+    ).setOrigin(0.5, 0.5);
+
+    this.add.existing(this.roundText);
+    this.add.existing(this.scoreText);
 
     /** 카운트 다운 시작 */
     this.countdown();
@@ -230,6 +253,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
       roundResultModal.destroy();
       this.scene.resume("volleyBallGame");
       this.roundNum++;
+      this.roundText.setText(`${this.roundNum} 라운드`);
+      this.scoreText.setText(`${this.bejiScore} : ${this.bearkongScore}`);
       this.countdown();
     }, 3000);
   }

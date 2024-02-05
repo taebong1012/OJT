@@ -27,3 +27,9 @@ export const winCharacterTextStyle = {
   color: "#333333",
   antialias: true,
 };
+
+export const scoreTextStyle = {
+  font: "32px NanumSquareRoundEB",
+  color: "#333333",
+  antialias: true,
+};
