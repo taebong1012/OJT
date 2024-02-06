@@ -33,6 +33,7 @@ export default class ResumeButton extends Phaser.GameObjects.Sprite {
   onMouseDown() {
     this.setFrame(2);
     this.scene.sound.add("clickSound").play();
+    this.scene.sound.resumeAll();
   }
 
   onMouseUp() {

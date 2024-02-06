@@ -41,6 +41,12 @@ export default class VolleyballPauseScene extends Phaser.Scene {
   }
 
   create(): void {
+    /** 음악 음소거 */
+    this.time.delayedCall(300, () => {
+      this.sound.pauseAll();
+    });
+
+    /** 배경 설정 */
     this.add.image(400, 300, "background");
 
     new Whale(this, 160, 300);

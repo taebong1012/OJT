@@ -81,7 +81,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     }
 
-    /** 배경음악 설정 */
+    /** 원래 음악 모두 제거 후 배경음악 설정 */
+    this.sound.stopAll();
     this.sound.add("gameBGMusic", { loop: true }).setVolume(0.6).play();
 
     /** 배경 설정 */

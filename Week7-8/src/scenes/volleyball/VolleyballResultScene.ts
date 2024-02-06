@@ -6,6 +6,7 @@ import againButtonImage from "@/assets/volleyball/images/again-button.png";
 import mainButtonImage from "@/assets/volleyball/images/main-long-button.png";
 import bejiWinImage from "@/assets/volleyball/images/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/images/bearkong-win.svg";
+import resultBGMusic from "@/assets/volleyball/sounds/resultBGMusic.mp3";
 import AgainButton from "@/components/Volleyball/ResultScene/AgainButton";
 import GoToMainButton from "@/components/Volleyball/ResultScene/GoToMainButton";
 import {
@@ -34,6 +35,7 @@ export default class VolleyballResultScene extends Phaser.Scene {
   }
 
   preload(): void {
+    this.load.audio("resultBGMusic", resultBGMusic);
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("net", netImage);
@@ -52,6 +54,10 @@ export default class VolleyballResultScene extends Phaser.Scene {
   }
 
   create(): void {
+    /** 원래 음악 모두 제거 후 배경음악 설정 */
+    this.sound.stopAll();
+    this.sound.add("resultBGMusic", { loop: true }).setVolume(0.6).play();
+
     /** 이전에 게임하던 scene은 종료 */
     this.scene.stop("volleyBallGame");
 
