@@ -6,12 +6,15 @@ const TutorialGame = () => {
   useEffect(() => {
     const game = new Phaser.Game({
       type: Phaser.WEBGL,
-      width: "800",
-      height: "600",
+      scale: {
+        parent: "phaser-tutorial",
+        mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+        width: 800,
+        height: 600,
+      },
       physics: {
         default: "arcade",
         arcade: {
-          //   debug: import.meta.env.DEV,
           debug: false,
           gravity: { y: 300 },
         },
@@ -25,7 +28,7 @@ const TutorialGame = () => {
     };
   }, []);
 
-  return <div id="phaser-tutorial" className="border-2 border-red-500"></div>;
+  return <div id="phaser-tutorial" className="w-full h-full"></div>;
 };
 
 export default TutorialGame;

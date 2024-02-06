@@ -81,8 +81,5 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** 게임방법 버튼 생성 */
     new HowToButton(this, 400, 476);
-
-    // /** 소리 끄고 키는 버튼 생성 */
-    // new SoundButton(this);
   }
 }
