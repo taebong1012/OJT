@@ -1,3 +1,6 @@
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
+import cursorPointer from "@/assets/volleyball/images/cursor-pointer.png";
+
 export default class StartButton extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, "gameButton");
@@ -20,12 +23,10 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
   }
 
   onButtonHover() {
-    // scene.input.setDefaultCursor("url(hover-cursor.png), pointer");
-    this.scene.input.setDefaultCursor("pointer");
+    this.scene.input.setDefaultCursor(`url(${cursorPointer}), pointer`);
   }
   onButtonOut() {
-    // scene.input.setDefaultCursor("url(default-cursor.png), default");
-    this.scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor(`url(${cursorDefault}), default`);
   }
   onMouseDown() {
     this.setFrame(1);
@@ -35,7 +36,7 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
   onMouseUp() {
     this.setFrame(0);
     this.scene.scene.start("volleyBallGame");
-    this.scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor(`url(${cursorDefault}), default`);
     this.scene.scene.stop("volleyBallStart");
   }
 }

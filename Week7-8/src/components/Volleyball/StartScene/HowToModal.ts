@@ -4,6 +4,8 @@ import {
   subTextStyle,
   titleTextStyle,
 } from "@/utils/phaser/phaserTextStyle";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
+import cursorPointer from "@/assets/volleyball/images/cursor-pointer.png";
 
 export default class HowToModal extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -144,12 +146,13 @@ export default class HowToModal extends Phaser.GameObjects.Container {
 
   onHoverCloseButton(closeButton: Phaser.GameObjects.Sprite) {
     closeButton.setFrame(1);
-    this.scene.input.setDefaultCursor("pointer");
+    this.scene.input.setDefaultCursor(`url(${cursorPointer}), pointer`);
+    this.scene.input.setDefaultCursor(`url(${cursorPointer}), pointer`);
   }
 
   onOutCloseButton(closeButton: Phaser.GameObjects.Sprite) {
     closeButton.setFrame(0);
-    this.scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor(`url(${cursorDefault}), default`);
   }
 
   onMouseDownCloseButton(closeButton: Phaser.GameObjects.Sprite) {
@@ -159,7 +162,7 @@ export default class HowToModal extends Phaser.GameObjects.Container {
 
   onMouseUpCloseButton(closeButton: Phaser.GameObjects.Sprite) {
     closeButton.setFrame(0);
-    this.scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor(`url(${cursorDefault}), default`);
     this.destroy();
   }
 }

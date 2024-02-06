@@ -5,6 +5,7 @@ import resumeButtonImage from "@/assets/volleyball/images/resume-button.png";
 import groundImage from "@/assets/volleyball/images/ground.svg";
 import netImage from "@/assets/volleyball/images/net.svg";
 import mainButtonImage from "@/assets/volleyball/images/main-short-button.png";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
 import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import ResumeButton from "@/components/Volleyball/PauseScene/ResumeButton";
 import Whale from "@/components/Volleyball/Whale";
@@ -41,6 +42,9 @@ export default class VolleyballPauseScene extends Phaser.Scene {
   }
 
   create(): void {
+    /** 커서 설정 */
+    this.input.setDefaultCursor(`url(${cursorDefault}), default`);
+
     /** 음악 음소거 */
     this.time.delayedCall(300, () => {
       this.sound.pauseAll();

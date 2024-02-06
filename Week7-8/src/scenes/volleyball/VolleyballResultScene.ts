@@ -6,6 +6,7 @@ import againButtonImage from "@/assets/volleyball/images/again-button.png";
 import mainButtonImage from "@/assets/volleyball/images/main-long-button.png";
 import bejiWinImage from "@/assets/volleyball/images/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/images/bearkong-win.svg";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
 import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import clapSound from "@/assets/volleyball/sounds/clapSound.mp3";
 import resultBGMusic from "@/assets/volleyball/sounds/resultBGMusic.mp3";
@@ -58,6 +59,9 @@ export default class VolleyballResultScene extends Phaser.Scene {
   }
 
   create(): void {
+    /** 커서 설정 */
+    this.input.setDefaultCursor(`url(${cursorDefault}), default`);
+
     /** 원래 음악 모두 제거 후 배경음악 설정 */
     this.sound.stopAll();
     this.sound.add("resultBGMusic", { loop: true }).setVolume(0.6).play();

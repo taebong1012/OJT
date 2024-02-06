@@ -10,6 +10,7 @@ import ballImage from "@/assets/volleyball/images/ball.svg";
 import bejiWinImage from "@/assets/volleyball/images/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/images/bearkong-win.svg";
 import pauseButtonImage from "@/assets/volleyball/images/pause-button.png";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
 import gameBGMusic from "@/assets/volleyball/sounds/gameBGMusic.mp3";
 import ballSound from "@/assets/volleyball/sounds/ballSound.mp3";
 import jumpSound from "@/assets/volleyball/sounds/jumpSound.mp3";
@@ -77,6 +78,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   create() {
+    /** 커서 설정 */
+    this.input.setDefaultCursor(`url(${cursorDefault}), default`);
+
     if (this.input.keyboard) {
       /** 커서 설정 */
       this.cursors = this.input.keyboard.createCursorKeys();

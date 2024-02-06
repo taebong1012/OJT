@@ -1,4 +1,6 @@
 import HowToModal from "@/components/Volleyball/StartScene/HowToModal";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
+import cursorPointer from "@/assets/volleyball/images/cursor-pointer.png";
 
 export default class HowToButton extends Phaser.Physics.Arcade.Image {
   constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -22,12 +24,11 @@ export default class HowToButton extends Phaser.Physics.Arcade.Image {
   }
 
   onButtonHover() {
-    // scene.input.setDefaultCursor("url(hover-cursor.png), pointer");
-    this.scene.input.setDefaultCursor("pointer");
+    this.scene.input.setDefaultCursor(`url(${cursorPointer}), pointer`);
+    this.scene.input.setDefaultCursor(`url(${cursorPointer}), pointer`);
   }
   onButtonOut() {
-    // scene.input.setDefaultCursor("url(default-cursor.png), default");
-    this.scene.input.setDefaultCursor("default");
+    this.scene.input.setDefaultCursor(`url(${cursorDefault}), default`);
   }
   onMouseDown() {
     this.setFrame(1);

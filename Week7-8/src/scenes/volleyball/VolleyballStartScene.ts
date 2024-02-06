@@ -11,6 +11,7 @@ import arrowKeyImage from "@/assets/volleyball/images/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/images/key-separate.png";
 import soundButtonImage from "@/assets/volleyball/images/sound-button.png";
 import titleImage from "@/assets/volleyball/images/title.png";
+import cursorDefault from "@/assets/volleyball/images/cursor-default.png";
 import startBGMusic from "@/assets/volleyball/sounds/startBGMusic.mp3";
 import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import Whale from "@/components/Volleyball/Whale";
@@ -59,6 +60,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   create() {
+    /** 커서 설정 */
+    this.input.setDefaultCursor(`url(${cursorDefault}), default`);
+
     /** 원래 음악 모두 제거 후 배경음악 설정 */
     this.sound.stopAll();
     this.sound.add("startBGMusic", { loop: true }).setVolume(0.6).play();
