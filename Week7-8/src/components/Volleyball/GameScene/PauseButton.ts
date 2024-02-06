@@ -1,6 +1,6 @@
 export default class PauseButton extends Phaser.GameObjects.Sprite {
-  constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, "pauseButton");
+  constructor(scene: Phaser.Scene) {
+    super(scene, 710, 40, "pauseButton");
     scene.add.existing(this);
 
     this.setScale(0.3);

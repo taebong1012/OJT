@@ -29,6 +29,7 @@ export default class StartButton extends Phaser.GameObjects.Sprite {
   }
   onMouseDown() {
     this.setFrame(1);
+    this.scene.sound.add("clickSound").play();
   }
 
   onMouseUp() {

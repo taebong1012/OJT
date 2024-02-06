@@ -31,6 +31,7 @@ export default class HowToButton extends Phaser.Physics.Arcade.Image {
   }
   onMouseDown() {
     this.setFrame(1);
+    this.scene.sound.add("clickSound").play();
   }
 
   onMouseUp() {

@@ -154,6 +154,7 @@ export default class HowToModal extends Phaser.GameObjects.Container {
 
   onMouseDownCloseButton(closeButton: Phaser.GameObjects.Sprite) {
     closeButton.setFrame(2);
+    this.scene.sound.add("clickSound").play();
   }
 
   onMouseUpCloseButton(closeButton: Phaser.GameObjects.Sprite) {

@@ -77,7 +77,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.add.image(400, 300, "background");
 
     /** 일시정지 버튼 설정 */
-    new PauseButton(this, 760, 40);
+    new PauseButton(this);
 
     /** 중력의 영향을 받지 않는 꾸밈 요소들 설정, 공과 상호작용 불가 */
     const decorations = this.physics.add.staticGroup();

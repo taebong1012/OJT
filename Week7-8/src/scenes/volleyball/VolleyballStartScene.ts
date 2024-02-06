@@ -9,10 +9,13 @@ import modalSmallImage from "@/assets/volleyball/images/modal-small.svg";
 import wasdKeyImage from "@/assets/volleyball/images/key-wasd.svg";
 import arrowKeyImage from "@/assets/volleyball/images/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/images/key-separate.png";
+import soundButtonImage from "@/assets/volleyball/images/sound-button.png";
 import startBGMusic from "@/assets/volleyball/sounds/startBGMusic.mp3";
+import clickSound from "@/assets/volleyball/sounds/clickSound.wav";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartScene/StartButton";
 import HowToButton from "@/components/Volleyball/StartScene/HowToButton";
+// import SoundButton from "@/components/Volleyball/SoundButton";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   constructor() {
@@ -21,6 +24,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
   preload() {
     this.load.audio("startBGMusic", startBGMusic);
+    this.load.audio("clickSound", clickSound);
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("modalYellow", modalYellowImage);
@@ -47,6 +51,10 @@ export default class VolleyballStartScene extends Phaser.Scene {
       frameWidth: 120,
       frameHeight: 120,
     });
+    this.load.spritesheet("soundButton", soundButtonImage, {
+      frameWidth: 146,
+      frameHeight: 146,
+    });
   }
 
   create() {
@@ -68,5 +76,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** 게임방법 버튼 생성 */
     new HowToButton(this, 400, 476);
+
+    // /** 소리 끄고 키는 버튼 생성 */
+    // new SoundButton(this);
   }
 }
