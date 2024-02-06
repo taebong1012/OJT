@@ -13,6 +13,7 @@ import pauseButtonImage from "@/assets/volleyball/images/pause-button.png";
 import gameBGMusic from "@/assets/volleyball/sounds/gameBGMusic.mp3";
 import ballSound from "@/assets/volleyball/sounds/ballSound.mp3";
 import jumpSound from "@/assets/volleyball/sounds/jumpSound.mp3";
+import pauseSound from "@/assets/volleyball/sounds/pauseSound.mp3";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
@@ -50,6 +51,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.audio("gameBGMusic", gameBGMusic);
     this.load.audio("ballSound", ballSound);
     this.load.audio("jumpSound", jumpSound);
+    this.load.audio("pauseSound", pauseSound);
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
     this.load.atlas("bearkongPlayer", bearkongPlayImage, bearkongPlayJson);

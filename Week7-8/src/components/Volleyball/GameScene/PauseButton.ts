@@ -1,6 +1,6 @@
 export default class PauseButton extends Phaser.GameObjects.Sprite {
   constructor(scene: Phaser.Scene) {
-    super(scene, 710, 40, "pauseButton");
+    super(scene, 740, 40, "pauseButton");
     scene.add.existing(this);
 
     this.setScale(0.3);
@@ -30,6 +30,7 @@ export default class PauseButton extends Phaser.GameObjects.Sprite {
     this.setFrame(0);
   }
   onMouseDown() {
+    this.scene.sound.add("pauseSound").setVolume(0.6).play();
     this.setFrame(2);
   }
 

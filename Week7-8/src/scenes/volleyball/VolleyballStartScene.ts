@@ -11,7 +11,7 @@ import arrowKeyImage from "@/assets/volleyball/images/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/images/key-separate.png";
 import soundButtonImage from "@/assets/volleyball/images/sound-button.png";
 import startBGMusic from "@/assets/volleyball/sounds/startBGMusic.mp3";
-import clickSound from "@/assets/volleyball/sounds/clickSound.wav";
+import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartScene/StartButton";
 import HowToButton from "@/components/Volleyball/StartScene/HowToButton";

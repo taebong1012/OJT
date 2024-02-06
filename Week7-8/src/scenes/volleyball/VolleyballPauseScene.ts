@@ -5,6 +5,7 @@ import resumeButtonImage from "@/assets/volleyball/images/resume-button.png";
 import groundImage from "@/assets/volleyball/images/ground.svg";
 import netImage from "@/assets/volleyball/images/net.svg";
 import mainButtonImage from "@/assets/volleyball/images/main-short-button.png";
+import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import ResumeButton from "@/components/Volleyball/PauseScene/ResumeButton";
 import Whale from "@/components/Volleyball/Whale";
 import MainIconButton from "@/components/Volleyball/PauseScene/MainIconButton";
@@ -19,6 +20,7 @@ export default class VolleyballPauseScene extends Phaser.Scene {
   }
 
   preload(): void {
+    this.load.audio("clickSound", clickSound);
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("net", netImage);
