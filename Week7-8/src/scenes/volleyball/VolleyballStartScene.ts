@@ -9,6 +9,7 @@ import modalSmallImage from "@/assets/volleyball/images/modal-small.svg";
 import wasdKeyImage from "@/assets/volleyball/images/key-wasd.svg";
 import arrowKeyImage from "@/assets/volleyball/images/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/images/key-separate.png";
+import startBGMusic from "@/assets/volleyball/sounds/startBGMusic.mp3";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartScene/StartButton";
 import HowToButton from "@/components/Volleyball/StartScene/HowToButton";
@@ -19,6 +20,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   preload() {
+    this.load.audio("startBGMusic", startBGMusic);
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("modalYellow", modalYellowImage);
@@ -48,6 +50,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   create() {
+    /** 배경음악 설정 */
+    this.sound.add("startBGMusic", { loop: true }).play();
+
     /** 배경 설정 */
     this.add.image(400, 300, "background");
 

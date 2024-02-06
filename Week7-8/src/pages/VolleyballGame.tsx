@@ -34,7 +34,9 @@ const VolleyballGame = () => {
     });
 
     return () => {
-      volleyballGame.destroy(true);
+      if (volleyballGame) {
+        volleyballGame.destroy(true);
+      }
     };
   }, []);
 
