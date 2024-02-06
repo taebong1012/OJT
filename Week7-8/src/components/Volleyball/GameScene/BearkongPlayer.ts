@@ -48,6 +48,7 @@ export default class BearkongPlayer extends Phaser.Physics.Arcade.Sprite {
     /** 베어콩 키보드 입력 설정 */
     if (this.body) {
       if (cursors.up.isDown && this.body.blocked.down) {
+        this.scene.sound.add("jumpSound").setVolume(0.5).play();
         this.setVelocityY(-500);
         this.anims.play("bearkongJump");
       } else if (cursors.left.isDown) {

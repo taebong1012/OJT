@@ -55,6 +55,7 @@ export default class BejiPlayer extends Phaser.Physics.Arcade.Sprite {
   ): void {
     if (this.body) {
       if (keyW.isDown && this.body.blocked.down) {
+        this.scene.sound.add("jumpSound").setVolume(0.5).play();
         this.setVelocityY(-500);
         this.anims.play("bejiJump");
       } else if (keyA.isDown) {
