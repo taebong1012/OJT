@@ -10,6 +10,7 @@ import ballImage from "@/assets/volleyball/images/ball.svg";
 import bejiWinImage from "@/assets/volleyball/images/beji-win.svg";
 import bearkongWinImage from "@/assets/volleyball/images/bearkong-win.svg";
 import pauseButtonImage from "@/assets/volleyball/images/pause-button.png";
+import gameBGMusic from "@/assets/volleyball/sounds/gameBGMusic.mp3";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
@@ -44,6 +45,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.bearkongScore = 0;
     this.roundNum = 1;
 
+    this.load.audio("gameBGMusic", gameBGMusic);
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
     this.load.atlas("bearkongPlayer", bearkongPlayImage, bearkongPlayJson);
@@ -72,6 +74,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
       this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
       this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     }
+
+    /** 배경음악 설정 */
+    this.sound.add("gameBGMusic", { loop: true }).setVolume(0.6).play();
 
     /** 배경 설정 */
     this.add.image(400, 300, "background");
@@ -263,6 +268,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
       roundResultModal.destroy();
 
       if (this.bearkongScore >= 5 || this.bejiScore >= 5) {
+        this.sound.stopByKey("gameBGMusic");
         /** 베지 혹은 베어콩의 점수가 5점이라면
          * 플레이어별 점수와 라운드 수를 가지고
          * 결과 scene으로 넘어가기 */

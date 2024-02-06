@@ -59,7 +59,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
   create() {
     /** 배경음악 설정 */
-    this.sound.add("startBGMusic", { loop: true }).play();
+    this.sound.add("startBGMusic", { loop: true }).setVolume(0.6).play();
 
     /** 배경 설정 */
     this.add.image(400, 300, "background");
