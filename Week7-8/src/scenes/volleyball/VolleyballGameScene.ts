@@ -14,6 +14,8 @@ import gameBGMusic from "@/assets/volleyball/sounds/gameBGMusic.mp3";
 import ballSound from "@/assets/volleyball/sounds/ballSound.mp3";
 import jumpSound from "@/assets/volleyball/sounds/jumpSound.mp3";
 import pauseSound from "@/assets/volleyball/sounds/pauseSound.mp3";
+import countDownSound from "@/assets/volleyball/sounds/countDownSound.wav";
+import countDownEndSound from "@/assets/volleyball/sounds/countDownEndSound.wav";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
@@ -52,6 +54,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.audio("ballSound", ballSound);
     this.load.audio("jumpSound", jumpSound);
     this.load.audio("pauseSound", pauseSound);
+    this.load.audio("countDownSound", countDownSound);
+    this.load.audio("countDownEndSound", countDownEndSound);
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
     this.load.atlas("bearkongPlayer", bearkongPlayImage, bearkongPlayJson);
@@ -142,6 +146,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
         color: "#ffffff",
       })
       .setOrigin(0.5);
+    this.sound.add("countDownSound").play();
 
     const countdownTimer = this.time.addEvent({
       delay: 1000,
@@ -149,6 +154,13 @@ export default class VolleyballStartScene extends Phaser.Scene {
         count--;
 
         if (count >= 0) {
+          if (count == 0) {
+            this.sound.add("countDownEndSound").play();
+          } else {
+            this.sound.add("countDownSound").play();
+          }
+
+          /** 카운트 다운 텍스트 교체 */
           countdownText.setText(`${count}`);
         } else {
           countdownText.destroy();
