@@ -10,12 +10,12 @@ import wasdKeyImage from "@/assets/volleyball/images/key-wasd.svg";
 import arrowKeyImage from "@/assets/volleyball/images/key-arrow.svg";
 import separateKeyImage from "@/assets/volleyball/images/key-separate.png";
 import soundButtonImage from "@/assets/volleyball/images/sound-button.png";
+import titleImage from "@/assets/volleyball/images/title.svg";
 import startBGMusic from "@/assets/volleyball/sounds/startBGMusic.mp3";
 import clickSound from "@/assets/volleyball/sounds/clickSound.mp3";
 import Whale from "@/components/Volleyball/Whale";
 import StartButton from "@/components/Volleyball/StartScene/StartButton";
 import HowToButton from "@/components/Volleyball/StartScene/HowToButton";
-// import SoundButton from "@/components/Volleyball/SoundButton";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   constructor() {
@@ -25,6 +25,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   preload() {
     this.load.audio("startBGMusic", startBGMusic);
     this.load.audio("clickSound", clickSound);
+    this.load.image("titleImage", titleImage);
     this.load.image("background", backgroundImage);
     this.load.image("ground", groundImage);
     this.load.image("modalYellow", modalYellowImage);
@@ -64,6 +65,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
 
     /** 배경 설정 */
     this.add.image(400, 300, "background");
+
+    /** 타이틀 설정 */
+    this.add.image(400, 220, "titleImage");
 
     /** 중력의 영향을 받지 않는 땅바닥과 네트 설정 */
     const platforms = this.physics.add.staticGroup();
