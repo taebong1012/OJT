@@ -16,6 +16,7 @@ import jumpSound from "@/assets/volleyball/sounds/jumpSound.mp3";
 import pauseSound from "@/assets/volleyball/sounds/pauseSound.mp3";
 import countDownSound from "@/assets/volleyball/sounds/countDownSound.wav";
 import countDownEndSound from "@/assets/volleyball/sounds/countDownEndSound.wav";
+import ballTouchGroundSound from "@/assets/volleyball/sounds/ballTouchGroundSound.mp3";
 import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
@@ -56,6 +57,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.load.audio("pauseSound", pauseSound);
     this.load.audio("countDownSound", countDownSound);
     this.load.audio("countDownEndSound", countDownEndSound);
+    this.load.audio("ballTouchGroundSound", ballTouchGroundSound);
     this.load.image("background", backgroundImage);
     this.load.atlas("bejiPlayer", bejiPlayImage, bejiPlayJson);
     this.load.atlas("bearkongPlayer", bearkongPlayImage, bearkongPlayJson);
@@ -264,6 +266,8 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   countScore(): void {
+    this.sound.add("ballTouchGroundSound").play();
+
     const hitX = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds().x;
     let isBejiWin!: boolean;
     if (hitX < 400) {
