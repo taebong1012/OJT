@@ -90,8 +90,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     const platforms = this.physics.add.staticGroup();
     platforms.create(400, 580, "ground");
 
-    const decorations = this.physics.add.staticGroup();
-    decorations.add(new Whale(this, 160, 300));
+    new Whale(this);
 
     /** 게임하기 버튼 생성 */
     new StartButton(this, 400, 400);

@@ -24,7 +24,7 @@ import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
-import countDown from "@/utils/volleyball/CountDown";
+import countDown from "@/utils/volleyball/countDown";
 import initializeObjects from "@/utils/volleyball/initializeObjects";
 import throwBall from "@/utils/volleyball/throwBall";
 
@@ -102,9 +102,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     /** 일시정지 버튼 설정 */
     new PauseButton(this);
 
-    /** 중력의 영향을 받지 않는 꾸밈 요소들 설정, 공과 상호작용 불가 */
-    const decorations = this.physics.add.staticGroup();
-    decorations.add(new Whale(this, 160, 300));
+    new Whale(this);
 
     /** 중력의 영향을 받지 않는 땅바닥 설정, 공과 상호작용 */
     this.ground = this.physics.add.staticGroup();

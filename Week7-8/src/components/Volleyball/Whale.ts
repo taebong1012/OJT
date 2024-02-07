@@ -1,6 +1,6 @@
-export default class Whale extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, "whale");
+export default class Whale extends Phaser.GameObjects.Sprite {
+  constructor(scene: Phaser.Scene) {
+    super(scene, 160, 300, "whale");
     scene.add.existing(this);
 
     this.setScale(0.3);
