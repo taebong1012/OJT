@@ -71,7 +71,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.add.image(400, 300, "background");
 
     /** 타이틀 설정 */
-    this.add.image(400, 220, "titleImage").setScale(0.7);
+    this.add.image(400, 200, "titleImage");
 
     /** 중력의 영향을 받지 않는 땅바닥과 네트 설정 */
     const platforms = this.physics.add.staticGroup();
