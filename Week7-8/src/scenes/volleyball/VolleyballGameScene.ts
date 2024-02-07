@@ -19,13 +19,13 @@ import countDownSound from "@/assets/volleyball/sounds/countDownSound.wav";
 import countDownEndSound from "@/assets/volleyball/sounds/countDownEndSound.wav";
 import ballTouchGroundSound from "@/assets/volleyball/sounds/ballTouchGroundSound.mp3";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
-import Ball from "@/components/Volleyball/GameScene/Ball";
 import Whale from "@/components/Volleyball/Whale";
 import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
 import countDown from "@/utils/volleyball/CountDown";
+import initializeObjects from "@/utils/volleyball/initializeObjects";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -133,36 +133,52 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.add.existing(this.roundText);
     this.add.existing(this.scoreText);
 
-    /** 카운트 다운 시작 */
-    countDown({
+    this.setGame();
+  }
+
+  /** 게임 준비 */
+  async setGame() {
+    /** 카운트 다운 후에 게임 시작 */
+    await countDown({
       scene: this,
       bejiPlayer: this.bejiPlayer,
       bearkongPlayer: this.bearkongPlayer,
       ball: this.ball,
     });
-  }
 
-  startGame(): void {
-    this.initializeObjects();
-    this.setColliders();
-  }
+    this.time.delayedCall(4000, () => {
+      /** 오브젝트들 생성 */
+      const { bejiPlayer, bearkongPlayer, ball } = initializeObjects(this);
+      this.bejiPlayer = bejiPlayer;
+      this.bearkongPlayer = bearkongPlayer;
+      this.ball = ball;
 
-  initializeObjects(): void {
-    this.bejiPlayer = new BejiPlayer(this, 200, 443);
-    this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
-
-    /** 공이 생성되는 X 좌표를 랜덤으로 설정. 100~300 사이 혹은 500 ~ 700 사이에서 생성 */
-    const ballRandomX =
-      Phaser.Math.Between(100, 300) + Phaser.Math.Between(0, 1) * 400;
-    this.ball = new Ball(this, ballRandomX, 100);
-    this.tweens.add({
-      targets: this.ball,
-      angle: 360,
-      duration: 1500,
-      repeat: -1,
-      ease: "Linear",
+      /** 오브젝트 충돌 설정 */
+      this.setColliders();
     });
   }
+
+  // startGame(): void {
+  //   this.initializeObjects();
+  //   this.setColliders();
+  // }
+
+  // initializeObjects(): void {
+  //   this.bejiPlayer = new BejiPlayer(this, 200, 443);
+  //   this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
+
+  //   /** 공이 생성되는 X 좌표를 랜덤으로 설정. 100~300 사이 혹은 500 ~ 700 사이에서 생성 */
+  //   const ballRandomX =
+  //     Phaser.Math.Between(100, 300) + Phaser.Math.Between(0, 1) * 400;
+  //   this.ball = new Ball(this, ballRandomX, 100);
+  //   this.tweens.add({
+  //     targets: this.ball,
+  //     angle: 360,
+  //     duration: 1500,
+  //     repeat: -1,
+  //     ease: "Linear",
+  //   });
+  // }
 
   setColliders(): void {
     this.physics.add.collider(this.bejiPlayer, this.ground);

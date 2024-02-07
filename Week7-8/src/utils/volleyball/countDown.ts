@@ -5,7 +5,7 @@ type countDownProps = {
   ball: Phaser.Physics.Arcade.Image;
 };
 
-const countDown = ({
+const countDown = async ({
   scene,
   bejiPlayer,
   bearkongPlayer,
@@ -44,9 +44,6 @@ const countDown = ({
       } else {
         countdownText.destroy();
         countdownTimer.destroy();
-
-        /** 게임 스타트 */
-        // startGame();
       }
     },
     callbackScope: this,
