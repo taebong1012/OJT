@@ -252,12 +252,9 @@ export default class VolleyballStartScene extends Phaser.Scene {
         this.roundNum++;
         this.roundText.setText(`${this.roundNum} 라운드`);
         this.scoreText.setText(`${this.bejiScore} : ${this.bearkongScore}`);
-        countDown({
-          scene: this,
-          bejiPlayer: this.bejiPlayer,
-          bearkongPlayer: this.bearkongPlayer,
-          ball: this.ball,
-        });
+
+        /** 다음 라운드 게임 준비 */
+        this.setGame();
       }
     }, 3000);
   }
