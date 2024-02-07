@@ -26,6 +26,7 @@ import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
 import countDown from "@/utils/volleyball/CountDown";
 import initializeObjects from "@/utils/volleyball/initializeObjects";
+import throwBall from "@/utils/volleyball/throwBall";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -158,32 +159,12 @@ export default class VolleyballStartScene extends Phaser.Scene {
     });
   }
 
-  // startGame(): void {
-  //   this.initializeObjects();
-  //   this.setColliders();
-  // }
-
-  // initializeObjects(): void {
-  //   this.bejiPlayer = new BejiPlayer(this, 200, 443);
-  //   this.bearkongPlayer = new BearkongPlayer(this, 600, 443);
-
-  //   /** 공이 생성되는 X 좌표를 랜덤으로 설정. 100~300 사이 혹은 500 ~ 700 사이에서 생성 */
-  //   const ballRandomX =
-  //     Phaser.Math.Between(100, 300) + Phaser.Math.Between(0, 1) * 400;
-  //   this.ball = new Ball(this, ballRandomX, 100);
-  //   this.tweens.add({
-  //     targets: this.ball,
-  //     angle: 360,
-  //     duration: 1500,
-  //     repeat: -1,
-  //     ease: "Linear",
-  //   });
-  // }
-
   setColliders(): void {
     this.physics.add.collider(this.bejiPlayer, this.ground);
     this.physics.add.collider(this.bearkongPlayer, this.ground);
     this.physics.add.collider(this.ball, this.net);
+
+    /** 공과 바닥의 충돌 감지 후 점수 갱신 및 라운드 결과 모달 팝업 */
     this.physics.add.collider(
       this.ball,
       this.ground,
@@ -191,60 +172,38 @@ export default class VolleyballStartScene extends Phaser.Scene {
       undefined,
       this
     );
+
+    /** 공과 베지 충돌 감지 후 x와 y좌표에 따라서 공의 방향 조정 */
     this.physics.add.collider(
       this.ball,
       this.bejiPlayer,
-      this.bejiThrowBall,
+      () => {
+        throwBall({
+          scene: this,
+          player: this.bejiPlayer,
+          ball: this.ball,
+          characterName: "beji",
+        });
+      },
       undefined,
       this
     );
+
+    /** 공과 베어콩 충돌 감지 후 x와 y좌표에 따라서 공의 방향 조정 */
     this.physics.add.collider(
       this.ball,
       this.bearkongPlayer,
-      this.bearkongThrowBall,
+      () => {
+        throwBall({
+          scene: this,
+          player: this.bearkongPlayer,
+          ball: this.ball,
+          characterName: "bearkong",
+        });
+      },
       undefined,
       this
     );
-  }
-
-  bejiThrowBall(): void {
-    this.sound.add("ballSound").play();
-
-    const ballBounds = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds();
-    const bejiPlayerBounds = (
-      this.bejiPlayer as Phaser.Physics.Arcade.Sprite
-    ).getBounds();
-
-    const overlapCenterX = ballBounds.centerX - bejiPlayerBounds.centerX;
-    const overlapCenterY = bejiPlayerBounds.centerY - ballBounds.centerY;
-
-    const throwXPower = overlapCenterX * 5;
-    (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
-
-    if (overlapCenterY < 76 && overlapCenterY > 20) {
-      const throwYPower = Math.abs(overlapCenterX * 5) * -1;
-      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
-    }
-  }
-
-  bearkongThrowBall(): void {
-    this.sound.add("ballSound").play();
-
-    const ballBounds = (this.ball as Phaser.Physics.Arcade.Sprite).getBounds();
-    const bearkongPlayerBounds = (
-      this.bearkongPlayer as Phaser.Physics.Arcade.Sprite
-    ).getBounds();
-
-    const overlapCenterX = ballBounds.centerX - bearkongPlayerBounds.centerX;
-    const overlapCenterY = bearkongPlayerBounds.centerY - ballBounds.centerY;
-
-    const throwXPower = overlapCenterX * 5;
-    (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityX(throwXPower);
-
-    if (overlapCenterY < 84 && overlapCenterY > 20) {
-      const throwYPower = Math.abs(overlapCenterX * 5) * -1;
-      (this.ball as Phaser.Physics.Arcade.Sprite).setVelocityY(throwYPower);
-    }
   }
 
   countScore(): void {
