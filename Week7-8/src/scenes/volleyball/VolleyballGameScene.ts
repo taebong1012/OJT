@@ -18,7 +18,6 @@ import pauseSound from "@/assets/volleyball/sounds/pauseSound.mp3";
 import countDownSound from "@/assets/volleyball/sounds/countDownSound.wav";
 import countDownEndSound from "@/assets/volleyball/sounds/countDownEndSound.wav";
 import ballTouchGroundSound from "@/assets/volleyball/sounds/ballTouchGroundSound.mp3";
-import { GameObjects } from "phaser";
 import BejiPlayer from "@/components/Volleyball/GameScene/BejiPlayer";
 import Ball from "@/components/Volleyball/GameScene/Ball";
 import Whale from "@/components/Volleyball/Whale";
@@ -26,6 +25,7 @@ import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
+import countDown from "@/utils/volleyball/CountDown";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
@@ -33,7 +33,7 @@ export default class VolleyballStartScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private ground!: Phaser.Physics.Arcade.StaticGroup;
   private net!: Phaser.Physics.Arcade.StaticGroup;
-  private ball!: GameObjects.GameObject;
+  private ball!: Phaser.Physics.Arcade.Image;
   private keyA!: Phaser.Input.Keyboard.Key;
   private keyD!: Phaser.Input.Keyboard.Key;
   private keyW!: Phaser.Input.Keyboard.Key;
@@ -134,49 +134,11 @@ export default class VolleyballStartScene extends Phaser.Scene {
     this.add.existing(this.scoreText);
 
     /** 카운트 다운 시작 */
-    this.countdown();
-  }
-
-  countdown(): void {
-    if (this.bejiPlayer && this.bearkongPlayer && this.ball) {
-      this.bejiPlayer.destroy();
-      this.bearkongPlayer.destroy();
-      this.ball.destroy();
-    }
-
-    let count = 3;
-
-    const countdownText = this.add
-      .text(400, 300, `${count}`, {
-        font: "100px NanumSquareRoundEB",
-        color: "#ffffff",
-      })
-      .setOrigin(0.5);
-    this.sound.add("countDownSound").play();
-
-    const countdownTimer = this.time.addEvent({
-      delay: 1000,
-      callback: () => {
-        count--;
-
-        if (count >= 0) {
-          if (count == 0) {
-            this.sound.add("countDownEndSound").play();
-          } else {
-            this.sound.add("countDownSound").play();
-          }
-
-          /** 카운트 다운 텍스트 교체 */
-          countdownText.setText(`${count}`);
-        } else {
-          countdownText.destroy();
-          countdownTimer.destroy();
-
-          this.startGame();
-        }
-      },
-      callbackScope: this,
-      loop: true,
+    countDown({
+      scene: this,
+      bejiPlayer: this.bejiPlayer,
+      bearkongPlayer: this.bearkongPlayer,
+      ball: this.ball,
     });
   }
 
@@ -315,7 +277,12 @@ export default class VolleyballStartScene extends Phaser.Scene {
         this.roundNum++;
         this.roundText.setText(`${this.roundNum} 라운드`);
         this.scoreText.setText(`${this.bejiScore} : ${this.bearkongScore}`);
-        this.countdown();
+        countDown({
+          scene: this,
+          bejiPlayer: this.bejiPlayer,
+          bearkongPlayer: this.bearkongPlayer,
+          ball: this.ball,
+        });
       }
     }, 3000);
   }
