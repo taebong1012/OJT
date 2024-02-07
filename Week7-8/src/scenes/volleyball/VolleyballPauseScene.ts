@@ -53,7 +53,7 @@ export default class VolleyballPauseScene extends Phaser.Scene {
     /** 배경 설정 */
     this.add.image(400, 300, "background");
 
-    new Whale(this, 160, 300);
+    new Whale(this);
 
     this.add.image(400, 464, "net");
     this.add.image(400, 580, "ground");
