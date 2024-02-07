@@ -40,7 +40,7 @@ const VolleyballGame = () => {
     };
   }, []);
 
-  return <div id="phaser-volleyball" className="w-full h-full" />;
+  return <div id="phaser-volleyball" className="w-full h-full bg-[#000000]" />;
 };
 
 export default VolleyballGame;

@@ -24,6 +24,19 @@ export default class VolleyballStartScene extends Phaser.Scene {
   }
 
   preload() {
+    /** 로딩 될 때 로딩바 띄우기 */
+    const progressBar = this.add.graphics();
+    const progressBox = this.add.graphics();
+
+    progressBox.fillStyle(0x999999, 0.7);
+    progressBox.fillRoundedRect(240, 275, 320, 50, 10);
+
+    this.load.on("progress", async (value: number) => {
+      progressBar.clear();
+      progressBar.fillStyle(0x5170ec, 1);
+      progressBar.fillRoundedRect(250, 285, 300 * value, 30, 10);
+    });
+
     this.load.audio("startBGMusic", startBGMusic);
     this.load.audio("clickSound", clickSound);
     this.load.image("titleImage", titleImage);
