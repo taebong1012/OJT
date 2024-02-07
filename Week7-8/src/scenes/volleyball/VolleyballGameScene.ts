@@ -147,16 +147,14 @@ export default class VolleyballStartScene extends Phaser.Scene {
       ball: this.ball,
     });
 
-    this.time.delayedCall(4000, () => {
-      /** 오브젝트들 생성 */
-      const { bejiPlayer, bearkongPlayer, ball } = initializeObjects(this);
-      this.bejiPlayer = bejiPlayer;
-      this.bearkongPlayer = bearkongPlayer;
-      this.ball = ball;
+    /** 오브젝트들 생성 */
+    const { bejiPlayer, bearkongPlayer, ball } = initializeObjects(this);
+    this.bejiPlayer = bejiPlayer;
+    this.bearkongPlayer = bearkongPlayer;
+    this.ball = ball;
 
-      /** 오브젝트 충돌 설정 */
-      this.setColliders();
-    });
+    /** 오브젝트 충돌 설정 */
+    this.setColliders();
   }
 
   setColliders(): void {
@@ -236,9 +234,6 @@ export default class VolleyballStartScene extends Phaser.Scene {
       roundResultModal.destroy();
 
       if (this.bearkongScore >= 5 || this.bejiScore >= 5) {
-        /** 노래 중지 */
-        this.sound.stopByKey("gameBGMusic");
-
         /** 베지 혹은 베어콩의 점수가 5점이라면
          * 플레이어별 점수와 라운드 수를 가지고
          * 결과 scene으로 넘어가기 */

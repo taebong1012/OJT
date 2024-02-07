@@ -27,27 +27,30 @@ const countDown = async ({
     .setOrigin(0.5);
   scene.sound.add("countDownSound").play();
 
-  const countdownTimer = scene.time.addEvent({
-    delay: 1000,
-    callback: () => {
-      count--;
+  await new Promise<void>((resolve) => {
+    const countdownTimer = scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        count--;
 
-      if (count >= 0) {
-        if (count == 0) {
-          scene.sound.add("countDownEndSound").play();
+        if (count >= 0) {
+          if (count == 0) {
+            scene.sound.add("countDownEndSound").play();
+          } else {
+            scene.sound.add("countDownSound").play();
+          }
+
+          /** 카운트 다운 텍스트 교체 */
+          countdownText.setText(`${count}`);
         } else {
-          scene.sound.add("countDownSound").play();
+          countdownText.destroy();
+          countdownTimer.destroy();
+          resolve();
         }
-
-        /** 카운트 다운 텍스트 교체 */
-        countdownText.setText(`${count}`);
-      } else {
-        countdownText.destroy();
-        countdownTimer.destroy();
-      }
-    },
-    callbackScope: this,
-    loop: true,
+      },
+      callbackScope: this,
+      loop: true,
+    });
   });
 };
 
