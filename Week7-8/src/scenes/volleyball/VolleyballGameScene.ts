@@ -24,9 +24,9 @@ import BearkongPlayer from "@/components/Volleyball/GameScene/BearkongPlayer";
 import RoundResultModal from "@/components/Volleyball/GameScene/RoundResultModal";
 import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
-import countDown from "@/utils/volleyball/countDown";
 import initializeObjects from "@/utils/volleyball/initializeObjects";
 import throwBall from "@/utils/volleyball/throwBall";
+import countDown from "@/utils/volleyball/CountDown";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
