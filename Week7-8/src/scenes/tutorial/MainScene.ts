@@ -1,9 +1,9 @@
 import Phaser, { GameObjects } from "phaser";
-import backgroundImage from "@/assets/tutorial/sky.png";
-import groundImage from "@/assets/tutorial/platform.png";
-import playerImage from "@/assets/tutorial/dude.png";
-import starImage from "@/assets/tutorial/star.png";
-import bombImage from "@/assets/tutorial/bomb.png";
+import backgroundImage from "../../assets/tutorial/sky.png";
+import groundImage from "../../assets/tutorial/platform.png";
+import playerImage from "../../assets/tutorial/dude.png";
+import starImage from "../../assets/tutorial/star.png";
+import bombImage from "../../assets/tutorial/bomb.png";
 
 class MainScene extends Phaser.Scene {
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
