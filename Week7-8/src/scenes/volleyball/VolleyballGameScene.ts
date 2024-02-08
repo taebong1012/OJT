@@ -26,7 +26,7 @@ import { pointTextStyle, scoreTextStyle } from "@/utils/phaser/phaserTextStyle";
 import PauseButton from "@/components/Volleyball/GameScene/PauseButton";
 import initializeObjects from "@/utils/volleyball/initializeObjects";
 import throwBall from "@/utils/volleyball/throwBall";
-import countDown from "@/utils/volleyball/CountDown";
+import countDown from "@/utils/volleyball/countDown";
 
 export default class VolleyballStartScene extends Phaser.Scene {
   private bejiPlayer!: BejiPlayer;
