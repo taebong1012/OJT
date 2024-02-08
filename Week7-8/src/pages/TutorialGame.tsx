@@ -28,7 +28,9 @@ const TutorialGame = () => {
     };
   }, []);
 
-  return <div id="phaser-tutorial" className="w-full h-full"></div>;
+  return (
+    <div id="phaser-tutorial" className="w-full h-full bg-[#000000]"></div>
+  );
 };
 
 export default TutorialGame;
