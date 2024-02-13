@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/week/:weeknum" element={<Specific />} />
+      <Route path="/week/:projectnum" element={<Specific />} />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );
