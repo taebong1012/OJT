@@ -12,7 +12,7 @@ const Card = ({
 
   return (
     <div
-      className="border-[1px] border-[#666666] w-[380px] h-[260px] rounded-[10px] p-[20px]"
+      className="border-[1px] border-[#666666] w-[380px] h-[260px] rounded-[10px] p-[20px] hover:scale-110 cursor-pointer transform transition duration-300"
       onClick={() => navigate(`/week/${projectNum}`)}
     >
       <img
