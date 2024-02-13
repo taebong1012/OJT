@@ -1,7 +1,7 @@
 # FabricJS를 이용한 저작도구 개발
 
 - 기간: 2024.01.02 ~ 2023.01.12 (<i> 9일 </i>)
-- Vercel link: [링크 (새 창에서 열림)](https://authoring-tool-tau.vercel.app/){: target="\_blank"}
+- Vercel link: <a href="https://authoring-tool-tau.vercel.app/" target="_blank">링크</a>
 
 ## 프로젝트 생성
 
