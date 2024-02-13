@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Main from "@/Pages/Main";
-import Specific from "@/Pages/Specific";
-import ErrorPage from "@/Pages/ErrorPage";
+import Main from "@/pages/Main";
+import Specific from "@/pages/Specific";
+import ErrorPage from "@/pages/ErrorPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/week/:week" element={<Specific />} />
+      <Route path="/week/:weeknum" element={<Specific />} />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );
