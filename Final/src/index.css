@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "SCDreamRegular";
+  src: url("./assets/Fonts/SCDreamRegular.otf") format("opentype");
+}
+@font-face {
+  font-family: "SCDreamMedium";
+  src: url("./assets/Fonts/SCDreamMedium.otf") format("opentype");
+}
+@font-face {
+  font-family: "SCDreamBold";
+  src: url("./assets/Fonts/SCDreamBold.otf") format("opentype");
+}
+@font-face {
+  font-family: "SCDreamBlack";
+  src: url("./assets/Fonts/SCDreamBlack.otf") format("opentype");
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -11,7 +28,7 @@
 }
 
 :root {
-  font-family: "NanumSquareRound", Inter, system-ui, Avenir, Helvetica, Arial,
+  font-family: "SCDreamRegular", Inter, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   line-height: 1.5;
   font-weight: 400;
