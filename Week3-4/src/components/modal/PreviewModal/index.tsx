@@ -88,6 +88,7 @@ const PreviewContents = () => {
         }
       });
     }
+    previewer.canvas!.requestRenderAll();
   };
 
   const handleOnClickWrong = (obj: fabric.Object) => {
@@ -108,12 +109,20 @@ const PreviewContents = () => {
     const canvasObjects: fabric.Object[] = previewer.canvas!.getObjects();
 
     for (const canvasObject of canvasObjects) {
-      const type = getObjectType(canvasObject);
-      if (type === "answer") {
-        handleOnClickAnswer(canvasObject);
+      if (canvasObject.name && canvasObject.name === "answer") {
+        if (canvasObject instanceof fabric.Group) {
+          canvasObject._objects.forEach((o) => {
+            if (o instanceof fabric.Rect) {
+              o.set({ stroke: "#00da21", fill: "#dff5e2" });
+            } else {
+              o.set({ fill: "#00da21" });
+            }
+          });
+        }
         return;
       }
     }
+    previewer.canvas!.requestRenderAll();
   };
 
   const load = async () => {
